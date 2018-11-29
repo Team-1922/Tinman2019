@@ -4,14 +4,38 @@
 /* must be accompanied by the FIRST BSD license file in the root directory of */
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
-
 package frc.robot;
+
+import edu.wpi.first.wpilibj.Joystick;
+
 
 /**
  * This class is the glue that binds the controls on the physical operator
  * interface to the commands and command groups that allow control of the robot.
  */
 public class OI {
+  private Joystick m_LeftStick;
+
+
+  public OI() {			
+    m_LeftStick = new Joystick(1); 
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   //// CREATING BUTTONS
   // One type of button is a joystick button which is any button on a
   //// joystick.
