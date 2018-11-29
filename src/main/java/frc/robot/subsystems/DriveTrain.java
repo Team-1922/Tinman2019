@@ -32,6 +32,10 @@ public class DriveTrain extends Subsystem {
       rearRight.set(ControlMode.Follower, frontRight.getDeviceID());
     }
 
+    public void drive(double speed){
+      frontLeft.set(speed);
+      frontRight.set(speed);
+    }  
 
 
   @Override
