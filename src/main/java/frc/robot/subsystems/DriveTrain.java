@@ -16,7 +16,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 /**
  * An example subsystem.  You can replace me with your own Subsystem.
  */
-public class ExampleSubsystem extends Subsystem {
+public class DriveTrain extends Subsystem {
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
 
@@ -25,7 +25,7 @@ public class ExampleSubsystem extends Subsystem {
   private WPI_TalonSRX frontLeft = new WPI_TalonSRX(RobotMap.frontLeft);
   private WPI_TalonSRX frontRight = new WPI_TalonSRX(RobotMap.frontRight);
 
-    public ExampleSubsystem()
+    public DriveTrain()
     {
       super();
       rearLeft.set(ControlMode.Follower, frontLeft.getDeviceID());
