@@ -15,12 +15,20 @@ import edu.wpi.first.wpilibj.Joystick;
  */
 public class OI {
   private Joystick m_LeftStick;
-
+  private Joystick m_RightStick;
 
   public OI() {			
-    m_LeftStick = new Joystick(1); 
+    m_LeftStick = new Joystick(0); 
+    m_RightStick = new Joystick(1); 
   }
 
+  public Joystick getLeftStick() {
+    return m_LeftStick;
+  }
+
+  public Joystick getRightStick() {
+    return m_RightStick;
+  }
 
 
 
