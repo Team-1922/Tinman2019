@@ -20,6 +20,7 @@ public class TankDrive extends Command {
   }
 
   // Called just before this Command runs the first time
+  
   @Override
   protected void initialize() {
   }
@@ -27,7 +28,7 @@ public class TankDrive extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Robot.m_subsystem.drive(.1);
+    Robot.m_subsystem.drive(Robot.m_oi.getLeftStick().getY());
   }
 
   // Make this return true when this Command no longer needs to run execute()

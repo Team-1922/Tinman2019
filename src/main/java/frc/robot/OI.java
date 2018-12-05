@@ -18,7 +18,11 @@ public class OI {
 
 
   public OI() {			
-    m_LeftStick = new Joystick(1); 
+    m_LeftStick = new Joystick(0); 
+  }
+
+  public Joystick getLeftStick() {
+    return m_LeftStick;
   }
 
 
