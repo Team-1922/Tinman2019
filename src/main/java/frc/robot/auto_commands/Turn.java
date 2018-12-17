@@ -8,27 +8,40 @@
 package frc.robot.auto_commands;
 
 import edu.wpi.first.wpilibj.command.Command;
+import frc.robot.Robot;
 
 public class Turn extends Command {
-  public Turn() {
-    // Use requires() here to declare subsystem dependencies
-    // eg. requires(chassis);
+  
+  private double speed;
+  private int timesec;
+  private long starttime;
+  
+  public Turn(double speed, int timesec) {
+    this.speed = speed;
+    this.timesec = timesec;
+    requires(Robot.m_subsystem);
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
+    this.starttime = System.currentTimeMillis();
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
+    Robot.m_subsystem.drive(this.speed, -this.speed);
   }
-
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return false;
+    if(System.currentTimeMillis() - this.starttime >= this.timesec * 1000){
+      return true;
+    }
+    else{
+      return false;
+    }
   }
 
   // Called once after isFinished returns true

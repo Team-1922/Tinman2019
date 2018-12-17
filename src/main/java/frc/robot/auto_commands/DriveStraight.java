@@ -8,27 +8,54 @@
 package frc.robot.auto_commands;
 
 import edu.wpi.first.wpilibj.command.Command;
+import frc.robot.Robot;
 
 public class DriveStraight extends Command {
-  public DriveStraight() {
+
+  private double speed;
+  private long starttime;
+  private int timesec;
+
+  public DriveStraight(double speed, int timesec) {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
+
+    this.speed = speed;
+
+    this.timesec = timesec;
+
+    requires(Robot.m_subsystem);
+
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
+
+    this.starttime = System.currentTimeMillis();
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
+
+    Robot.m_subsystem.drive(this.speed, this.speed);
+
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return false;
+
+    long curtime = System.currentTimeMillis();
+
+    long timespent = curtime - this.starttime;
+
+    if (timespent >= this.timesec * 1000) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
   // Called once after isFinished returns true
