@@ -9,6 +9,7 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * An example command.  You can replace me with your own command.
@@ -29,6 +30,8 @@ public class TankDrive extends Command {
   @Override
   protected void execute() {
     Robot.m_subsystem.drive(Robot.m_oi.getLeftStick().getY(),Robot.m_oi.getRightStick().getY());
+
+    SmartDashboard.putNumber("Gyro", Robot.m_subsystem.getAngle());
   }
 
   // Make this return true when this Command no longer needs to run execute()

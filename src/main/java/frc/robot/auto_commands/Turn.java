@@ -8,39 +8,57 @@
 package frc.robot.auto_commands;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
 
 public class Turn extends Command {
-  
-  private double speed;
-  private int timesec;
-  private long starttime;
-  
-  public Turn(double speed, int timesec) {
-    this.speed = speed;
-    this.timesec = timesec;
+
+  private double TurnGoal;
+  private double Start;
+  private boolean IsLeft = false;
+  // private boolean isFinished = false;
+
+  public Turn(double TurnGoal) {
+    super();
+    this.TurnGoal = TurnGoal;
     requires(Robot.m_subsystem);
+    
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    this.starttime = System.currentTimeMillis();
+    Start = Robot.m_subsystem.getAngle();
+    if (TurnGoal >= 0) {
+      IsLeft = false;
+    } else {
+      IsLeft = true;
+    }
+    SmartDashboard.putNumber("TurnCommand_TurnGoal", TurnGoal);
+    SmartDashboard.putBoolean("TurnCommand Is Left", IsLeft);
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Robot.m_subsystem.drive(this.speed, -this.speed);
+    
+    int leftMultiplier = -1;
+    if (IsLeft) {
+      leftMultiplier = 1;
+    }
+    Robot.m_subsystem.drive(leftMultiplier * .5, -leftMultiplier * .5);
+
   }
+
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    if(System.currentTimeMillis() - this.starttime >= this.timesec * 1000){
-      return true;
-    }
-    else{
-      return false;
+    SmartDashboard.putNumber("TurnCommand Current Heading", Robot.m_subsystem.getAngle());
+    SmartDashboard.putNumber("TurnCommand Target", Start + TurnGoal);
+    if (IsLeft) {
+      return Robot.m_subsystem.getAngle() <= Start + TurnGoal;
+    } else {
+      return Robot.m_subsystem.getAngle() >= Start + TurnGoal;
     }
   }
 
