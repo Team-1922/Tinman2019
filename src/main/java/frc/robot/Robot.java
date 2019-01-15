@@ -17,7 +17,7 @@ import frc.robot.auto_groups.*;
 
 import edu.wpi.first.cameraserver.CameraServer;
 // import frc.robot.auto_commands.DriveStraight;
-import frc.robot.auto_commands.Turn;
+// import frc.robot.auto_commands.Turn;
 import frc.robot.auto_groups.Center;
 import frc.robot.commands.TankDrive;
 import frc.robot.subsystems.DriveTrain;
@@ -82,7 +82,7 @@ public class Robot extends TimedRobot {
   public void disabledPeriodic() {
     Scheduler.getInstance().run();
   }
-private static int initCounter = 0;
+// private static int initCounter = 0;
   /**
    * This autonomous (along with the chooser code above) shows how to select
    * between different autonomous modes using the dashboard. The sendable chooser
