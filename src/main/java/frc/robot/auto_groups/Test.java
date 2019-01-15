@@ -8,9 +8,10 @@
 package frc.robot.auto_groups;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
-
+import frc.robot.auto_commands.DriveStraight;
 public class Test extends CommandGroup{
   public Test() {
+    addSequential(new DriveStraight(5,5));
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
   }

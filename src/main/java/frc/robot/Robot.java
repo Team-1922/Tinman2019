@@ -12,8 +12,13 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+
+import frc.robot.auto_groups.*;
+
+import edu.wpi.first.cameraserver.CameraServer;
 // import frc.robot.auto_commands.DriveStraight;
 import frc.robot.auto_commands.Turn;
+import frc.robot.auto_groups.Center;
 import frc.robot.commands.TankDrive;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Hatch_Subsystem;
@@ -44,10 +49,11 @@ public class Robot extends TimedRobot {
   @Override
   public void robotInit() {
     m_oi = new OI();
-    // m_chooser.addDefault("Default Auto", new TankDrive()); (Depricated, replaced with setDefaultOption)
+    // m_chooser.addDefault("Default Auto", new TankDrive()); //(Depricated, replaced with setDefaultOption)
     m_chooser.setDefaultOption("Default Auto", new TankDrive());
-    // chooser.addObject("My Auto", new MyAutoCommand());
+    // m_chooser.addObject("My Auto", new MyAutoCommand());
     SmartDashboard.putData("Auto mode", m_chooser);
+    CameraServer.getInstance().startAutomaticCapture();
   }
 
   /**
@@ -91,8 +97,8 @@ private static int initCounter = 0;
    */
   @Override
   public void autonomousInit() {
-    // m_autonomousCommand = m_chooser.getSelected();
-    
+    m_autonomousCommand = m_chooser.getSelected();
+  /*
     
     m_drivetrain.ResetGyro();
     SmartDashboard.putNumber("init", initCounter);
@@ -109,14 +115,16 @@ private static int initCounter = 0;
       }
     }
 
-    m_autonomousCommand = new Turn(-90);
-
-    /*
-     * String autoSelected = SmartDashboard.getString("Auto Selector", "Default");
-     * switch(autoSelected) { case "My Auto": autonomousCommand = new
-     * MyAutoCommand(); break; case "Default Auto": default: autonomousCommand = new
-     * ExampleCommand(); break; }
-     */
+     m_autonomousCommand = new Turn(-90);
+*/
+    
+     String autoSelected = SmartDashboard.getString("Auto Selector", "Default");
+     switch(autoSelected) { 
+       case "My Auto": m_autonomousCommand = new Center(); break; 
+       case "Default Auto": default: m_autonomousCommand = new Test(); break;
+       
+      }
+     
 
     // schedule the autonomous command (example)
     if (m_autonomousCommand != null) {

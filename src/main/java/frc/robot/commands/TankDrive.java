@@ -34,13 +34,15 @@ public class TankDrive extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
+    
     Robot.m_drivetrain.drive(Robot.m_oi.getLeftStick().getY(), Robot.m_oi.getRightStick().getY());
 
     SmartDashboard.putNumber("Gyro", Robot.m_drivetrain.getAngle());
+    
     SmartDashboard.putNumber("PixyData1", pkt.x);
     SmartDashboard.putNumber("PixyData2", pkt.y);
     SmartDashboard.putNumber("PixyData3", pkt.area);
-
+    pkt = i2c.getPixy(); // refresh Pixy data
 
   }
 
