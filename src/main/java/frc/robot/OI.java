@@ -26,6 +26,7 @@ public class OI {
   private Button buttonA;
   private Button buttonB;
   private Button bumper;
+  private Button buttonSemiAuto;
 
   public OI() {
     //Controllers
@@ -37,6 +38,7 @@ public class OI {
     buttonA = new JoystickButton(getOperator(), 1);
     buttonB = new JoystickButton(getOperator(), 2);
     bumper = new JoystickButton(getOperator(), 6);
+    buttonSemiAuto = new JoystickButton(getLeftStick(), 2);
 
     //Keybindings
     buttonA.whenPressed(new LiftBot_Command());
