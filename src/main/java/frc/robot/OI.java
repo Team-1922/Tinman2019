@@ -18,33 +18,32 @@ import frc.robot.commands.LowerBot_Command;
  * interface to the commands and command groups that allow control of the robot.
  */
 public class OI {
-  //Controllers
+  // Controllers
   private Joystick m_LeftStick;
   private Joystick m_RightStick;
   private XboxController m_operator;
-  //Buttons
+  // Buttons
   private Button buttonA;
   private Button buttonB;
   private Button bumper;
 
   public OI() {
-    //Controllers
-    m_LeftStick = new Joystick(0); 
+    // Controllers
+    m_LeftStick = new Joystick(0);
     m_RightStick = new Joystick(1);
-    m_operator = new XboxController(2); 
+    m_operator = new XboxController(2);
 
-    //Buttons
+    // Buttons
     buttonA = new JoystickButton(getOperator(), 1);
     buttonB = new JoystickButton(getOperator(), 2);
     bumper = new JoystickButton(getOperator(), 6);
 
-    //Keybindings
+    // Keybindings
     buttonA.whenPressed(new LiftBot_Command());
     buttonB.whenPressed(new LowerBot_Command());
   }
 
-
-  //Getters & Setters
+  // Getters & Setters
   public Joystick getLeftStick() {
     return m_LeftStick;
   }
@@ -60,20 +59,6 @@ public class OI {
   public boolean getBumper() {
     return bumper.get();
   }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
   //// CREATING BUTTONS
   // One type of button is a joystick button which is any button on a

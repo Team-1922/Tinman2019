@@ -33,7 +33,6 @@ public class Robot extends TimedRobot {
   public static OI m_oi;
   public static M_I2C m_I2C = new M_I2C();
   public static PixyPacket pxypkt = new PixyPacket();
-  
 
   Command m_autonomousCommand;
   SendableChooser<Command> m_chooser = new SendableChooser<>();
@@ -45,7 +44,8 @@ public class Robot extends TimedRobot {
   @Override
   public void robotInit() {
     m_oi = new OI();
-    // m_chooser.addDefault("Default Auto", new TankDrive()); //(Depricated, replaced with setDefaultOption)
+    // m_chooser.addDefault("Default Auto", new TankDrive()); //(Depricated,
+    // replaced with setDefaultOption)
     m_chooser.setDefaultOption("Default Auto", new TankDrive());
     // m_chooser.addObject("My Auto", new MyAutoCommand());
     SmartDashboard.putData("Auto mode", m_chooser);
@@ -78,7 +78,8 @@ public class Robot extends TimedRobot {
   public void disabledPeriodic() {
     Scheduler.getInstance().run();
   }
-// private static int initCounter = 0;
+
+  // private static int initCounter = 0;
   /**
    * This autonomous (along with the chooser code above) shows how to select
    * between different autonomous modes using the dashboard. The sendable chooser
@@ -94,33 +95,33 @@ public class Robot extends TimedRobot {
   @Override
   public void autonomousInit() {
     m_autonomousCommand = m_chooser.getSelected();
-  /*
-    
-    m_drivetrain.ResetGyro();
-    SmartDashboard.putNumber("init", initCounter);
-    initCounter++;
-    SmartDashboard.putNumber("While_Gyro_start", Robot.m_drivetrain.getAngle());
+    /*
+     * 
+     * m_drivetrain.ResetGyro(); SmartDashboard.putNumber("init", initCounter);
+     * initCounter++; SmartDashboard.putNumber("While_Gyro_start",
+     * Robot.m_drivetrain.getAngle());
+     * 
+     * while(Math.abs(Robot.m_drivetrain.getAngle()) > 5 ){
+     * SmartDashboard.putNumber("While_Gyro", Robot.m_drivetrain.getAngle());
+     * 
+     * try { Thread.sleep(10); } catch(InterruptedException ex) {
+     * 
+     * } }
+     * 
+     * m_autonomousCommand = new Turn(-90);
+     */
 
-    while(Math.abs(Robot.m_drivetrain.getAngle()) > 5 ){
-      SmartDashboard.putNumber("While_Gyro", Robot.m_drivetrain.getAngle());
+    String autoSelected = SmartDashboard.getString("Auto Selector", "Default");
+    switch (autoSelected) {
+    case "My Auto":
+      m_autonomousCommand = new Center();
+      break;
+    case "Default Auto":
+    default:
+      m_autonomousCommand = new Test();
+      break;
 
-      try {
-        Thread.sleep(10);
-      } catch(InterruptedException ex) {
-
-      }
     }
-
-     m_autonomousCommand = new Turn(-90);
-*/
-    
-     String autoSelected = SmartDashboard.getString("Auto Selector", "Default");
-     switch(autoSelected) { 
-       case "My Auto": m_autonomousCommand = new Center(); break; 
-       case "Default Auto": default: m_autonomousCommand = new Test(); break;
-       
-      }
-     
 
     // schedule the autonomous command (example)
     if (m_autonomousCommand != null) {

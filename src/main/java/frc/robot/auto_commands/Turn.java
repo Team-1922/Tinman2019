@@ -22,7 +22,7 @@ public class Turn extends Command {
     super();
     this.TurnGoal = TurnGoal;
     requires(Robot.m_drivetrain);
-    
+
   }
 
   // Called just before this Command runs the first time
@@ -41,7 +41,7 @@ public class Turn extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    
+
     int leftMultiplier = -1;
     if (IsLeft) {
       leftMultiplier = 1;

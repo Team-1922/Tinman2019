@@ -60,10 +60,12 @@ public class DriveTrain extends Subsystem {
   public void ResetGyro() {
     ahrs.reset();
   }
+
   public void LiftRobot() {
     liftFront.set(true);
     liftBack.set(true);
   }
+
   public void LowerRobot() {
     liftFront.set(false);
     liftBack.set(false);

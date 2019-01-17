@@ -19,8 +19,9 @@ import frc.robot.subsystems.M_I2C;
 public class TankDrive extends Command {
   M_I2C i2c = new M_I2C();// setup the i2c interface
   PixyPacket pkt = i2c.getPixy();// create a pixy packet to hold data
+
   public TankDrive() {
-    
+
     // Use requires() here to declare subsystem dependencies
     requires(Robot.m_drivetrain);
   }
@@ -34,11 +35,11 @@ public class TankDrive extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    
+
     Robot.m_drivetrain.drive(Robot.m_oi.getLeftStick().getY(), Robot.m_oi.getRightStick().getY());
 
     SmartDashboard.putNumber("Gyro", Robot.m_drivetrain.getAngle());
-    
+
     SmartDashboard.putNumber("PixyData1", pkt.x);
     SmartDashboard.putNumber("PixyData2", pkt.y);
     SmartDashboard.putNumber("PixyData3", pkt.area);

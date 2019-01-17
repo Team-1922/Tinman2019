@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 import frc.robot.PixyPacket;
 import frc.robot.Robot;
 import frc.robot.subsystems.M_I2C;
+
 /*public class Test extends CommandGroup{
   public Test() {
     addSequential(new DriveStraight(5,5));
@@ -19,7 +20,7 @@ import frc.robot.subsystems.M_I2C;
     // eg. requires(chassis);
   }
 }*/
-public class Test extends CommandGroup{
+public class Test extends CommandGroup {
   M_I2C i2c = new M_I2C();// setup the i2c interface
   PixyPacket pkt = i2c.getPixy();// create a pixy packet to hold data
 
@@ -36,7 +37,7 @@ public class Test extends CommandGroup{
              * drive.setRDrive(0.2);//you drive code might differ
              */
 
-             Robot.m_drivetrain.drive(-.2, .2);
+            Robot.m_drivetrain.drive(-.2, .2);
           }
           if (pkt.x > .52) {// if its on the right side of robot, turn right
             /*

@@ -36,9 +36,8 @@ public class M_I2C {
       pkt.area = Double.parseDouble(info[2]);// set area
     }
 
-
     return pkt;
-    
+
   }
 
   private String read() {// function to read the data from arduino

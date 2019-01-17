@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
 /**
- * An example command.  You can replace me with your own command.
+ * An example command. You can replace me with your own command.
  */
 public class OperateHatch extends Command {
   public OperateHatch() {
@@ -28,10 +28,9 @@ public class OperateHatch extends Command {
   @Override
   protected void execute() {
     if (Robot.m_oi.getBumper()) {
-        Robot.m_hatchsnatch.OpenHatch();   
-    }
-    else {
-        Robot.m_hatchsnatch.CloseHatch();
+      Robot.m_hatchsnatch.OpenHatch();
+    } else {
+      Robot.m_hatchsnatch.CloseHatch();
     }
   }
 
