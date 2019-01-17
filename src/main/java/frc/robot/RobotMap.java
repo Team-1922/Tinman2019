@@ -26,8 +26,7 @@ public class RobotMap {
 
 
    //Solenoids
-   public static final int HatchLeft = 2;
-   //public static final int HatchRight = 1;
+   public static final int Hatch = 1;
    public static final int LiftFront = 4;
    public static final int LiftBack = 3;
 

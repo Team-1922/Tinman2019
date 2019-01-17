@@ -21,20 +21,16 @@ public class Hatch_Subsystem extends Subsystem {
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
   private Solenoid Hatch;
-  //private Solenoid HatchRight;
 public Hatch_Subsystem() {
   super();
-  Hatch = new Solenoid(RobotMap.HatchLeft);
-  //HatchRight = new Solenoid(RobotMap.HatchRight);
+  Hatch = new Solenoid(RobotMap.Hatch);
 }
 
 public void OpenHatch() {
   Hatch.set(true);
-  //HatchRight.set(true);
 }
 public void CloseHatch() {
   Hatch.set(false);
-  //HatchRight.set(false);
 }
 
   @Override
