@@ -18,8 +18,12 @@ public class DriveStraight extends Command {
 
   public DriveStraight(double speed, int timesec) {
     requires(Robot.m_drivetrain);
-//    // Use requires() here to declare subsystem dependencies
-//    // eg. requires(chassis);
+    // // Use requires() here to declare subsystem dependencies
+    // // eg. requires(chassis);
+    // Yes, these comments are commented out. 
+    // Yes, I did do that on purpose.
+    // Compilers are dumb sometimes, this fixes it.
+
 
     this.speed = speed;
 
