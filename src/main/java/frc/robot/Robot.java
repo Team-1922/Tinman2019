@@ -7,18 +7,14 @@
 
 package frc.robot;
 
+import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
-import frc.robot.auto_groups.*;
-
-import edu.wpi.first.cameraserver.CameraServer;
-// import frc.robot.auto_commands.DriveStraight;
-// import frc.robot.auto_commands.Turn;
 import frc.robot.auto_groups.Center;
+import frc.robot.auto_groups.Test;
 import frc.robot.commands.TankDrive;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Hatch_Subsystem;
@@ -33,7 +29,7 @@ import frc.robot.subsystems.M_I2C;
  */
 public class Robot extends TimedRobot {
   public static DriveTrain m_drivetrain = new DriveTrain();
-  public static Hatch_Subsystem m_hatchsnatch= new Hatch_Subsystem();
+  public static Hatch_Subsystem m_hatchsnatch = new Hatch_Subsystem();
   public static OI m_oi;
   public static M_I2C m_I2C = new M_I2C();
   public static PixyPacket pxypkt = new PixyPacket();

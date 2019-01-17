@@ -9,8 +9,8 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.Robot;
 import frc.robot.PixyPacket;
+import frc.robot.Robot;
 import frc.robot.subsystems.M_I2C;
 
 /**
