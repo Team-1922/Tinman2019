@@ -41,24 +41,21 @@ public class Test extends Command {
         // the code on the arduino decides what object to send
         while (pkt.x < .48 || pkt.x > .52) {// while it is not center
           if (pkt.x > .52) {// if its on the right side of robot, turn right
-            /*
-             * drive.setLDrive(0.2); drive.setRDrive(-0.2);
-             */
             Robot.m_drivetrain.drive(.2, -.2);
             SmartDashboard.putString("direction", "right");
           }
-            if (pkt.x < .48) {// if its on the left side of robot, turn left
-              /*
-               * drive.setLDrive(-0.2);//this is our left side of tank drive
-               * drive.setRDrive(0.2);//you drive code might differ
-               */
-              SmartDashboard.putString("direction", "left");
-              Robot.m_drivetrain.drive(-.2, .2);
-            }
+          if (pkt.x < .48) {// if its on the left side of robot, turn left
+            SmartDashboard.putString("direction", "left");
+            Robot.m_drivetrain.drive(-.2, .2);
+          }
 
-        
-          if (pkt.y == -1)// Restart if ball lost during turn
+          if (pkt.x > .48 && pkt.x < .52) {// while centered, stop
+            Robot.m_drivetrain.drive(0, 0);
+          }
+          if (pkt.y == -1) {// Restart if ball lost during turn
+            Robot.m_drivetrain.drive(0, 0);
             break;
+          }
           pkt = i2c.getPixy();// refresh the data
           System.out.println("XPos: " + pkt.x);// print the data just to see
         }
