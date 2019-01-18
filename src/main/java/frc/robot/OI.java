@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import frc.robot.commands.LiftBot_Command;
 import frc.robot.commands.LowerBot_Command;
+import frc.robot.commands.Test;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -26,6 +27,7 @@ public class OI {
   private Button buttonA;
   private Button buttonB;
   private Button bumper;
+  private Button trigger;
 
   public OI() {
     // Controllers
@@ -37,10 +39,12 @@ public class OI {
     buttonA = new JoystickButton(getOperator(), 1);
     buttonB = new JoystickButton(getOperator(), 2);
     bumper = new JoystickButton(getOperator(), 6);
+    trigger = new JoystickButton(getLeftStick(), 1);
 
     // Keybindings
     buttonA.whenPressed(new LiftBot_Command());
     buttonB.whenPressed(new LowerBot_Command());
+    trigger.whenPressed(new Test());
   }
 
   // Getters & Setters

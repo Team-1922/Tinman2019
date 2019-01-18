@@ -16,6 +16,7 @@ import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.RobotMap;
 import frc.robot.commands.TankDrive;
+import frc.robot.commands.Test;
 
 /**
  * An example subsystem. You can replace me with your own Subsystem.
@@ -50,7 +51,8 @@ public class DriveTrain extends Subsystem {
   public void initDefaultCommand() {
     // Set the default command for a subsystem here.
     // setDefaultCommand(new MySpecialCommand());
-    setDefaultCommand(new TankDrive());
+    //setDefaultCommand(new TankDrive());
+    setDefaultCommand(new Test());
   }
 
   public double getAngle() {

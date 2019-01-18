@@ -14,7 +14,7 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.auto_groups.Center;
-import frc.robot.auto_groups.Test;
+import frc.robot.commands.Test;
 import frc.robot.commands.TankDrive;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Hatch_Subsystem;
@@ -113,13 +113,14 @@ public class Robot extends TimedRobot {
 
     String autoSelected = SmartDashboard.getString("Auto Selector", "Default");
     switch (autoSelected) {
-    case "My Auto":
+      // case "Default Auto":
+      // default:
+      //   m_autonomousCommand = new Test();
+      //   break;
+        case "My Auto":
       m_autonomousCommand = new Center();
       break;
-    case "Default Auto":
-    default:
-      m_autonomousCommand = new Test();
-      break;
+    
 
     }
 
