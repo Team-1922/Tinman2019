@@ -46,56 +46,14 @@ public class Test extends Command {
     SmartDashboard.putNumber("y", pkt.y);
     SmartDashboard.putNumber("area", pkt.area);
     if (pkt.x != -1) {// if data is exist
-      
+
       pkt = i2c.getPixy();
       double p = 1;
       double error = 0.5 - pkt.x;
       double responce = p * error;
-      Robot.m_drivetrain.drive(responce, 
-      -responce);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-      // if (pkt.x < .45 || pkt.x > .55) {
-      // // and the 'object', whatever it may be is not in the center
-      // // the code on the arduino decides what object to send
-      // if (pkt.x < .45 || pkt.x > .55) {// while it is not center
-
-      // if (pkt.x < .45) {// if its on the left side of robot, turn left
-      // SmartDashboard.putString("direction", "left");
-      // Robot.m_drivetrain.drive(.2, -.2);
-      // pkt = i2c.getPixy();
-      // }
-      // if (pkt.x > .55) {// if its on the right side of robot, turn right
-      // Robot.m_drivetrain.drive(-.2, .2);
-      // SmartDashboard.putString("direction", "right");
-      // pkt = i2c.getPixy();
-      // }
-
-      // if (pkt.x > .45 && pkt.x < .55) {// while centered, stop
-      // Robot.m_drivetrain.drive(0, 0);
-      // }
-      // if (pkt.y == -1) {// Restart if ball lost during turn
-      // Robot.m_drivetrain.drive(0, 0);
-
-      // }
-      // pkt = i2c.getPixy();// refresh the data
-      // // System.out.println("XPos: " + pkt.x);// print the data just to see
-      // }
-
-      // }
+      Robot.m_drivetrain.drive(responce, -responce);
+    } else {
+      Robot.m_drivetrain.drive(0, 0);
     }
     pkt = i2c.getPixy();
   }
