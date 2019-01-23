@@ -8,6 +8,7 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.kauailabs.navx.frc.AHRS;
 
@@ -31,11 +32,17 @@ public class DriveTrain extends Subsystem {
   private Solenoid liftFront;
   private Solenoid liftBack;
   private AHRS ahrs = new AHRS(SPI.Port.kMXP);
+  private int oldLeft = 0;
+  private int oldRight = 0;
 
   public DriveTrain() {
     super();
     liftFront = new Solenoid(RobotMap.LiftFront);
     liftBack = new Solenoid(RobotMap.LiftBack);
+    frontLeft.setSelectedSensorPosition(0, 0, 10);
+    frontRight.setSelectedSensorPosition(0, 0, 10);
+    frontLeft.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 10);
+    frontRight.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 10);
 
     rearLeft.set(ControlMode.Follower, frontLeft.getDeviceID());
     rearRight.set(ControlMode.Follower, frontRight.getDeviceID());
@@ -69,5 +76,23 @@ public class DriveTrain extends Subsystem {
   public void LowerRobot() {
     liftFront.set(false);
     liftBack.set(false);
+  }
+
+  public double getPosLeft() {
+    return -rearRight.getSensorCollection().getQuadraturePosition() - oldLeft;
+  } //Test bot has encoder plugged into 8 instead of 3, need to change to frontleft on main
+
+  public double getPosRight() {
+    return frontRight.getSensorCollection().getQuadraturePosition() - oldRight;
+  }
+
+  public void getEncoders() {
+    getPosLeft();
+    getPosRight();
+  }
+
+  public void resetEncoders() {
+    oldRight = frontRight.getSensorCollection().getQuadraturePosition();
+    oldLeft = -rearRight.getSensorCollection().getQuadraturePosition();
   }
 }

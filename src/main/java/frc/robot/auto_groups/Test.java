@@ -8,7 +8,6 @@
 package frc.robot.auto_groups;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
-// import frc.robot.auto_commands.DriveStraight;
 import frc.robot.PixyPacket;
 import frc.robot.Robot;
 import frc.robot.subsystems.M_I2C;
