@@ -9,23 +9,15 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-// import frc.robot.auto_commands.DriveStraight;
 import frc.robot.PixyPacket;
 import frc.robot.Robot;
 import frc.robot.subsystems.M_I2C;
 
-/*public class Test extends CommandGroup{
-  public Test() {
-    addSequential(new DriveStraight(5,5));
-    // Use requires() here to declare subsystem dependencies
-    // eg. requires(chassis);
-  }
-}*/
-public class Test extends Command {
+public class PixyMode extends Command {
   M_I2C i2c = new M_I2C();// setup the i2c interface
   PixyPacket pkt = i2c.getPixy();// create a pixy packet to hold data
 
-  public Test() {
+  public PixyMode() {
     super();
     requires(Robot.m_drivetrain);
 
