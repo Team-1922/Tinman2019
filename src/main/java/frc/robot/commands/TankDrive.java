@@ -41,9 +41,6 @@ public class TankDrive extends Command {
 
     SmartDashboard.putNumber("Gyro", Robot.m_drivetrain.getAngle());
 
-    SmartDashboard.putNumber("EncoderLeft", Robot.m_drivetrain.getPosLeft());
-    SmartDashboard.putNumber("EncoderRight", Robot.m_drivetrain.getPosRight());
-
     SmartDashboard.putNumber("PixyData1", pkt.x);
     SmartDashboard.putNumber("PixyData2", pkt.y);
     SmartDashboard.putNumber("PixyData3", pkt.area);
