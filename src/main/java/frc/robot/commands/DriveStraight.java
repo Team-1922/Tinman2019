@@ -22,13 +22,14 @@ public class DriveStraight extends Command {
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
+    Robot.m_drivetrain.resetEncoders();
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
     Robot.m_drivetrain.getEncoders();
-    double p = .075;
+    double p = .06;
     encoderDifference = Robot.m_drivetrain.getPosLeft() - Robot.m_drivetrain.getPosRight();
     SmartDashboard.putNumber("Right-Left", encoderDifference);
     double responce = p * encoderDifference;
