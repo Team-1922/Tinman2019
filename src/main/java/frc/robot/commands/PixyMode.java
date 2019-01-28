@@ -23,7 +23,7 @@ public class PixyMode extends Command {
 
   }
 
-  // public void centerOnObject() {
+ 
   @Override
   protected void initialize() {
 
@@ -32,7 +32,6 @@ public class PixyMode extends Command {
 
   @Override
   protected void execute() {
-    // System.out.println("here");
     pkt = i2c.getPixy();
     SmartDashboard.putNumber("x", pkt.x);
     SmartDashboard.putNumber("y", pkt.y);
