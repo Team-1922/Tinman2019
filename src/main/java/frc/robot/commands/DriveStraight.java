@@ -13,7 +13,10 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
 
 public class DriveStraight extends Command {
-  double encoderDifference = 0;
+  double error = 0;
+  double errorPrior = 0;
+  double initAngle = 0;
+
   public DriveStraight() {
     // Use requires() here to declare subsystem dependencies
     requires(Robot.m_drivetrain);
@@ -23,21 +26,26 @@ public class DriveStraight extends Command {
   @Override
   protected void initialize() {
     Robot.m_drivetrain.resetEncoders();
+    initAngle = Robot.m_drivetrain.getAngle();
+
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
     Robot.m_drivetrain.getEncoders();
-    double p = .06;
-    encoderDifference = Robot.m_drivetrain.getPosLeft() - Robot.m_drivetrain.getPosRight();
-    SmartDashboard.putNumber("Right-Left", encoderDifference);
-    double responce = p * encoderDifference;
+    double p = .02;
+    double d = 0.0001;
+    double derivative;
+
+    // error = Robot.m_drivetrain.getPosLeft() - Robot.m_drivetrain.getPosRight();
+    error = initAngle - Robot.m_drivetrain.getAngle();
+    SmartDashboard.putNumber("Right-Left", error);
+    derivative = (error - errorPrior) / .02;
+    double responce = p * error + (d * derivative);
     double RawY = (Robot.m_oi.getLeftStick().getY() + Robot.m_oi.getRightStick().getY()) / 2;
-
-
-
-    Robot.m_drivetrain.drive(RawY - (responce/100), RawY + (responce/100));
+    Robot.m_drivetrain.drive(RawY - responce, RawY + responce);
+    errorPrior = error;
   }
 
   // Make this return true when this Command no longer needs to run execute()
