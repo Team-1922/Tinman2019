@@ -20,9 +20,9 @@ public class RobotMap {
   // Motors
 
   public static final int frontLeft = 1;
-  public static final int frontRight = 3;
-  public static final int rearLeft = 7;
-  public static final int rearRight = 8;
+  public static final int frontRight = 2;
+  public static final int rearLeft = 0;
+  public static final int rearRight = 3;
 
   // Solenoids
   public static final int Hatch = 1;

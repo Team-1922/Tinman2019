@@ -16,7 +16,6 @@ public class Turn extends Command {
   private double TurnGoal;
   private double Start;
   private boolean IsLeft = false;
-  // private boolean isFinished = false;
 
   public Turn(double TurnGoal) {
     super();
