@@ -25,14 +25,13 @@ import frc.robot.RobotSettingsFactory;
  * It's the thing that makes the robot go vroom
  */
 public class DriveTrain extends Subsystem {
-  
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
 
-  private WPI_TalonSRX rearLeft = new WPI_TalonSRX(RobotSettingsFactory.getRobotSettings(false).getM_rearLeft());
-  private WPI_TalonSRX rearRight = new WPI_TalonSRX(RobotSettingsFactory.getRobotSettings(false).getM_rearRight());
-  private WPI_TalonSRX frontLeft = new WPI_TalonSRX(RobotSettingsFactory.getRobotSettings(false).getM_frontLeft());
-  private WPI_TalonSRX frontRight = new WPI_TalonSRX(RobotSettingsFactory.getRobotSettings(false).getM_frontRight());
+  private WPI_TalonSRX rearLeft = new WPI_TalonSRX(RobotSettingsFactory.getRobotSettings(Robot.getCurrentBot()).getM_rearLeft());
+  private WPI_TalonSRX rearRight = new WPI_TalonSRX(RobotSettingsFactory.getRobotSettings(Robot.getCurrentBot()).getM_rearRight());
+  private WPI_TalonSRX frontLeft = new WPI_TalonSRX(RobotSettingsFactory.getRobotSettings(Robot.getCurrentBot()).getM_frontLeft());
+  private WPI_TalonSRX frontRight = new WPI_TalonSRX(RobotSettingsFactory.getRobotSettings(Robot.getCurrentBot()).getM_frontRight());
   private Solenoid liftFront;
   private Solenoid liftBack;
   private AHRS ahrs = new AHRS(SPI.Port.kMXP);

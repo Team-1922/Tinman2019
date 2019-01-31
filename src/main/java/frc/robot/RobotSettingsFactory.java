@@ -11,6 +11,7 @@ package frc.robot;
  * help
  */
 public class RobotSettingsFactory {
+    
     public static RobotSettings getRobotSettings(boolean IsPracticeBot) {
         RobotSettings settings = new RobotSettings();
 
@@ -24,7 +25,9 @@ public class RobotSettingsFactory {
             settings.setM_frontRight(RobotMap.frontRight);
             settings.setM_rearLeft(RobotMap.rearLeft);
             settings.setM_rearRight(RobotMap.rearRight);
-        } 
+        } else {
+            throw new NullPointerException("IsPracticeBot neither True nor False");
+        }
 
 
         return settings;

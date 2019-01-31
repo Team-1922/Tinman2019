@@ -32,9 +32,11 @@ public class Robot extends TimedRobot {
   public static OI m_oi;
   public static M_I2C m_I2C = new M_I2C();
   public static PixyPacket pxypkt = new PixyPacket();
+  private static boolean m_IsPracticeBot;
 
   Command m_autonomousCommand;
   SendableChooser<Command> m_chooser = new SendableChooser<>();
+  SendableChooser<Boolean> m_BotChooser = new SendableChooser<>();
 
   /**
    * This function is run when the robot is first started up and should be used
@@ -43,12 +45,19 @@ public class Robot extends TimedRobot {
   @Override
   public void robotInit() {
     m_oi = new OI();
+
     // m_chooser.addDefault("Default Auto", new TankDrive()); //(Depricated,
     // replaced with setDefaultOption)
     m_chooser.setDefaultOption("Default Auto", new TankDrive());
+    m_BotChooser.setDefaultOption("Competition Bot", false);
+    m_BotChooser.addOption("Practice Bot", true);
     // m_chooser.addObject("My Auto", new MyAutoCommand());
     SmartDashboard.putData("Auto mode", m_chooser);
-    CameraServer.getInstance().startAutomaticCapture();
+    SmartDashboard.putData("Bot In Use:", m_BotChooser);
+
+
+    // CameraServer.getInstance().startAutomaticCapture();
+    // Make sure to uncomment when we get the camera on the comp. bot
   }
 
   /**
@@ -62,6 +71,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotPeriodic() {
+    m_IsPracticeBot = m_BotChooser.getSelected();
   }
 
   /**
@@ -161,5 +171,9 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void testPeriodic() {
+  }
+
+  public static boolean getCurrentBot() {
+    return m_IsPracticeBot;
   }
 }
