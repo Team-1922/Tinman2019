@@ -19,18 +19,20 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
 import frc.robot.RobotMap;
 import frc.robot.commands.TankDrive;
+import frc.robot.RobotSettingsFactory;
 
 /**
- * An example subsystem. You can replace me with your own Subsystem.
+ * It's the thing that makes the robot go vroom
  */
 public class DriveTrain extends Subsystem {
+  
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
 
-  private WPI_TalonSRX rearLeft = new WPI_TalonSRX(RobotMap.rearLeft);
-  private WPI_TalonSRX rearRight = new WPI_TalonSRX(RobotMap.rearRight);
-  private WPI_TalonSRX frontLeft = new WPI_TalonSRX(RobotMap.frontLeft);
-  private WPI_TalonSRX frontRight = new WPI_TalonSRX(RobotMap.frontRight);
+  private WPI_TalonSRX rearLeft = new WPI_TalonSRX(RobotSettingsFactory.getRobotSettings(false).getM_rearLeft());
+  private WPI_TalonSRX rearRight = new WPI_TalonSRX(RobotSettingsFactory.getRobotSettings(false).getM_rearRight());
+  private WPI_TalonSRX frontLeft = new WPI_TalonSRX(RobotSettingsFactory.getRobotSettings(false).getM_frontLeft());
+  private WPI_TalonSRX frontRight = new WPI_TalonSRX(RobotSettingsFactory.getRobotSettings(false).getM_frontRight());
   private Solenoid liftFront;
   private Solenoid liftBack;
   private AHRS ahrs = new AHRS(SPI.Port.kMXP);
@@ -83,9 +85,8 @@ public class DriveTrain extends Subsystem {
   }
 
   public double getPosLeft() {
-    return -rearRight.getSensorCollection().getQuadraturePosition() - oldLeft;
-  } // Test bot has encoder plugged into 8 instead of 3, need to change to frontleft
-    // on main
+    return -frontLeft.getSensorCollection().getQuadraturePosition() - oldLeft;
+  }
 
   public double getPosRight() {
     return frontRight.getSensorCollection().getQuadraturePosition() - oldRight;
@@ -102,6 +103,6 @@ public class DriveTrain extends Subsystem {
 
   public void resetEncoders() {
     oldRight = frontRight.getSensorCollection().getQuadraturePosition();
-    oldLeft = -rearRight.getSensorCollection().getQuadraturePosition();
+    oldLeft = -frontLeft.getSensorCollection().getQuadraturePosition();
   }
 }

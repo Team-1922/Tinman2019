@@ -8,49 +8,45 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.PixyPacket;
 import frc.robot.Robot;
 import frc.robot.subsystems.M_I2C;
+import frc.robot.PixyPacket;
 
-public class PixyMode extends Command {
-  M_I2C i2c = new M_I2C();// setup the i2c interface
-  PixyPacket pkt = i2c.getPixy();// create a pixy packet to hold data
-  
-
-  public PixyMode() {
-    super();
+public class LineChecker extends Command {
+  M_I2C i2c = new M_I2C();
+  PixyPacket pkt = i2c.getPixy();
+  public LineChecker() {
     requires(Robot.m_drivetrain);
-
+    // Use requires() here to declare subsystem dependencies
+    // eg. requires(chassis);
   }
 
+  // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-
-    pkt = i2c.getPixy();
   }
 
+  // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
     pkt = i2c.getPixy();
-    SmartDashboard.putNumber("x", pkt.x);
-    SmartDashboard.putNumber("y", pkt.y);
-    SmartDashboard.putNumber("area", pkt.area);
-    if (pkt.x != -1) {// if data is exist
-
-      pkt = i2c.getPixy();
-      double p = 1;
-      double error = 0.5 - pkt.x;
-      double responce = p * error;
-      Robot.m_drivetrain.drive(responce, -responce);
-    } else {
-      Robot.m_drivetrain.drive(0, 0);
-    }
-    pkt = i2c.getPixy();
+    
   }
 
+  // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
     return false;
+  }
+
+  // Called once after isFinished returns true
+  @Override
+  protected void end() {
+  }
+
+  // Called when another command which requires one or more of the same
+  // subsystems is scheduled to run
+  @Override
+  protected void interrupted() {
   }
 }
