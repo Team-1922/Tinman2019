@@ -7,7 +7,7 @@
 
 package frc.robot;
 
-import edu.wpi.first.cameraserver.CameraServer;
+// import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -18,6 +18,7 @@ import frc.robot.commands.TankDrive;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Hatch_Subsystem;
 import frc.robot.subsystems.M_I2C;
+// import frc.robot.BotInit;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -27,12 +28,15 @@ import frc.robot.subsystems.M_I2C;
  * project.
  */
 public class Robot extends TimedRobot {
+
+  // BotInit.botInit();
   public static DriveTrain m_drivetrain = new DriveTrain();
   public static Hatch_Subsystem m_hatchsnatch = new Hatch_Subsystem();
   public static OI m_oi;
   public static M_I2C m_I2C = new M_I2C();
   public static PixyPacket pxypkt = new PixyPacket();
   private static boolean m_IsPracticeBot;
+  private static Boolean chosen;
 
   Command m_autonomousCommand;
   SendableChooser<Command> m_chooser = new SendableChooser<>();
@@ -55,7 +59,6 @@ public class Robot extends TimedRobot {
     SmartDashboard.putData("Auto mode", m_chooser);
     SmartDashboard.putData("Bot In Use:", m_BotChooser);
 
-
     // CameraServer.getInstance().startAutomaticCapture();
     // Make sure to uncomment when we get the camera on the comp. bot
   }
@@ -71,7 +74,13 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotPeriodic() {
-    m_IsPracticeBot = m_BotChooser.getSelected();
+    chosen = m_BotChooser.getSelected();
+
+    if (chosen == null) {
+      m_IsPracticeBot = false;
+    } else {
+      m_IsPracticeBot = true;
+    }
   }
 
   /**

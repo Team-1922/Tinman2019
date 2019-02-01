@@ -11,24 +11,21 @@ package frc.robot;
  * help
  */
 public class RobotSettingsFactory {
-    
+
     public static RobotSettings getRobotSettings(boolean IsPracticeBot) {
         RobotSettings settings = new RobotSettings();
 
-        if (IsPracticeBot = true) {
+        if (IsPracticeBot) {
             settings.setM_frontLeft(RobotMap.PBfrontLeft);
             settings.setM_frontRight(RobotMap.PBfrontRight);
             settings.setM_rearLeft(RobotMap.PBrearLeft);
             settings.setM_rearRight(RobotMap.PBrearRight);
-        } else if (IsPracticeBot = false) {
+        } else if (!IsPracticeBot) {
             settings.setM_frontLeft(RobotMap.frontLeft);
             settings.setM_frontRight(RobotMap.frontRight);
             settings.setM_rearLeft(RobotMap.rearLeft);
             settings.setM_rearRight(RobotMap.rearRight);
-        } else {
-            throw new NullPointerException("IsPracticeBot neither True nor False");
         }
-
 
         return settings;
     }
