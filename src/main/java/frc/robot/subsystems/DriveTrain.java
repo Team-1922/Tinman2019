@@ -28,28 +28,40 @@ public class DriveTrain extends Subsystem {
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
 
-  private WPI_TalonSRX rearLeft = new WPI_TalonSRX(RobotSettingsFactory.getRobotSettings(/*Robot.getCurrentBot()*/false).getM_rearLeft());
-  private WPI_TalonSRX rearRight = new WPI_TalonSRX(RobotSettingsFactory.getRobotSettings(/*Robot.getCurrentBot()*/false).getM_rearRight());
-  private WPI_TalonSRX frontLeft = new WPI_TalonSRX(RobotSettingsFactory.getRobotSettings(/*Robot.getCurrentBot()*/false).getM_frontLeft());
-  private WPI_TalonSRX frontRight = new WPI_TalonSRX(RobotSettingsFactory.getRobotSettings(/*Robot.getCurrentBot()*/false).getM_frontRight());
+  private WPI_TalonSRX rearLeft;
+  private WPI_TalonSRX rearRight;
+  private WPI_TalonSRX frontLeft;
+  private WPI_TalonSRX frontRight;
   private Solenoid liftFront;
   private Solenoid liftBack;
   private AHRS ahrs = new AHRS(SPI.Port.kMXP);
   private int oldLeft = 0;
   private int oldRight = 0;
+  public boolean IsInit = false;
 
   public DriveTrain() {
     super();
+
     liftFront = new Solenoid(RobotMap.LiftFront);
     liftBack = new Solenoid(RobotMap.LiftBack);
 
+  }
+
+  public void initialize() {
+
+    frontRight = new WPI_TalonSRX(RobotSettingsFactory.getRobotSettings(Robot.getCurrentBot()).getM_frontRight());
+    frontLeft = new WPI_TalonSRX(RobotSettingsFactory.getRobotSettings(Robot.getCurrentBot()).getM_frontLeft());
+    rearRight = new WPI_TalonSRX(RobotSettingsFactory.getRobotSettings(Robot.getCurrentBot()).getM_rearRight());
+    rearLeft = new WPI_TalonSRX(RobotSettingsFactory.getRobotSettings(Robot.getCurrentBot()).getM_rearLeft());
+
     frontLeft.setSelectedSensorPosition(0, 0, 10);
     frontRight.setSelectedSensorPosition(0, 0, 10);
-    frontLeft.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 10);
+    rearLeft.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 10);
     frontRight.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 10);
 
     rearLeft.set(ControlMode.Follower, frontLeft.getDeviceID());
     rearRight.set(ControlMode.Follower, frontRight.getDeviceID());
+    IsInit = true;
   }
 
   public void drive(double leftSpeed, double rightSpeed) {
@@ -84,7 +96,7 @@ public class DriveTrain extends Subsystem {
   }
 
   public double getPosLeft() {
-    return -frontLeft.getSensorCollection().getQuadraturePosition() - oldLeft;
+    return -rearLeft.getSensorCollection().getQuadraturePosition() - oldLeft;
   }
 
   public double getPosRight() {
@@ -102,6 +114,7 @@ public class DriveTrain extends Subsystem {
 
   public void resetEncoders() {
     oldRight = frontRight.getSensorCollection().getQuadraturePosition();
-    oldLeft = -frontLeft.getSensorCollection().getQuadraturePosition();
+    oldLeft = -rearLeft.getSensorCollection().getQuadraturePosition();
   }
+
 }

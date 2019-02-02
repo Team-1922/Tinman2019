@@ -53,7 +53,7 @@ public class Robot extends TimedRobot {
     // m_chooser.addDefault("Default Auto", new TankDrive()); //(Depricated,
     // replaced with setDefaultOption)
     m_chooser.setDefaultOption("Default Auto", new TankDrive());
-    m_BotChooser.setDefaultOption("Competition Bot", false);
+    m_BotChooser.addOption("Competition Bot", false);
     m_BotChooser.addOption("Practice Bot", true);
     // m_chooser.addObject("My Auto", new MyAutoCommand());
     SmartDashboard.putData("Auto mode", m_chooser);
@@ -74,12 +74,17 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotPeriodic() {
-    chosen = m_BotChooser.getSelected();
-
-    if (chosen == null) {
-      m_IsPracticeBot = false;
-    } else {
-      m_IsPracticeBot = true;
+    
+    if (!m_drivetrain.IsInit) {
+      chosen = m_BotChooser.getSelected();
+      if (chosen == null) {
+        return;
+      } else if (chosen == false) {
+        m_IsPracticeBot = false;
+      } else {
+        m_IsPracticeBot = true;
+      }
+      m_drivetrain.initialize();
     }
   }
 
