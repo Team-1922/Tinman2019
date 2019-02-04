@@ -13,7 +13,6 @@ public class RobotSettings {
     private int m_rearLeft;
     private int m_rearRight;
 
-
     /**
      * @return the m_frontLeft
      */
@@ -70,5 +69,4 @@ public class RobotSettings {
         this.m_rearRight = m_rearRight;
     }
 
-    
 }

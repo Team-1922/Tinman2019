@@ -16,7 +16,6 @@ import frc.robot.subsystems.M_I2C;
 public class PixyMode extends Command {
   M_I2C i2c = new M_I2C();// setup the i2c interface
   PixyPacket pkt = i2c.getPixy();// create a pixy packet to hold data
-  
 
   public PixyMode() {
     super();

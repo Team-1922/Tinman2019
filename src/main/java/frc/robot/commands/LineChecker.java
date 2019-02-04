@@ -8,13 +8,14 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
+import frc.robot.PixyPacket;
 import frc.robot.Robot;
 import frc.robot.subsystems.M_I2C;
-import frc.robot.PixyPacket;
 
 public class LineChecker extends Command {
   M_I2C i2c = new M_I2C();
   PixyPacket pkt = i2c.getPixy();
+
   public LineChecker() {
     requires(Robot.m_drivetrain);
     // Use requires() here to declare subsystem dependencies
@@ -30,7 +31,7 @@ public class LineChecker extends Command {
   @Override
   protected void execute() {
     pkt = i2c.getPixy();
-    
+
   }
 
   // Make this return true when this Command no longer needs to run execute()

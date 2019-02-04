@@ -12,6 +12,7 @@ import frc.robot.Robot;
 
 public class ResetEncoders extends Command {
   boolean isdone = false;
+
   public ResetEncoders() {
     requires(Robot.m_drivetrain);
     // Use requires() here to declare subsystem dependencies
@@ -22,7 +23,7 @@ public class ResetEncoders extends Command {
   @Override
   protected void initialize() {
     Robot.m_drivetrain.resetEncoders();
-    isdone = true; 
+    isdone = true;
   }
 
   // Called repeatedly when this Command is scheduled to run
