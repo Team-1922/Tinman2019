@@ -54,7 +54,7 @@ public class Robot extends TimedRobot {
     // replaced with setDefaultOption)
     m_chooser.setDefaultOption("Default Auto", new TankDrive());
     m_BotChooser.setDefaultOption("Competition Bot", false);
-    m_BotChooser.addOption("Practice Bot", true);
+    m_BotChooser.addOption("Stingray", true);
     // m_chooser.addObject("My Auto", new MyAutoCommand());
     SmartDashboard.putData("Auto mode", m_chooser);
     SmartDashboard.putData("Bot In Use:", m_BotChooser);

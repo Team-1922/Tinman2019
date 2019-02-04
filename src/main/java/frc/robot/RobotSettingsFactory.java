@@ -12,15 +12,15 @@ package frc.robot;
  */
 public class RobotSettingsFactory {
 
-    public static RobotSettings getRobotSettings(boolean IsPracticeBot) {
+    public static RobotSettings getRobotSettings(boolean IsStingray) {
         RobotSettings settings = new RobotSettings();
 
-        if (IsPracticeBot) {
+        if (IsStingray) {
             settings.setM_frontLeft(RobotMap.PBfrontLeft);
             settings.setM_frontRight(RobotMap.PBfrontRight);
             settings.setM_rearLeft(RobotMap.PBrearLeft);
             settings.setM_rearRight(RobotMap.PBrearRight);
-        } else if (!IsPracticeBot) {
+        } else if (!IsStingray) {
             settings.setM_frontLeft(RobotMap.frontLeft);
             settings.setM_frontRight(RobotMap.frontRight);
             settings.setM_rearLeft(RobotMap.rearLeft);
