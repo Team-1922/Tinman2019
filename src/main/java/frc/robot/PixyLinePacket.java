@@ -9,5 +9,5 @@ package frc.robot;
 
 public class PixyLinePacket {
     public double x0, x1, y0, y1;
-    public double length;
+    public double linelength;
 }
