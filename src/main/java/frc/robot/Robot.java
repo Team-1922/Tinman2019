@@ -35,7 +35,7 @@ public class Robot extends TimedRobot {
   public static OI m_oi;
   public static M_I2C m_I2C = new M_I2C();
   public static PixyPacket pxypkt = new PixyPacket();
-  private static boolean m_IsPracticeBot;
+  private static boolean m_IsStingray;
   private static Boolean chosen;
 
   Command m_autonomousCommand;
@@ -53,7 +53,7 @@ public class Robot extends TimedRobot {
     // m_chooser.addDefault("Default Auto", new TankDrive()); //(Depricated,
     // replaced with setDefaultOption)
     m_chooser.setDefaultOption("Default Auto", new TankDrive());
-    m_BotChooser.addOption("Competition Bot", false);
+    m_BotChooser.setDefaultOption("Competition Bot", false);
     m_BotChooser.addOption("Practice Bot", true);
     // m_chooser.addObject("My Auto", new MyAutoCommand());
     SmartDashboard.putData("Auto mode", m_chooser);
@@ -74,17 +74,12 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotPeriodic() {
-    
-    if (!m_drivetrain.IsInit) {
-      chosen = m_BotChooser.getSelected();
-      if (chosen == null) {
-        return;
-      } else if (chosen == false) {
-        m_IsPracticeBot = false;
-      } else {
-        m_IsPracticeBot = true;
-      }
-      m_drivetrain.initialize();
+    chosen = m_BotChooser.getSelected();
+
+    if (chosen == null) {
+      m_IsStingray = false;
+    } else {
+      m_IsStingray = true;
     }
   }
 
@@ -188,6 +183,6 @@ public class Robot extends TimedRobot {
   }
 
   public static boolean getCurrentBot() {
-    return m_IsPracticeBot;
+    return m_IsStingray;
   }
 }
