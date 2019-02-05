@@ -5,7 +5,7 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands;
+/*package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -23,7 +23,6 @@ public class PixyMode extends Command {
 
   }
 
- 
   @Override
   protected void initialize() {
 
@@ -54,3 +53,4 @@ public class PixyMode extends Command {
     return false;
   }
 }
+*/

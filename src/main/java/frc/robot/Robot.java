@@ -7,7 +7,7 @@
 
 package frc.robot;
 
-import edu.wpi.first.cameraserver.CameraServer;
+// import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -17,7 +17,7 @@ import frc.robot.auto_groups.Center;
 import frc.robot.commands.TankDrive;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Hatch_Subsystem;
-import frc.robot.subsystems.M_I2C;
+import frc.robot.subsystems.M_I2CLine;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -27,14 +27,19 @@ import frc.robot.subsystems.M_I2C;
  * project.
  */
 public class Robot extends TimedRobot {
+
+  // BotInit.botInit();
   public static DriveTrain m_drivetrain = new DriveTrain();
   public static Hatch_Subsystem m_hatchsnatch = new Hatch_Subsystem();
   public static OI m_oi;
-  public static M_I2C m_I2C = new M_I2C();
-  public static PixyPacket pxypkt = new PixyPacket();
+  public static M_I2CLine m_I2C = new M_I2CLine();
+  public static PixyLinePacket pxypkt = new PixyLinePacket();
+  private static boolean m_IsStingray;
+  private static Boolean chosen;
 
   Command m_autonomousCommand;
   SendableChooser<Command> m_chooser = new SendableChooser<>();
+  SendableChooser<Boolean> m_BotChooser = new SendableChooser<>();
 
   /**
    * This function is run when the robot is first started up and should be used
@@ -43,12 +48,18 @@ public class Robot extends TimedRobot {
   @Override
   public void robotInit() {
     m_oi = new OI();
+
     // m_chooser.addDefault("Default Auto", new TankDrive()); //(Depricated,
     // replaced with setDefaultOption)
     m_chooser.setDefaultOption("Default Auto", new TankDrive());
+    m_BotChooser.setDefaultOption("Competition Bot", false);
+    m_BotChooser.addOption("Stingray", true);
     // m_chooser.addObject("My Auto", new MyAutoCommand());
     SmartDashboard.putData("Auto mode", m_chooser);
-    CameraServer.getInstance().startAutomaticCapture();
+    SmartDashboard.putData("Bot In Use:", m_BotChooser);
+
+    // CameraServer.getInstance().startAutomaticCapture();
+    // Make sure to uncomment when we get the camera on the comp. bot
   }
 
   /**
@@ -62,6 +73,13 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void robotPeriodic() {
+    chosen = m_BotChooser.getSelected();
+
+    if (chosen == null) {
+      m_IsStingray = false;
+    } else {
+      m_IsStingray = true;
+    }
   }
 
   /**
@@ -161,5 +179,9 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void testPeriodic() {
+  }
+
+  public static boolean getCurrentBot() {
+    return m_IsStingray;
   }
 }
