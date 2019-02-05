@@ -8,13 +8,13 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
-import frc.robot.PixyPacket;
+import frc.robot.PixyLinePacket;
 import frc.robot.Robot;
-import frc.robot.subsystems.M_I2C;
+import frc.robot.subsystems.M_I2CLine;
 
 public class LineChecker extends Command {
-  M_I2C i2c = new M_I2C();
-  PixyPacket pkt = i2c.getPixy();
+  M_I2CLine i2c = new M_I2CLine();
+  PixyLinePacket pkt = i2c.getPixy();
 
   public LineChecker() {
     requires(Robot.m_drivetrain);
