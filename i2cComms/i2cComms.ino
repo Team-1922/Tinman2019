@@ -54,11 +54,11 @@ void loop(){
   if(!blocks){
     piOutput = "none"; //if no blocks tell roborio there are none 
   }else{
-    piOutput = String(pixy.ccc.blocks[biggest].m_x0 / 78.0);  //turns into a percent of the screen 
+    piOutput = String(pixy.ccc.blocks[biggest].m_x / 78.0);  //turns into a percent of the screen 
     piOutput += "|";                //inserts a "pipe" so robrio can split the numbers later
-    piOutput += String(pixy.ccc.blocks[biggest].m_y0 / 51.0);
+    piOutput += String(pixy.ccc.blocks[biggest].m_y / 51.0);
     piOutput += "|";          
-    piOutput += String(length); 
+    piOutput += String(area); 
     Serial.println(piOutput);
 
   }
