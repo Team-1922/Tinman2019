@@ -1,4 +1,4 @@
-/*package frc.robot.subsystems;
+package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.I2C.Port;
@@ -7,7 +7,7 @@ import frc.robot.PixyPacket;
 public class M_I2C {
   private static I2C Wire = new I2C(Port.kOnboard, 4);// uses the i2c port on the RoboRIO
                                                       // uses address 4, must match arduino
-  private static final int MAX_BYTES = 32;
+  private static final int MAX_BYTES = 88;
 
   public void write(String input) {// writes to the arduino
     char[] CharArray = input.toCharArray();// creates a char array from the input string
@@ -25,14 +25,20 @@ public class M_I2C {
 
     PixyPacket pkt = new PixyPacket(); // creates a new packet to hold the data
     if (info[0].equals("none") || info[0].equals("")) {// checks to make sure there is data
-      pkt.x = -1;// the x val will never be -1 so we can text later in code to make sure there is
+      pkt.x1 = -1;// the x val will never be -1 so we can text later in code to make sure there is
                  // data
-      pkt.y = -1;
-      pkt.area = -1;
+      pkt.x2 = -1;
+      pkt.y1 = -1;
+      pkt.y2 = -1;
+      pkt.area1 = -1;
+      pkt.area2 = -1;
     } else if (info.length == 3) {// if there is an x, y, and area value the length equals 3
-      pkt.x = Double.parseDouble(info[0]);// set x
-      pkt.y = Double.parseDouble(info[1]);// set y
-      pkt.area = Double.parseDouble(info[2]);// set area
+      pkt.x1 = Double.parseDouble(info[0]);// set x
+      pkt.y1 = Double.parseDouble(info[1]);// set y
+      pkt.area1 = Double.parseDouble(info[2]);// set area
+      pkt.x2 = Double.parseDouble(info[0]);// set x
+      pkt.y2 = Double.parseDouble(info[1]);// set y
+      pkt.area2 = Double.parseDouble(info[2]);// set area
     }
 
     return pkt;
@@ -49,4 +55,3 @@ public class M_I2C {
   }
 
 }
-*/

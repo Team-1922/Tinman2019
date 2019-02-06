@@ -5,7 +5,7 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-/*package frc.robot.commands;
+package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -32,14 +32,18 @@ public class PixyMode extends Command {
   @Override
   protected void execute() {
     pkt = i2c.getPixy();
-    SmartDashboard.putNumber("x", pkt.x);
-    SmartDashboard.putNumber("y", pkt.y);
-    SmartDashboard.putNumber("area", pkt.area);
-    if (pkt.x != -1) {// if data is exist
+    SmartDashboard.putNumber("x1", pkt.x1);
+    SmartDashboard.putNumber("y1", pkt.y1);
+    SmartDashboard.putNumber("area1", pkt.area1);
+    SmartDashboard.putNumber("x2", pkt.x2);
+    SmartDashboard.putNumber("y2", pkt.y2);
+    SmartDashboard.putNumber("area2", pkt.area2);
+    if (pkt.x1 != -1) {// if data is exist
 
       pkt = i2c.getPixy();
+      double center = (pkt.x1 + pkt.x2) / 2;
       double p = 1;
-      double error = 0.5 - pkt.x;
+      double error = 0.5 - center;
       double responce = p * error;
       Robot.m_drivetrain.drive(responce, -responce);
     } else {
@@ -53,4 +57,3 @@ public class PixyMode extends Command {
     return false;
   }
 }
-*/

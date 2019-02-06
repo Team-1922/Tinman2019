@@ -14,6 +14,7 @@ import frc.robot.commands.DriveStraight;
 import frc.robot.commands.LiftBot_Command;
 import frc.robot.commands.LowerBot_Command;
 import frc.robot.commands.ResetEncoders;
+import frc.robot.commands.PixyMode;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -47,8 +48,8 @@ public class OI {
     // Keybindings
     buttonA.whenPressed(new LiftBot_Command());
     buttonB.whenPressed(new LowerBot_Command());
-    // trigger.whileHeld(new PixyMode());
-    trigger.whileHeld(new DriveStraight());
+     trigger.whileHeld(new PixyMode());
+    //trigger.whileHeld(new DriveStraight());
 
     resetButton.whenPressed(new ResetEncoders());
   }
