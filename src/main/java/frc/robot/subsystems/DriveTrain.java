@@ -29,13 +29,13 @@ public class DriveTrain extends Subsystem {
   // here. Call these from Commands.
 
   private WPI_TalonSRX rearLeft = new WPI_TalonSRX(
-      RobotSettingsFactory.getRobotSettings(/* Robot.getCurrentBot() */false).getM_rearLeft());
+      RobotSettingsFactory.getRobotSettings(Robot.getCurrentBot()).getM_rearLeft());
   private WPI_TalonSRX rearRight = new WPI_TalonSRX(
-      RobotSettingsFactory.getRobotSettings(/* Robot.getCurrentBot() */false).getM_rearRight());
+      RobotSettingsFactory.getRobotSettings(Robot.getCurrentBot()).getM_rearRight());
   private WPI_TalonSRX frontLeft = new WPI_TalonSRX(
-      RobotSettingsFactory.getRobotSettings(/* Robot.getCurrentBot() */false).getM_frontLeft());
+      RobotSettingsFactory.getRobotSettings(Robot.getCurrentBot()).getM_frontLeft());
   private WPI_TalonSRX frontRight = new WPI_TalonSRX(
-      RobotSettingsFactory.getRobotSettings(/* Robot.getCurrentBot() */false).getM_frontRight());
+      RobotSettingsFactory.getRobotSettings(Robot.getCurrentBot()).getM_frontRight());
   private Solenoid liftFront;
   private Solenoid liftBack;
   private AHRS ahrs = new AHRS(SPI.Port.kMXP);
