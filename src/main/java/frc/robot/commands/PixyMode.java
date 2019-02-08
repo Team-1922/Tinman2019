@@ -16,6 +16,7 @@ import frc.robot.subsystems.M_I2C;
 public class PixyMode extends Command {
   M_I2C i2c = new M_I2C();// setup the i2c interface
   PixyPacket pkt = i2c.getPixy();// create a pixy packet to hold data
+  private double center, p, error, responce;
 
   public PixyMode() {
     super();
@@ -38,14 +39,16 @@ public class PixyMode extends Command {
     SmartDashboard.putNumber("x2", pkt.x2);
     SmartDashboard.putNumber("y2", pkt.y2);
     SmartDashboard.putNumber("area2", pkt.area2);
-    if (pkt.x1 != -1) {// if data is exist
+    if (pkt.x1 != -1 || pkt.x1 != 0) {// if data is exist
 
       pkt = i2c.getPixy();
-      double center = (pkt.x1 + pkt.x2) / 2;
-      double p = 1;
-      double error = 0.5 - center;
-      double responce = p * error;
+      center = (pkt.x1 + pkt.x2) / 2;
+      p = .5;
+      error = 0.5 - center;
+      responce = p * error;
       Robot.m_drivetrain.drive(responce, -responce);
+      SmartDashboard.putNumber("responce", responce);
+
     } else {
       Robot.m_drivetrain.drive(0, 0);
     }

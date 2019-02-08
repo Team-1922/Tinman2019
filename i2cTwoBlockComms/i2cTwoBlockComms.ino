@@ -23,8 +23,8 @@ Pixy2 pixy;
   const String PIXY = "pi";
 
 void setup(){
-  Serial.begin(115200);
-  Serial.println("setup");  
+//  Serial.begin(115200);
+//  Serial.println("setup");  
   Wire.begin(4);                // join i2c bus with address #4 as a slave device
   Wire.onReceive(receiveEvent); // Registers a function to be called when a slave device receives a transmission from a master
   Wire.onRequest(requestEvent); // Register a function to be called when a master requests data from this slave device
@@ -67,18 +67,18 @@ void loop(){
   if(!blocks){
     piOutput = "none"; //if no blocks tell roborio there are none 
   }else{
-    piOutput = String(pixy.ccc.blocks[biggest].m_x / 319.0);  //turns into a percent of the screen 
+    piOutput = String(pixy.ccc.blocks[biggest].m_x / 984.0);  //turns into a percent of the screen 
     piOutput += "|";                //inserts a "pipe" so robrio can split the numbers later
-    piOutput += String(pixy.ccc.blocks[biggest].m_y / 199.0); //319 and 199 were, we found, the dimensions of the screen 
+    piOutput += String(pixy.ccc.blocks[biggest].m_y / 624.0); //319 and 199 were, we found, the dimensions of the screen 
     piOutput += "|";          
     piOutput += String(biggestArea / 64000);
     piOutput += "|";                //inserts a "pipe" so robrio can split the numbers later
-    piOutput = String(pixy.ccc.blocks[secondBiggest].m_x / 319.0);  //turns into a percent of the screen 
+    piOutput = String(pixy.ccc.blocks[secondBiggest].m_x / 948.0);  //turns into a percent of the screen 
     piOutput += "|";                //inserts a "pipe" so robrio can split the numbers later
-    piOutput += String(pixy.ccc.blocks[secondBiggest].m_y / 199.0); //319 and 199 were, we found, the dimensions of the screen 
+    piOutput += String(pixy.ccc.blocks[secondBiggest].m_y / 624.0); //319 and 199 were, we found, the dimensions of the screen 
     piOutput += "|";                //inserts a "pipe" so robrio can split the numbers later
     piOutput += String(secondArea / 64000);
-    Serial.println(piOutput);
+//    Serial.println(piOutput);
     
 
   }
@@ -88,7 +88,7 @@ void loop(){
 
 void requestEvent(){//called when RoboRIO request a message from this device
   Wire.write(piOutput.c_str()); //writes data to the RoboRIO, converts it to string
-  Serial.println("request");
+//  Serial.println("request");
 }
 
 void receiveEvent(int bytes){//called when RoboRIO "gives" this device a message

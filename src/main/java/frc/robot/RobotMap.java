@@ -25,9 +25,9 @@ public class RobotMap {
   public static final int rearRight = 3;
 
   public static final int PBfrontLeft = 1;
-  public static final int PBfrontRight = 3;
-  public static final int PBrearLeft = 7;
-  public static final int PBrearRight = 8;
+  public static final int PBfrontRight = 2;
+  public static final int PBrearLeft = 0;
+  public static final int PBrearRight = 3;
   // Solenoids
   public static final int Hatch = 1;
   public static final int LiftFront = 4;
