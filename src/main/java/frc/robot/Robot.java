@@ -17,7 +17,6 @@ import frc.robot.auto_groups.Center;
 import frc.robot.commands.TankDrive;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Hatch_Subsystem;
-import frc.robot.subsystems.M_I2CLine;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -32,8 +31,6 @@ public class Robot extends TimedRobot {
   public static DriveTrain m_drivetrain = new DriveTrain();
   public static Hatch_Subsystem m_hatchsnatch = new Hatch_Subsystem();
   public static OI m_oi;
-  public static M_I2CLine m_I2C = new M_I2CLine();
-  public static PixyLinePacket pxypkt = new PixyLinePacket();
   private static boolean m_IsStingray;
   private static Boolean chosen;
 

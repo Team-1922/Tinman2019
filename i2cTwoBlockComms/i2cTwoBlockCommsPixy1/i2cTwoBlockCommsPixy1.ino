@@ -42,7 +42,7 @@ void loop(){
   int secondBiggest = -1;
   double secondArea = 0, temp = 0;
   double biggestArea = 0;
-  Serial.println(blocks);
+//  Serial.println(blocks);
   if(blocks < 2)
   {
     piOutput = "none"; //if no blocks tell roborio there are none
@@ -86,6 +86,10 @@ void loop(){
     piOutput += "|";                //inserts a "pipe" so robrio can split the numbers later
     piOutput += String(secondArea);
     Serial.println(piOutput);
+    Serial.print("biggest= ");
+    Serial.println(biggest);
+    Serial.print("second biggest= ");
+    Serial.println(secondBiggest);
     
 
   }
@@ -95,7 +99,7 @@ void loop(){
 
 void requestEvent(){//called when RoboRIO request a message from this device
   Wire.write(piOutput.c_str()); //writes data to the RoboRIO, converts it to string
-//  Serial.println("request");
+  Serial.println("request");
 }
 
 void receiveEvent(int bytes){//called when RoboRIO "gives" this device a message

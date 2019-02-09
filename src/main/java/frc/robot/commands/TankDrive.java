@@ -9,16 +9,14 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.PixyPacket;
 import frc.robot.Robot;
-import frc.robot.subsystems.M_I2C;
 
 /**
  * An example command. You can replace me with your own command.
  */
 public class TankDrive extends Command {
-  M_I2C i2c = new M_I2C();// setup the i2c interface
-  PixyPacket pkt = i2c.getPixy();// create a pixy packet to hold data
+  // M_I2C i2c = new M_I2C();// setup the i2c interface
+  // PixyPacket pkt = i2c.getPixy();// create a pixy packet to hold data
 
   public TankDrive() {
 
@@ -49,7 +47,7 @@ public class TankDrive extends Command {
     // SmartDashboard.putNumber("Block 1", pkt.x1);
     // SmartDashboard.putNumber("Block 2", pkt.x2);
     // SmartDashboard.putNumber("Center", (pkt.x1 + pkt.x2)/2);
-    pkt = i2c.getPixy(); // refresh Pixy data
+    // pkt = i2c.getPixy(); // refresh Pixy data
 
   }
 
