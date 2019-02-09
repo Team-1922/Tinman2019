@@ -43,14 +43,11 @@ public class PixyMode extends Command {
       double centerpixel = (pkt.x1 + pkt.x2) / 2;
       center = centerpixel;
       p = .005;
-      error = (320 / 2) - center;
+      error = center - (320 / 2);
       responce = p * error;
-      if(responce > 1)
-      {
+      if (responce > 1) {
         responce = 1;
-      }
-      else if(responce < -1)
-      {
+      } else if (responce < -1) {
         responce = -1;
       }
       Robot.m_drivetrain.drive(-responce, responce);

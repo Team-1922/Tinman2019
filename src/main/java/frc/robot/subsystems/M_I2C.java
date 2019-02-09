@@ -23,8 +23,7 @@ public class M_I2C {
   public PixyPacket getPixy() {// reads the data from arduino and saves it
     String temp = read();
     String info[] = temp.split("\\|");// everytime a "|" is used it splits the data, and adds it as a new element in
-                                        // the array
-    
+                                      // the array
 
     PixyPacket pkt = new PixyPacket(); // creates a new packet to hold the data
     if (info[0].equals("none") || info[0].equals("")) {// checks to make sure there is data
