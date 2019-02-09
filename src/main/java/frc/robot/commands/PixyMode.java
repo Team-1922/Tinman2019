@@ -27,7 +27,6 @@ public class PixyMode extends Command {
   @Override
   protected void initialize() {
 
-    pkt = i2c.getPixy();
   }
 
   @Override
@@ -39,20 +38,32 @@ public class PixyMode extends Command {
     SmartDashboard.putNumber("x2", pkt.x2);
     SmartDashboard.putNumber("y2", pkt.y2);
     SmartDashboard.putNumber("area2", pkt.area2);
-    if (pkt.x1 != -1 || pkt.x1 != 0) {// if data is exist
-
-      pkt = i2c.getPixy();
-      center = (pkt.x1 + pkt.x2) / 2;
-      p = .5;
-      error = 0.5 - center;
+    if (pkt.x1 != -1) {// if data is exist
+      SmartDashboard.putString("Turning", "yes");
+      double centerpixel = (pkt.x1 + pkt.x2) / 2;
+      center = centerpixel;
+      p = .005;
+      error = (320 / 2) - center;
       responce = p * error;
-      Robot.m_drivetrain.drive(responce, -responce);
+      if(responce > 1)
+      {
+        responce = 1;
+      }
+      else if(responce < -1)
+      {
+        responce = -1;
+      }
+      Robot.m_drivetrain.drive(-responce, responce);
+      SmartDashboard.putNumber("error", error);
+      SmartDashboard.putNumber("center", center);
       SmartDashboard.putNumber("responce", responce);
 
     } else {
       Robot.m_drivetrain.drive(0, 0);
+      SmartDashboard.putNumber("center", 0);
+      SmartDashboard.putString("Turning", "no");
+
     }
-    pkt = i2c.getPixy();
   }
 
   @Override

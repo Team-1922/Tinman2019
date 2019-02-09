@@ -23,6 +23,7 @@ public class Hatch_Subsystem extends Subsystem {
   public Hatch_Subsystem() {
     super();
     Hatch = new Solenoid(RobotMap.Hatch);
+    
   }
 
   public void OpenHatch() {
