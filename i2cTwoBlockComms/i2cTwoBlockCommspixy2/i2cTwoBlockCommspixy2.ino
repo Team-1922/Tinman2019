@@ -1,8 +1,7 @@
+#include <Pixy2.h>
 #include <Wire.h>
-#include <Pixy.h>
 
-
-Pixy pixy;
+Pixy2 pixy;
 //built in class from arduino, strongly suggest looking at it on their website
 //it is not a complicated class
 
@@ -32,42 +31,35 @@ void setup() {
 
 
   pixy.init();
+  //  pixy.setLED(0,255,255);
 }
 
 void loop() {
 
-  uint16_t blocks = pixy.getBlocks();//use this line to get every available object the pixy sees
+  uint16_t blocks = pixy.ccc.getBlocks();//use this line to get every available object the pixy sees
   //^^^not sure what exactly this is for, honestly
-  int biggest = -1;
-  int secondBiggest = -1;
-  double secondArea = 0, temp = 0;
-  double biggestArea = 0;
-  //  Serial.println(blocks);
-  if (blocks < 2)
-  {
-    piOutput = "none"; //if no blocks tell roborio there are none
-    delay(70); //gives time for everything to process
-    return;
-  }
-
+  //  if (pixy.ccc.blocks[0].m_signature == 3 && pixy.ccc.blocks[1].m_signature == 3) {
+  double biggestArea = pixy.ccc.blocks[0].m_width * pixy.ccc.blocks[0].m_height;
+  double secondArea = pixy.ccc.blocks[1].m_width * pixy.ccc.blocks[1].m_height;
   if (!blocks) {
     piOutput = "none"; //if no blocks tell roborio there are none
   } else {
-    piOutput = String(pixy.blocks[0].x);  //turns into a percent of the screen
+    piOutput = String(pixy.ccc.blocks[0].m_x / 984.0);  //turns into a percent of the screen
     piOutput += "|";                //inserts a "pipe" so robrio can split the numbers later
-    piOutput += String(pixy.blocks[0].y); //319 and 199 were, we found, the dimensions of the screen
+    piOutput += String(pixy.ccc.blocks[0].m_y / 624.0); //319 and 199 were, we found, the dimensions of the screen
     piOutput += "|";
-    piOutput += String(pixy.blocks[0].x * pixy.blocks[0].y);
+    piOutput += String(biggestArea / 64000);
     piOutput += "|";                //inserts a "pipe" so robrio can split the numbers later
-    piOutput += String(pixy.blocks[1].x);  //turns into a percent of the screen
+    piOutput = String(pixy.ccc.blocks[1].m_x / 948.0);  //turns into a percent of the screen
     piOutput += "|";                //inserts a "pipe" so robrio can split the numbers later
-    piOutput += String(pixy.blocks[1].y); //319 and 199 were, we found, the dimensions of the screen
+    piOutput += String(pixy.ccc.blocks[1].m_y / 624.0); //319 and 199 were, we found, the dimensions of the screen
     piOutput += "|";                //inserts a "pipe" so robrio can split the numbers later
-    piOutput += String(pixy.blocks[1].x * pixy.blocks[1].y);
+    piOutput += String(secondArea / 64000);
     Serial.println(piOutput);
 
-  }
 
+  }
+  //  }
   delay(70); //gives time for everything to process
 }
 

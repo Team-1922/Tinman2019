@@ -42,7 +42,7 @@ public class PixyMode extends Command {
       SmartDashboard.putString("Turning", "yes");
       double centerpixel = (pkt.x1 + pkt.x2) / 2;
       center = centerpixel;
-      p = .005;
+      p = .0005;
       error = center - (320 / 2);
       responce = p * error;
       if (responce > 1) {
