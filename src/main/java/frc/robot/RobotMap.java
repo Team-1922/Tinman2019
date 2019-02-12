@@ -23,6 +23,8 @@ public class RobotMap {
   public static final int frontRight = 2;
   public static final int rearLeft = 0;
   public static final int rearRight = 3;
+  public static final int cargoTop = 4;
+  public static final int cargoBot = 5;
 
   public static final int PBfrontLeft = 1;
   public static final int PBfrontRight = 2;

@@ -17,6 +17,7 @@ import frc.robot.auto_groups.Center;
 import frc.robot.commands.TankDrive;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Hatch_Subsystem;
+import frc.robot.subsystems.Cargo_Subsystem;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -30,6 +31,7 @@ public class Robot extends TimedRobot {
   // BotInit.botInit();
   public static DriveTrain m_drivetrain = new DriveTrain();
   public static Hatch_Subsystem m_hatchsnatch = new Hatch_Subsystem();
+  public static Cargo_Subsystem m_cargo = new Cargo_Subsystem();
   public static OI m_oi;
   private static boolean m_IsStingray;
   private static Boolean chosen;
