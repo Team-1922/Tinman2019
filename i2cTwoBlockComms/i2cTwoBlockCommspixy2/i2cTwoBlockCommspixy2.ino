@@ -38,15 +38,18 @@ void loop() {
 
   uint16_t blocks = pixy.ccc.getBlocks();//use this line to get every available object the pixy sees
   //^^^not sure what exactly this is for, honestly
+  pixy.ccc.getBlocks();
+  Serial.println(blocks);
   //  if (pixy.ccc.blocks[0].m_signature == 3 && pixy.ccc.blocks[1].m_signature == 3) {
   double biggestArea = pixy.ccc.blocks[0].m_width * pixy.ccc.blocks[0].m_height;
   double secondArea = pixy.ccc.blocks[1].m_width * pixy.ccc.blocks[1].m_height;
   if (!blocks) {
     piOutput = "none"; //if no blocks tell roborio there are none
+    Serial.println(piOutput);
   } else {
-    piOutput = String(pixy.ccc.blocks[0].m_x / 984.0);  //turns into a percent of the screen
+    piOutput = String(pixy.ccc.blocks[0].m_x / 315.0);  //turns into a percent of the screen
     piOutput += "|";                //inserts a "pipe" so robrio can split the numbers later
-    piOutput += String(pixy.ccc.blocks[0].m_y / 624.0); //319 and 199 were, we found, the dimensions of the screen
+    piOutput += String(pixy.ccc.blocks[0].m_y / 207.0); //319 and 199 were, we found, the dimensions of the screen
     piOutput += "|";
     piOutput += String(biggestArea / 64000);
     piOutput += "|";                //inserts a "pipe" so robrio can split the numbers later
