@@ -10,11 +10,11 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
-// import frc.robot.commands.DriveStraight;
-import frc.robot.commands.LiftBot_Command;
-import frc.robot.commands.LowerBot_Command;
+import frc.robot.commands.DriveStraight;
 import frc.robot.commands.ResetEncoders;
-import frc.robot.commands.PixyMode;
+// import frc.robot.commands.PixyMode;
+// import frc.robot.commands.FourBarUp;
+import frc.robot.commands.FourBarDown;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -26,9 +26,10 @@ public class OI {
   private Joystick m_RightStick;
   private XboxController m_operator;
   // Buttons
-  private Button buttonA;
-  private Button buttonB;
-  private Button bumper;
+  // private Button buttonA;
+  // private Button buttonB;
+  private Button lbumper;
+  private Button rbumper;
   private Button trigger;
   private Button resetButton;
 
@@ -39,18 +40,18 @@ public class OI {
     m_operator = new XboxController(2);
 
     // Buttons
-    buttonA = new JoystickButton(getOperator(), 1);
-    buttonB = new JoystickButton(getOperator(), 2);
-    bumper = new JoystickButton(getOperator(), 6);
+    // buttonA = new JoystickButton(getOperator(), 1);
+    // buttonB = new JoystickButton(getOperator(), 2);
+    lbumper = new JoystickButton(getOperator(), 5);
+    rbumper = new JoystickButton(getOperator(), 6);
     trigger = new JoystickButton(getLeftStick(), 1);
     resetButton = new JoystickButton(getRightStick(), 2);
 
     // Keybindings
-    buttonA.whenPressed(new LiftBot_Command());
-    buttonB.whenPressed(new LowerBot_Command());
-     trigger.whileHeld(new PixyMode());
-    //trigger.whileHeld(new DriveStraight());
-
+    // trigger.whileHeld(new PixyMode());
+    trigger.whileHeld(new DriveStraight());
+    
+    // lbumper.whenPressed(new FourBarDown());
     resetButton.whenPressed(new ResetEncoders());
   }
 
@@ -67,8 +68,16 @@ public class OI {
     return m_operator;
   }
 
-  public boolean getBumper() {
-    return bumper.get();
+  public boolean getRBumper() {
+    return rbumper.get();
+  }
+
+  public boolean getLBumper() {
+    return lbumper.get();
+  }
+
+  public Button returnLBumper() {
+    return lbumper;
   }
   //// CREATING BUTTONS
   // One type of button is a joystick button which is any button on a

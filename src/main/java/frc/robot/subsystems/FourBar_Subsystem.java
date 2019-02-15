@@ -7,35 +7,36 @@
 
 package frc.robot.subsystems;
 
-// import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
-
+import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
-// import frc.robot.RobotMap;
-import frc.robot.commands.OperateCargo;
+import frc.robot.RobotMap;
+import frc.robot.commands.FourBarDown;
 
 /**
  * An example subsystem. You can replace me with your own Subsystem.
  */
-public class Cargo_Subsystem extends Subsystem {
+public class FourBar_Subsystem extends Subsystem {
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
-  // private WPI_TalonSRX CargoTop;
-  // private WPI_TalonSRX CargoBot;
-
-  public Cargo_Subsystem() {
+  private Solenoid FourBar;
+  
+  public FourBar_Subsystem() {
     super();
-    // CargoTop = new WPI_TalonSRX(RobotMap.cargoTop);
-    // CargoBot = new WPI_TalonSRX(RobotMap.cargoBot);
+    FourBar = new Solenoid(RobotMap.FourBar);
+    
   }
 
-  // public void run(double Speed) {
-  //   CargoTop.set(Speed);
-  //   CargoBot.set(-Speed);
-  // }
+  public void FourBarDown () {
+    FourBar.set(true);
+  }
+
+  public void FourBarUp() {
+    FourBar.set(false);
+  }
 
   @Override
   public void initDefaultCommand() {
-    setDefaultCommand(new OperateCargo());
+    // setDefaultCommand(new FourBarDown());
   }
 
 }

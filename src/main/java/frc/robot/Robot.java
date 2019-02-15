@@ -7,7 +7,8 @@
 
 package frc.robot;
 
-// import edu.wpi.first.cameraserver.CameraServer;
+import edu.wpi.first.cameraserver.CameraServer;
+
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -18,6 +19,7 @@ import frc.robot.commands.TankDrive;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.Hatch_Subsystem;
 import frc.robot.subsystems.Cargo_Subsystem;
+import frc.robot.subsystems.FourBar_Subsystem;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -32,6 +34,7 @@ public class Robot extends TimedRobot {
   public static DriveTrain m_drivetrain = new DriveTrain();
   public static Hatch_Subsystem m_hatchsnatch = new Hatch_Subsystem();
   public static Cargo_Subsystem m_cargo = new Cargo_Subsystem();
+  public static FourBar_Subsystem m_fourbar = new FourBar_Subsystem();
   public static OI m_oi;
   private static boolean m_IsStingray;
   private static Boolean chosen;
@@ -57,7 +60,7 @@ public class Robot extends TimedRobot {
     SmartDashboard.putData("Auto mode", m_chooser);
     SmartDashboard.putData("Bot In Use:", m_BotChooser);
 
-    // CameraServer.getInstance().startAutomaticCapture();
+    CameraServer.getInstance().startAutomaticCapture();
     // Make sure to uncomment when we get the camera on the comp. bot
   }
 
