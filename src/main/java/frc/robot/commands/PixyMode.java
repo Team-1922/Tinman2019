@@ -11,12 +11,14 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.PixyPacket;
 import frc.robot.Robot;
-import frc.robot.subsystems.M_I2C;
+import frc.robot.subsystems.M_I2C2;;
 
 public class PixyMode extends Command {
-  M_I2C i2c = new M_I2C();// setup the i2c interface
+  M_I2C2 i2c = new M_I2C2();// setup the i2c interface
   PixyPacket pkt = i2c.getPixy();// create a pixy packet to hold data
-  private double center, p, error, responce;
+  private double center, error, responce, derivative, errorPrior;
+  private double p = .0033;
+  private double d = 0;
 
   public PixyMode() {
     super();
@@ -32,28 +34,23 @@ public class PixyMode extends Command {
   @Override
   protected void execute() {
     pkt = i2c.getPixy();
-    SmartDashboard.putNumber("x1", pkt.x1);
-    SmartDashboard.putNumber("y1", pkt.y1);
-    SmartDashboard.putNumber("area1", pkt.area1);
-    SmartDashboard.putNumber("x2", pkt.x2);
-    SmartDashboard.putNumber("y2", pkt.y2);
-    SmartDashboard.putNumber("area2", pkt.area2);
-    if (pkt.x1 != -1) {// if data is exist
+    SmartDashboard.putNumber("error", pkt.error);
+    if (pkt.error != -1) {// if data is exist
       SmartDashboard.putString("Turning", "yes");
-      double centerpixel = (pkt.x1 + pkt.x2) / 2;
-      center = centerpixel;
-      p = .0005;
-      error = center - (320 / 2);
-      responce = p * error;
-      if (responce > 1) {
-        responce = 1;
-      } else if (responce < -1) {
-        responce = -1;
+
+      error = pkt.error;
+      derivative = (error - errorPrior);
+      responce = p * error + (d * derivative);
+      if (responce < -.5) {
+        responce = -.5;
+      } else if (responce > .5) {
+        responce = .5;
       }
-      Robot.m_drivetrain.drive(-responce, responce);
+      Robot.m_drivetrain.drive(responce + Robot.m_oi.getLeftStick().getY(), -responce + Robot.m_oi.getLeftStick().getY());
       SmartDashboard.putNumber("error", error);
       SmartDashboard.putNumber("center", center);
       SmartDashboard.putNumber("responce", responce);
+      errorPrior = error;
 
     } else {
       Robot.m_drivetrain.drive(0, 0);

@@ -8,6 +8,6 @@
 package frc.robot;
 
 public class PixyPacket {
-	public double x1, x2, y1, y2, area1, area2;
+	public double error;
 
 }

@@ -19,17 +19,23 @@ public class RobotMap {
 
   // Motors
 
-  public static final int frontLeft = 1;
-  public static final int frontRight = 2;
-  public static final int rearLeft = 0;
-  public static final int rearRight = 3;
+  public static final int frontLeft = 1; 
+  public static final int frontRight = 2; 
+  public static final int rearLeft = 0; 
+  public static final int rearRight = 3; 
   public static final int cargoTop = 4;
   public static final int cargoBot = 5;
+  public static final int verticleClimb_1 = 6; 
+  public static final int verticleClimb_2 = 7;  
+  public static final int horizontalClimb_1 = 8; 
+  public static final int horizontalClimb_2 = 9; 
+
 
   public static final int PBfrontLeft = 1;
   public static final int PBfrontRight = 2;
   public static final int PBrearLeft = 0;
-  public static final int PBrearRight = 3;
+  public static final int PBrearRight = 4;
+  
   // Solenoids
   public static final int Hatch = 1;
   public static final int FourBar = 2;

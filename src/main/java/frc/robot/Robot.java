@@ -14,12 +14,12 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.auto_groups.Center;
 import frc.robot.commands.TankDrive;
+// import frc.robot.subsystems.Cargo_Subsystem;
 import frc.robot.subsystems.DriveTrain;
-import frc.robot.subsystems.Hatch_Subsystem;
-import frc.robot.subsystems.Cargo_Subsystem;
 import frc.robot.subsystems.FourBar_Subsystem;
+import frc.robot.subsystems.Hatch_Subsystem;
+import frc.robot.subsystems.Climber_Subsystem;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -33,8 +33,9 @@ public class Robot extends TimedRobot {
   // BotInit.botInit();
   public static DriveTrain m_drivetrain = new DriveTrain();
   public static Hatch_Subsystem m_hatchsnatch = new Hatch_Subsystem();
-  public static Cargo_Subsystem m_cargo = new Cargo_Subsystem();
+  // public static Cargo_Subsystem m_cargo = new Cargo_Subsystem();
   public static FourBar_Subsystem m_fourbar = new FourBar_Subsystem();
+  public static Climber_Subsystem m_Climber = new Climber_Subsystem();
   public static OI m_oi;
   private static boolean m_IsStingray;
   private static Boolean chosen;
@@ -59,7 +60,9 @@ public class Robot extends TimedRobot {
     // m_chooser.addObject("My Auto", new MyAutoCommand());
     SmartDashboard.putData("Auto mode", m_chooser);
     SmartDashboard.putData("Bot In Use:", m_BotChooser);
-
+    // NetworkTableEntry RealGyro = Shuffleboard.getTab("SmartDashboard").add("Real
+    // Gyro", Robot.m_drivetrain.getAngle())
+    // .withWidget("Gyro").getEntry();
     CameraServer.getInstance().startAutomaticCapture();
     // Make sure to uncomment when we get the camera on the comp. bot
   }
@@ -129,18 +132,6 @@ public class Robot extends TimedRobot {
      * 
      * m_autonomousCommand = new Turn(-90);
      */
-
-    String autoSelected = SmartDashboard.getString("Auto Selector", "Default");
-    switch (autoSelected) {
-    // case "Default Auto":
-    // default:
-    // m_autonomousCommand = new Test();
-    // break;
-    case "My Auto":
-      m_autonomousCommand = new Center();
-      break;
-
-    }
 
     // schedule the autonomous command (example)
     if (m_autonomousCommand != null) {

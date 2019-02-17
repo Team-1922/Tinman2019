@@ -7,10 +7,10 @@
 
 package frc.robot.subsystems;
 
-// import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
-// import frc.robot.RobotMap;
+import frc.robot.RobotMap;
 import frc.robot.commands.OperateCargo;
 
 /**
@@ -19,19 +19,19 @@ import frc.robot.commands.OperateCargo;
 public class Cargo_Subsystem extends Subsystem {
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
-  // private WPI_TalonSRX CargoTop;
-  // private WPI_TalonSRX CargoBot;
+  private WPI_TalonSRX CargoTop;
+  private WPI_TalonSRX CargoBot;
 
   public Cargo_Subsystem() {
     super();
-    // CargoTop = new WPI_TalonSRX(RobotMap.cargoTop);
-    // CargoBot = new WPI_TalonSRX(RobotMap.cargoBot);
+   CargoTop = new WPI_TalonSRX(RobotMap.cargoTop);
+   CargoBot = new WPI_TalonSRX(RobotMap.cargoBot);
   }
 
-  // public void run(double Speed) {
-  //   CargoTop.set(Speed);
-  //   CargoBot.set(-Speed);
-  // }
+  public void run(double Speed) {
+    CargoTop.set(Speed);
+    CargoBot.set(-Speed);
+  }
 
   @Override
   public void initDefaultCommand() {

@@ -10,11 +10,9 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
-import frc.robot.commands.DriveStraight;
+import frc.robot.commands.PixyMode;
+// import frc.robot.commands.DriveStraight;
 import frc.robot.commands.ResetEncoders;
-// import frc.robot.commands.PixyMode;
-// import frc.robot.commands.FourBarUp;
-import frc.robot.commands.FourBarDown;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -25,6 +23,7 @@ public class OI {
   private Joystick m_LeftStick;
   private Joystick m_RightStick;
   private XboxController m_operator;
+
   // Buttons
   // private Button buttonA;
   // private Button buttonB;
@@ -48,9 +47,9 @@ public class OI {
     resetButton = new JoystickButton(getRightStick(), 2);
 
     // Keybindings
-    // trigger.whileHeld(new PixyMode());
-    trigger.whileHeld(new DriveStraight());
-    
+    trigger.whileHeld(new PixyMode());
+    // trigger.whileHeld(new DriveStraight());
+
     // lbumper.whenPressed(new FourBarDown());
     resetButton.whenPressed(new ResetEncoders());
   }

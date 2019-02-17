@@ -14,6 +14,9 @@ import frc.robot.Robot;
  * Add your docs here.
  */
 public class FourBarCheck extends Command {
+    private boolean fourbardown = false;
+    private int time = 0;
+    private int delayTime = 1000;
 
     public FourBarCheck() {
         requires(Robot.m_fourbar);
@@ -21,9 +24,12 @@ public class FourBarCheck extends Command {
 
     @Override
     protected void execute() {
-        if (Robot.m_oi.returnLBumper().get() == true && FourBarDown.getIsActive() == false) {
+        if (Robot.m_oi.getLBumper() && time > delayTime) {
+            fourbardown = !fourbardown;
+            delayTime = time + 1000;
         }
-
+        time = time + 20;
+        Robot.m_fourbar.toggleFourBar(fourbardown);
     }
 
     @Override

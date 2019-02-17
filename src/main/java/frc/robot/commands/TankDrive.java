@@ -8,7 +8,6 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
 
 /**
@@ -28,6 +27,7 @@ public class TankDrive extends Command {
 
   @Override
   protected void initialize() {
+    
   }
 
   // Called repeatedly when this Command is scheduled to run
@@ -37,7 +37,8 @@ public class TankDrive extends Command {
 
     Robot.m_drivetrain.drive(Robot.m_oi.getLeftStick().getY(), Robot.m_oi.getRightStick().getY());
 
-    SmartDashboard.putNumber("Gyro", Robot.m_drivetrain.getAngle());
+    // SmartDashboard.putNumber("Gyro", Robot.m_drivetrain.getAngle());
+    
 
     // SmartDashboard.putNumber("PixyDataX0", pkt.x0);
     // SmartDashboard.putNumber("PixyDataY0", pkt.y0);

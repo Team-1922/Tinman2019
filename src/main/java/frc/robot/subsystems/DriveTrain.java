@@ -13,11 +13,9 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.kauailabs.navx.frc.AHRS;
 
 import edu.wpi.first.wpilibj.SPI;
-// import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
-// import frc.robot.RobotMap;
 import frc.robot.RobotSettingsFactory;
 import frc.robot.commands.TankDrive;
 
@@ -68,6 +66,7 @@ public class DriveTrain extends Subsystem {
   }
 
   public double getAngle() {
+    
     return ahrs.getAngle();
   }
 
@@ -89,6 +88,7 @@ public class DriveTrain extends Subsystem {
 
     SmartDashboard.putNumber("EncoderLeft", Robot.m_drivetrain.getPosLeft());
     SmartDashboard.putNumber("EncoderRight", Robot.m_drivetrain.getPosRight());
+    
 
   }
 

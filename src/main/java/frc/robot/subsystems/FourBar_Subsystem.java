@@ -10,23 +10,24 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.RobotMap;
-import frc.robot.commands.FourBarDown;
+import frc.robot.commands.FourBarCheck;
 
 /**
  * An example subsystem. You can replace me with your own Subsystem.
  */
+
 public class FourBar_Subsystem extends Subsystem {
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
   private Solenoid FourBar;
-  
+
   public FourBar_Subsystem() {
     super();
     FourBar = new Solenoid(RobotMap.FourBar);
-    
+
   }
 
-  public void FourBarDown () {
+  public void FourBarDown() {
     FourBar.set(true);
   }
 
@@ -34,9 +35,13 @@ public class FourBar_Subsystem extends Subsystem {
     FourBar.set(false);
   }
 
+  public void toggleFourBar(boolean pos) {
+    FourBar.set(pos);
+  }
+
   @Override
   public void initDefaultCommand() {
-    // setDefaultCommand(new FourBarDown());
+    setDefaultCommand(new FourBarCheck());
   }
 
 }

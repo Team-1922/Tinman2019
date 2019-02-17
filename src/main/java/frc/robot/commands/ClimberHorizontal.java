@@ -8,11 +8,11 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
-// import frc.robot.Robot;
+import frc.robot.Robot;
 
-public class OperateCargo extends Command {
-  public OperateCargo() {
-    //requires(Robot.m_cargo);
+public class ClimberHorizontal extends Command {
+  public ClimberHorizontal() {
+    requires(Robot.m_Climber);
   }
 
   // Called just before this Command runs the first time
@@ -23,7 +23,7 @@ public class OperateCargo extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-   // Robot.m_cargo.run(Robot.m_oi.getOperator().getRawAxis(1)*.75);
+    Robot.m_Climber.verticleClimb(Robot.m_oi.getOperator().getRawAxis(4));
   }
 
   // Make this return true when this Command no longer needs to run execute()

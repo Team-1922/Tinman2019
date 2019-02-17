@@ -10,55 +10,36 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
-/**
- * Add your docs here.
- */
-public class FourBarDown extends Command {
-    private boolean isDone = false;
-    private boolean firstpress = true;
-    private static boolean isActive = false;
-
-    public FourBarDown() {
-        requires(Robot.m_fourbar);
+public class ClimberVertical extends Command {
+    public ClimberVertical() {
+        requires(Robot.m_Climber);
     }
 
+    // Called just before this Command runs the first time
     @Override
     protected void initialize() {
-        isActive = true;
-        firstpress = true;
     }
 
+    // Called repeatedly when this Command is scheduled to run
     @Override
     protected void execute() {
-
-        if (Robot.m_oi.returnLBumper().get() == false || firstpress == false) {
-            firstpress = false;
-
-            if (Robot.m_oi.returnLBumper().get() && firstpress == false) {
-                isActive = false;
-                isDone = true;
-            }
-        }
+        Robot.m_Climber.verticleClimb(Robot.m_oi.getOperator().getRawAxis(5));
     }
 
+    // Make this return true when this Command no longer needs to run execute()
     @Override
     protected boolean isFinished() {
-        return isDone;
+        return false;
     }
 
+    // Called once after isFinished returns true
     @Override
     protected void end() {
-        isActive = false;
-        Robot.m_fourbar.FourBarUp();
-
     }
 
+    // Called when another command which requires one or more of the same
+    // subsystems is scheduled to run
     @Override
     protected void interrupted() {
-        end();
-    }
-
-    public static boolean getIsActive() {
-        return isActive;
     }
 }
