@@ -13,9 +13,9 @@ import frc.robot.Robot;
 /**
  * Class for moving the Climber mechanism vertical
  */
-public class ClimberVertical extends Command {
+public class OperateClimber extends Command {
 
-    public ClimberVertical() {
+    public OperateClimber() {
         requires(Robot.m_climber);
     }
 

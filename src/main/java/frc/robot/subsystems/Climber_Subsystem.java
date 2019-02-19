@@ -15,7 +15,7 @@ import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.Robot;
 import frc.robot.RobotMap;
-import frc.robot.commands.ClimberVertical;
+import frc.robot.commands.OperateClimber;
 
 /**
  * It's the thing that makes the robot go vroom
@@ -59,7 +59,7 @@ public class Climber_Subsystem extends Subsystem {
     @Override
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
-        setDefaultCommand(new ClimberVertical());
+        setDefaultCommand(new OperateClimber());
 
     }
 
