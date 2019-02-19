@@ -42,7 +42,6 @@ public class DriveTrain extends Subsystem {
   public DriveTrain() {
     super();
 
-
     frontLeft.setSelectedSensorPosition(0, 0, 10);
     frontRight.setSelectedSensorPosition(0, 0, 10);
     frontLeft.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 10);
@@ -66,7 +65,7 @@ public class DriveTrain extends Subsystem {
   }
 
   public double getAngle() {
-    
+
     return ahrs.getAngle();
   }
 
@@ -88,7 +87,6 @@ public class DriveTrain extends Subsystem {
 
     SmartDashboard.putNumber("EncoderLeft", Robot.m_drivetrain.getPosLeft());
     SmartDashboard.putNumber("EncoderRight", Robot.m_drivetrain.getPosRight());
-    
 
   }
 

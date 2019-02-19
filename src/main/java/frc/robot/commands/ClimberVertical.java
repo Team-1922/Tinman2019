@@ -11,10 +11,10 @@ import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
 /**
- * Class for moving the Climber mechanism Verticle
+ * Class for moving the Climber mechanism vertical
  */
 public class ClimberVertical extends Command {
-  
+
     public ClimberVertical() {
         requires(Robot.m_climber);
     }
@@ -27,7 +27,7 @@ public class ClimberVertical extends Command {
     // Called repeatedly when this Command is scheduled to run
     @Override
     protected void execute() {
-        Robot.m_climber.verticleClimb(Robot.m_oi.getOperator().getRawAxis(5));
+        Robot.m_climber.verticalClimb(Robot.m_oi.getOperator().getRawAxis(5));
         Robot.m_climber.horizontalClimb(Robot.m_oi.getOperator().getRawAxis(0));
 
     }

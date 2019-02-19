@@ -23,8 +23,8 @@ public class RobotMap {
   public static final int frontRight = 2; 
   public static final int rearLeft = 0; 
   public static final int rearRight = 3; 
-  public static final int verticleClimb_1 = 4; 
-  public static final int verticleClimb_2 = 5;  
+  public static final int verticalClimb_1 = 4; 
+  public static final int verticalClimb_2 = 5;  
   public static final int horizontalClimb_1 = 6; 
   public static final int horizontalClimb_2 = 7; 
   public static final int cargoTop = 8;

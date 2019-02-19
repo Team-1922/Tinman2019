@@ -24,8 +24,8 @@ public class Climber_Subsystem extends Subsystem {
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
 
-    private WPI_TalonSRX verticle1 = new WPI_TalonSRX(RobotMap.verticleClimb_1);
-    private WPI_TalonSRX verticle2 = new WPI_TalonSRX(RobotMap.verticleClimb_2);
+    private WPI_TalonSRX vertical1 = new WPI_TalonSRX(RobotMap.verticalClimb_1);
+    private WPI_TalonSRX vertical2 = new WPI_TalonSRX(RobotMap.verticalClimb_2);
     private WPI_TalonSRX horizontal1 = new WPI_TalonSRX(RobotMap.horizontalClimb_1);
     private WPI_TalonSRX horizontal2 = new WPI_TalonSRX(RobotMap.horizontalClimb_2);
     private DigitalInput upperLimit = new DigitalInput(RobotMap.UpperLimit);
@@ -33,16 +33,17 @@ public class Climber_Subsystem extends Subsystem {
     private AHRS ahrs = new AHRS(SPI.Port.kMXP);
     private double p = 0.01;
     private double error, responce = 0;
+
     public Climber_Subsystem() {
         super();
 
     }
 
-    public void verticleClimb(double y_axis) {
+    public void verticalClimb(double y_axis) {
         error = Robot.m_climber.getRoll();
         responce = (error * p);
-        verticle1.set(y_axis + responce);
-        verticle2.set(y_axis - responce);
+        vertical1.set(y_axis + responce);
+        vertical2.set(y_axis - responce);
     }
 
     public void horizontalClimb(double x_axis) {
@@ -50,7 +51,8 @@ public class Climber_Subsystem extends Subsystem {
         horizontal2.set(x_axis);
 
     }
-    public double getRoll(){
+
+    public double getRoll() {
         return ahrs.getRoll();
     }
 
