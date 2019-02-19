@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
 /**
- * Add your docs here.
+ * Runs the 4Bar Subsystem
  */
 public class FourBarCheck extends Command {
     private boolean fourbardown = false;

@@ -10,6 +10,9 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
+/**
+ * Class for moving the Climber mechanism horizontal
+ */
 public class ClimberHorizontal extends Command {
   public ClimberHorizontal() {
     requires(Robot.m_Climber);
@@ -23,7 +26,7 @@ public class ClimberHorizontal extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Robot.m_Climber.verticleClimb(Robot.m_oi.getOperator().getRawAxis(4));
+    Robot.m_Climber.verticleClimb(Robot.m_oi.getOperator().getRawAxis(0));
   }
 
   // Make this return true when this Command no longer needs to run execute()

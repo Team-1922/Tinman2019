@@ -17,7 +17,7 @@ public class PixyMode extends Command {
   M_I2C2 i2c = new M_I2C2();// setup the i2c interface
   PixyPacket pkt = i2c.getPixy();// create a pixy packet to hold data
   private double center, error, responce, derivative, errorPrior;
-  private double p = .0033;
+  private double p = .004;
   private double d = 0;
 
   public PixyMode() {
@@ -46,7 +46,8 @@ public class PixyMode extends Command {
       } else if (responce > .5) {
         responce = .5;
       }
-      Robot.m_drivetrain.drive(responce + Robot.m_oi.getLeftStick().getY(), -responce + Robot.m_oi.getLeftStick().getY());
+      Robot.m_drivetrain.drive(responce + Robot.m_oi.getLeftStick().getY(),
+          -responce + Robot.m_oi.getLeftStick().getY());
       SmartDashboard.putNumber("error", error);
       SmartDashboard.putNumber("center", center);
       SmartDashboard.putNumber("responce", responce);

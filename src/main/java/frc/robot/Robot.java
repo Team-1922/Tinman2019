@@ -63,7 +63,9 @@ public class Robot extends TimedRobot {
     // NetworkTableEntry RealGyro = Shuffleboard.getTab("SmartDashboard").add("Real
     // Gyro", Robot.m_drivetrain.getAngle())
     // .withWidget("Gyro").getEntry();
+
     CameraServer.getInstance().startAutomaticCapture();
+
     // Make sure to uncomment when we get the camera on the comp. bot
   }
 

@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import frc.robot.commands.PixyMode;
-// import frc.robot.commands.DriveStraight;
+import frc.robot.commands.DriveStraight;
 import frc.robot.commands.ResetEncoders;
 
 /**

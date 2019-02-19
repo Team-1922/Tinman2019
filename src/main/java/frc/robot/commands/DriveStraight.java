@@ -12,6 +12,9 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
 
+/**
+ * Makes the robot drive perfectly straight without directional influence
+ */
 public class DriveStraight extends Command {
   double error = 0;
   double errorPrior = 0;

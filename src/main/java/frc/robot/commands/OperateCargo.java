@@ -12,7 +12,7 @@ import edu.wpi.first.wpilibj.command.Command;
 
 public class OperateCargo extends Command {
   public OperateCargo() {
-    //requires(Robot.m_cargo);
+    // requires(Robot.m_cargo);
   }
 
   // Called just before this Command runs the first time
@@ -23,7 +23,7 @@ public class OperateCargo extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-   // Robot.m_cargo.run(Robot.m_oi.getOperator().getRawAxis(1)*.75);
+    // Robot.m_cargo.run(Robot.m_oi.getOperator().getRawAxis(1)*.75);
   }
 
   // Make this return true when this Command no longer needs to run execute()

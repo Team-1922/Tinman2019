@@ -23,12 +23,12 @@ public class RobotMap {
   public static final int frontRight = 2; 
   public static final int rearLeft = 0; 
   public static final int rearRight = 3; 
-  public static final int cargoTop = 4;
-  public static final int cargoBot = 5;
-  public static final int verticleClimb_1 = 6; 
-  public static final int verticleClimb_2 = 7;  
-  public static final int horizontalClimb_1 = 8; 
-  public static final int horizontalClimb_2 = 9; 
+  public static final int verticleClimb_1 = 4; 
+  public static final int verticleClimb_2 = 5;  
+  public static final int horizontalClimb_1 = 6; 
+  public static final int horizontalClimb_2 = 7; 
+  public static final int cargoTop = 8;
+  public static final int cargoBot = 9;
 
 
   public static final int PBfrontLeft = 1;
@@ -39,6 +39,12 @@ public class RobotMap {
   // Solenoids
   public static final int Hatch = 1;
   public static final int FourBar = 2;
+
+  //Sensors
+  public static final int UpperLimit = 0;
+  public static final int LowerLimit = 1; 
+  public static final int LeftLimit = 2;
+  public static final int RightLimit = 3; 
 
   // If you are using multiple modules, make sure to define both the port
   // number and the module. For example you with a rangefinder:

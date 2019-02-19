@@ -9,9 +9,10 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
-
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.RobotMap;
+import frc.robot.commands.ClimberVertical;
 
 /**
  * It's the thing that makes the robot go vroom
@@ -24,6 +25,8 @@ public class Climber_Subsystem extends Subsystem {
     private WPI_TalonSRX verticleSlave = new WPI_TalonSRX(RobotMap.verticleClimb_2);
     private WPI_TalonSRX horizontalMaster = new WPI_TalonSRX(RobotMap.horizontalClimb_1);
     private WPI_TalonSRX horizontalSlave = new WPI_TalonSRX(RobotMap.horizontalClimb_2);
+    private DigitalInput upperLimit = new DigitalInput(RobotMap.UpperLimit);
+    private DigitalInput lowerLimit = new DigitalInput(RobotMap.LowerLimit);
 
     public Climber_Subsystem() {
         super();
@@ -42,7 +45,7 @@ public class Climber_Subsystem extends Subsystem {
     @Override
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
-        // setDefaultCommand(new MySpecialCommand());
+        setDefaultCommand(new ClimberVertical());
 
     }
 
