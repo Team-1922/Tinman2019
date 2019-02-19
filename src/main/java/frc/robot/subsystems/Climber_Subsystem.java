@@ -7,10 +7,13 @@
 
 package frc.robot.subsystems;
 
-import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+import com.kauailabs.navx.frc.AHRS;
+
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import frc.robot.Robot;
 import frc.robot.RobotMap;
 import frc.robot.commands.ClimberVertical;
 
@@ -21,25 +24,34 @@ public class Climber_Subsystem extends Subsystem {
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
 
-    private WPI_TalonSRX verticleMaster = new WPI_TalonSRX(RobotMap.verticleClimb_1);
-    private WPI_TalonSRX verticleSlave = new WPI_TalonSRX(RobotMap.verticleClimb_2);
-    private WPI_TalonSRX horizontalMaster = new WPI_TalonSRX(RobotMap.horizontalClimb_1);
-    private WPI_TalonSRX horizontalSlave = new WPI_TalonSRX(RobotMap.horizontalClimb_2);
+    private WPI_TalonSRX verticle1 = new WPI_TalonSRX(RobotMap.verticleClimb_1);
+    private WPI_TalonSRX verticle2 = new WPI_TalonSRX(RobotMap.verticleClimb_2);
+    private WPI_TalonSRX horizontal1 = new WPI_TalonSRX(RobotMap.horizontalClimb_1);
+    private WPI_TalonSRX horizontal2 = new WPI_TalonSRX(RobotMap.horizontalClimb_2);
     private DigitalInput upperLimit = new DigitalInput(RobotMap.UpperLimit);
     private DigitalInput lowerLimit = new DigitalInput(RobotMap.LowerLimit);
-
+    private AHRS ahrs = new AHRS(SPI.Port.kMXP);
+    private double p = 0.01;
+    private double error, responce = 0;
     public Climber_Subsystem() {
         super();
-        verticleSlave.set(ControlMode.Follower, verticleMaster.getDeviceID());
-        horizontalSlave.set(ControlMode.Follower, horizontalMaster.getDeviceID());
+
     }
 
     public void verticleClimb(double y_axis) {
-        verticleMaster.set(y_axis);
+        error = Robot.m_climber.getRoll();
+        responce = (error * p);
+        verticle1.set(y_axis + responce);
+        verticle2.set(y_axis - responce);
     }
 
     public void horizontalClimb(double x_axis) {
-        horizontalMaster.set(x_axis);
+        horizontal1.set(x_axis);
+        horizontal2.set(x_axis);
+
+    }
+    public double getRoll(){
+        return ahrs.getRoll();
     }
 
     @Override

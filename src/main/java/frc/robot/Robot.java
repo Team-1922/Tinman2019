@@ -35,7 +35,7 @@ public class Robot extends TimedRobot {
   public static Hatch_Subsystem m_hatchsnatch = new Hatch_Subsystem();
   // public static Cargo_Subsystem m_cargo = new Cargo_Subsystem();
   public static FourBar_Subsystem m_fourbar = new FourBar_Subsystem();
-  public static Climber_Subsystem m_Climber = new Climber_Subsystem();
+  public static Climber_Subsystem m_climber = new Climber_Subsystem();
   public static OI m_oi;
   private static boolean m_IsStingray;
   private static Boolean chosen;

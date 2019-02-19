@@ -14,8 +14,9 @@ import frc.robot.Robot;
  * Class for moving the Climber mechanism Verticle
  */
 public class ClimberVertical extends Command {
+  
     public ClimberVertical() {
-        requires(Robot.m_Climber);
+        requires(Robot.m_climber);
     }
 
     // Called just before this Command runs the first time
@@ -26,8 +27,8 @@ public class ClimberVertical extends Command {
     // Called repeatedly when this Command is scheduled to run
     @Override
     protected void execute() {
-        Robot.m_Climber.verticleClimb(Robot.m_oi.getOperator().getRawAxis(5));
-        Robot.m_Climber.horizontalClimb(Robot.m_oi.getOperator().getRawAxis(0));
+        Robot.m_climber.verticleClimb(Robot.m_oi.getOperator().getRawAxis(5));
+        Robot.m_climber.horizontalClimb(Robot.m_oi.getOperator().getRawAxis(0));
 
     }
 
