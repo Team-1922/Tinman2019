@@ -14,6 +14,7 @@ import frc.robot.Robot;
  * Class for moving the Climber mechanism vertical
  */
 public class OperateClimber extends Command {
+    private static boolean isrunning = true;
 
     public OperateClimber() {
         requires(Robot.m_climber);
@@ -22,11 +23,13 @@ public class OperateClimber extends Command {
     // Called just before this Command runs the first time
     @Override
     protected void initialize() {
+        isrunning = true;
     }
 
     // Called repeatedly when this Command is scheduled to run
     @Override
     protected void execute() {
+
         Robot.m_climber.verticalClimb(Robot.m_oi.getOperator().getRawAxis(5));
         Robot.m_climber.horizontalClimb(Robot.m_oi.getOperator().getRawAxis(0));
 
@@ -35,7 +38,7 @@ public class OperateClimber extends Command {
     // Make this return true when this Command no longer needs to run execute()
     @Override
     protected boolean isFinished() {
-        return false;
+        return isrunning;
     }
 
     // Called once after isFinished returns true
@@ -47,5 +50,13 @@ public class OperateClimber extends Command {
     // subsystems is scheduled to run
     @Override
     protected void interrupted() {
+    }
+
+    public static void setisrunning(boolean set) {
+        isrunning = set;
+    }
+
+    public static boolean getisrunning() {
+        return isrunning;
     }
 }
