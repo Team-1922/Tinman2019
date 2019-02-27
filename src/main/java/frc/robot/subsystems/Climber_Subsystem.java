@@ -48,6 +48,7 @@ public class Climber_Subsystem extends Subsystem {
     }
 
     public void horizontalClimb(double x_axis) {
+        SmartDashboard.putNumber("horizontal", x_axis);
         horizontal1.set(x_axis);
         horizontal2.set(x_axis);
     }

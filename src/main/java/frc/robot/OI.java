@@ -52,12 +52,12 @@ public class OI {
     y = new JoystickButton(getOperator(), 4);
 
     // Keybindings
-    rtrigger.whileHeld(new PixyMode());
-    ltrigger.whileHeld(new DriveStraight());
+    //rtrigger.whileHeld(new PixyMode());
+    //ltrigger.whileHeld(new DriveStraight());
     y.whenPressed(new OperateClimber());
 
     // lbumper.whenPressed(new FourBarDown());
-    resetButton.whenPressed(new ResetEncoders());
+    //resetButton.whenPressed(new ResetEncoders());
   }
 
   // Getters & Setters
