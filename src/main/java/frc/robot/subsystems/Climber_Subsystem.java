@@ -14,7 +14,6 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.Robot;
 import frc.robot.RobotMap;
 
 /**
@@ -31,8 +30,9 @@ public class Climber_Subsystem extends Subsystem {
     private DigitalInput upperLimit = new DigitalInput(RobotMap.UpperLimit);
     private DigitalInput lowerLimit = new DigitalInput(RobotMap.LowerLimit);
     private AHRS ahrs = new AHRS(SPI.Port.kMXP);
-    private double p = 0.05;
-    private double error, responce = 0;
+    private double vp = 0.05;
+    private double hp = 0.05;
+    private double vError, vResponce, hError, hResponce = 0;
 
     public Climber_Subsystem() {
         super();
@@ -40,17 +40,21 @@ public class Climber_Subsystem extends Subsystem {
     }
 
     public void verticalClimb(double y_axis) {
-        error = Robot.m_climber.getPitch();
-        responce = (error * p);
-        vertical1.set(y_axis - responce);
-        vertical2.set(y_axis + responce);
-        SmartDashboard.putNumber("thing", responce);
+        // error = Robot.m_climber.getPitch();
+        vError = ahrs.getPitch();
+        vResponce = (vError * vp);
+        vertical1.set(-y_axis + vResponce);
+        vertical2.set(-y_axis - vResponce);
+        SmartDashboard.putNumber("vertical", y_axis);
+        SmartDashboard.putNumber("Vertical Responce", vResponce);
     }
 
     public void horizontalClimb(double x_axis) {
+        hError = ahrs.getAngle();
+        hResponce = (hError * hp);
         SmartDashboard.putNumber("horizontal", x_axis);
-        horizontal1.set(x_axis);
-        horizontal2.set(x_axis);
+        horizontal1.set(x_axis - hResponce);
+        horizontal2.set(x_axis + hResponce);
     }
 
     public double getPitch() {
@@ -79,7 +83,6 @@ public class Climber_Subsystem extends Subsystem {
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
         // setDefaultCommand(new OperateClimber());
-
     }
 
 }

@@ -10,10 +10,7 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
-import frc.robot.commands.PixyMode;
-import frc.robot.commands.DriveStraight;
 import frc.robot.commands.OperateClimber;
-import frc.robot.commands.ResetEncoders;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -24,7 +21,6 @@ public class OI {
   private Joystick m_LeftStick;
   private Joystick m_RightStick;
   private XboxController m_operator;
-
   // Buttons
   // private Button buttonA;
   // private Button buttonB;
@@ -52,12 +48,13 @@ public class OI {
     y = new JoystickButton(getOperator(), 4);
 
     // Keybindings
-    //rtrigger.whileHeld(new PixyMode());
-    //ltrigger.whileHeld(new DriveStraight());
-    y.whenPressed(new OperateClimber());
+    // rtrigger.whileHeld(new PixyMode());
+    // ltrigger.whileHeld(new DriveStraight());
+    // y.whenPressed(new OperateClimber());
+    y.toggleWhenPressed(new OperateClimber());
 
     // lbumper.whenPressed(new FourBarDown());
-    //resetButton.whenPressed(new ResetEncoders());
+    // resetButton.whenPressed(new ResetEncoders());
   }
 
   // Getters & Setters
@@ -84,6 +81,11 @@ public class OI {
   public Button returnLBumper() {
     return lbumper;
   }
+
+  public boolean getYButton() {
+    return y.get();
+  }
+
   //// CREATING BUTTONS
   // One type of button is a joystick button which is any button on a
   //// joystick.

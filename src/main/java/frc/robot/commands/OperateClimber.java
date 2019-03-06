@@ -8,13 +8,13 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
 
 /**
  * Class for moving the Climber mechanism vertical
  */
 public class OperateClimber extends Command {
-    private static boolean isrunning = true;
 
     public OperateClimber() {
         requires(Robot.m_climber);
@@ -23,7 +23,7 @@ public class OperateClimber extends Command {
     // Called just before this Command runs the first time
     @Override
     protected void initialize() {
-        isrunning = true;
+        SmartDashboard.putBoolean("Climber Mode:", true);
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -38,25 +38,21 @@ public class OperateClimber extends Command {
     // Make this return true when this Command no longer needs to run execute()
     @Override
     protected boolean isFinished() {
+        // return ClimberCheck.isClimbing();
         return false;
     }
 
     // Called once after isFinished returns true
     @Override
     protected void end() {
+        SmartDashboard.putBoolean("Climber Mode:", false);
     }
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     @Override
     protected void interrupted() {
+        end();
     }
 
-    public static void setisrunning(boolean set) {
-        isrunning = set;
-    }
-
-    public static boolean getisrunning() {
-        return isrunning;
-    }
 }
