@@ -11,6 +11,8 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import frc.robot.commands.OperateClimber;
+import frc.robot.commands.PixyMode;
+import frc.robot.commands.DriveStraight;
 import frc.robot.commands.ResetEncoders;
 
 /**
@@ -27,8 +29,8 @@ public class OI {
   // private Button buttonB;
   private Button lbumper;
   private Button rbumper;
-  // private Button ltrigger;
-  // private Button rtrigger;
+  private Button ltrigger;
+  private Button rtrigger;
   private Button resetButton;
   private Button y;
 
@@ -43,17 +45,16 @@ public class OI {
     // buttonB = new JoystickButton(getOperator(), 2);
     lbumper = new JoystickButton(getOperator(), 5);
     rbumper = new JoystickButton(getOperator(), 6);
-    // ltrigger = new JoystickButton(getLeftStick(), 1);
-    // rtrigger = new JoystickButton(getRightStick(), 1);
+    ltrigger = new JoystickButton(getLeftStick(), 1);
+    rtrigger = new JoystickButton(getRightStick(), 1);
     resetButton = new JoystickButton(getRightStick(), 2);
     y = new JoystickButton(getOperator(), 4);
 
     // Keybindings
-    // rtrigger.whileHeld(new PixyMode());
-    // ltrigger.whileHeld(new DriveStraight());
-    // y.whenPressed(new OperateClimber());
+
+    rtrigger.whileHeld(new PixyMode());
+    ltrigger.whileHeld(new DriveStraight());
     y.toggleWhenPressed(new OperateClimber());
-    
 
     // lbumper.whenPressed(new FourBarDown());
     resetButton.whenPressed(new ResetEncoders());
