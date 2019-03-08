@@ -94,4 +94,9 @@ public class DriveTrain extends Subsystem {
     oldRight = frontRight.getSensorCollection().getQuadraturePosition();
     oldLeft = -frontLeft.getSensorCollection().getQuadraturePosition();
   }
+
+  public boolean getLimitTest() {
+    return this.frontLeft /* placeholder */ .getSensorCollection().isFwdLimitSwitchClosed();
+
+  }
 }

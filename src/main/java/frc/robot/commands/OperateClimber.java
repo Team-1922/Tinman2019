@@ -15,6 +15,7 @@ import frc.robot.Robot;
  * Class for moving the Climber mechanism vertical
  */
 public class OperateClimber extends Command {
+    private static boolean isActive = false;
 
     public OperateClimber() {
         requires(Robot.m_climber);
@@ -23,6 +24,8 @@ public class OperateClimber extends Command {
     // Called just before this Command runs the first time
     @Override
     protected void initialize() {
+        Robot.m_climber.climberInit();
+        isActive = true;
         SmartDashboard.putBoolean("Climber Mode:", true);
     }
 
@@ -45,6 +48,7 @@ public class OperateClimber extends Command {
     // Called once after isFinished returns true
     @Override
     protected void end() {
+        isActive = false;
         SmartDashboard.putBoolean("Climber Mode:", false);
     }
 
@@ -53,6 +57,9 @@ public class OperateClimber extends Command {
     @Override
     protected void interrupted() {
         end();
+    }
+    public static boolean isClimberActive(){
+        return isActive;
     }
 
 }

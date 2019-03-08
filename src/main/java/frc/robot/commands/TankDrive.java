@@ -8,6 +8,7 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
 
 /**
@@ -46,7 +47,7 @@ public class TankDrive extends Command {
     // SmartDashboard.putNumber("Block 2", pkt.x2);
     // SmartDashboard.putNumber("Center", (pkt.x1 + pkt.x2)/2);
     // pkt = i2c.getPixy(); // refresh Pixy data
-
+    SmartDashboard.putBoolean("IsLimitClosed", Robot.m_drivetrain.getLimitTest());
   }
 
   // Make this return true when this Command no longer needs to run execute()

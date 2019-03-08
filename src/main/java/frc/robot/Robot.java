@@ -10,6 +10,7 @@ package frc.robot;
 import edu.wpi.first.cameraserver.CameraServer;
 
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -86,6 +87,7 @@ public class Robot extends TimedRobot {
     } else {
       m_IsStingray = true;
     }
+    
   }
 
   /**
@@ -100,6 +102,9 @@ public class Robot extends TimedRobot {
   @Override
   public void disabledPeriodic() {
     Scheduler.getInstance().run();
+    m_oi.getOperator().setRumble(RumbleType.kLeftRumble, Robot.m_oi.getOperator().getRawAxis(2));
+    m_oi.getOperator().setRumble(RumbleType.kRightRumble, Robot.m_oi.getOperator().getRawAxis(3));
+
   }
 
   // private static int initCounter = 0;
