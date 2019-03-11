@@ -10,13 +10,10 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.kauailabs.navx.frc.AHRS;
-
-import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.RobotMap;
-import frc.robot.commands.ControllerTest;
 
 /**
  * It's the thing that makes the robot go vroom
@@ -29,8 +26,6 @@ public class Climber_Subsystem extends Subsystem {
     private WPI_TalonSRX verticalL = new WPI_TalonSRX(RobotMap.verticalClimb_L);
     private WPI_TalonSRX horizontalR = new WPI_TalonSRX(RobotMap.horizontalClimb_R);
     private WPI_TalonSRX horizontalL = new WPI_TalonSRX(RobotMap.horizontalClimb_L);
-    private DigitalInput upperLimit = new DigitalInput(RobotMap.UpperLimit);
-    private DigitalInput lowerLimit = new DigitalInput(RobotMap.LowerLimit);
     private AHRS ahrs = new AHRS(SPI.Port.kMXP);
     private double vp = 0.05;
     private double hp = 0.8;
@@ -49,7 +44,6 @@ public class Climber_Subsystem extends Subsystem {
         verticalL.setSelectedSensorPosition(0, 0, 10);
         horizontalR.setSelectedSensorPosition(0, 0, 10);
         horizontalL.setSelectedSensorPosition(0, 0, 10);
-        // reeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
     }
 
     public void verticalClimb(double y_axis) {
@@ -57,10 +51,8 @@ public class Climber_Subsystem extends Subsystem {
         vError = ahrs.getPitch();
 
         vResponce = (vError * vp);
-        //verticalR.set(y_axis);
-        //verticalL.set(y_axis);
-        verticalR.set(-y_axis + vResponce);
-        verticalL.set(-y_axis - vResponce);
+        verticalR.set(-y_axis - vResponce);
+        verticalL.set(-y_axis + vResponce);
         SmartDashboard.putNumber("vertical", y_axis);
         SmartDashboard.putNumber("Vertical Responce", vResponce);
     }
@@ -71,11 +63,11 @@ public class Climber_Subsystem extends Subsystem {
         hResponce = (hError * hp);
         SmartDashboard.putNumber("Difference", hError);
         SmartDashboard.putNumber("horizontal", x_axis);
-        SmartDashboard.putNumber("Horizontal Response", hResponce/10000);
+        SmartDashboard.putNumber("Horizontal Response", hResponce / 10000);
         SmartDashboard.putNumber("Left Encoder", getLHorizontalPos());
         SmartDashboard.putNumber("Right Encoder)", getRHorizontalPos());
-        horizontalR.set(x_axis + hResponce/10000);
-        horizontalL.set(x_axis - hResponce/10000);
+        horizontalR.set(x_axis + hResponce / 10000);
+        horizontalL.set(x_axis - hResponce / 10000);
     }
 
     public double getPitch() {
@@ -83,12 +75,23 @@ public class Climber_Subsystem extends Subsystem {
         return ahrs.getPitch();
     }
 
-    public boolean getTopLimit() {
-        return upperLimit.get();
+    public boolean getVerticalRLimit() {
+        // return verticalLimitR.get();
+        return verticalR.getSensorCollection().isFwdLimitSwitchClosed();
     }
 
-    public boolean getBotLimit() {
-        return lowerLimit.get();
+    public boolean getVerticalLLimit() {
+        // return verticalLimitL.get();
+        return verticalL.getSensorCollection().isFwdLimitSwitchClosed();
+    }
+
+    public boolean getHorizontalRLimit() {
+        // return horizontalLimitR.get();
+        return horizontalR.getSensorCollection().isFwdLimitSwitchClosed();
+    }
+
+    public boolean getHorizontalLLimit() {
+        return horizontalL.getSensorCollection().isFwdLimitSwitchClosed();
     }
 
     public int getRVerticalPos() {
@@ -108,15 +111,31 @@ public class Climber_Subsystem extends Subsystem {
     }
 
     public void climberInit() {
-        oldRHorizontal = getRHorizontalPos();
+        // while (getHorizontalLLimit() != true) {
+        // horizontalL.set(.25);
+        // }
         oldLHorizontal = getLHorizontalPos();
+        // while (getHorizontalRLimit() != true) {
+        // horizontalR.set(.25);
+        // }
+        oldRHorizontal = getRHorizontalPos();
+        // while (getVerticalLLimit() != true){
+        // while (getVerticalLLimit() != true){
+        // verticalL.set(.25);
+        // }
+        oldLVertical = getLVerticalPos();
+        // while (getVerticalRLimit() != true){
+        // verticalR.set(.25);
+        // }
+        oldRVertical = getRVerticalPos();
+
     }
 
     @Override
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
         // setDefaultCommand(new OperateClimber());
-        //setDefaultCommand(new ControllerTest());
+        // setDefaultCommand(new ControllerTest());
 
     }
 
