@@ -41,8 +41,7 @@ public class OperateClimber extends Command {
     // Make this return true when this Command no longer needs to run execute()
     @Override
     protected boolean isFinished() {
-        // return ClimberCheck.isClimbing();
-        return false;
+        return !isActive;
     }
 
     // Called once after isFinished returns true

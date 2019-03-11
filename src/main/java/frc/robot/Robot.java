@@ -33,10 +33,10 @@ import frc.robot.subsystems.Hatch_Subsystem;
 public class Robot extends TimedRobot {
 
   // BotInit.botInit();
-  public static DriveTrain m_drivetrain = null;
-  public static Hatch_Subsystem m_hatchsnatch = null;
+  public static DriveTrain m_drivetrain = new DriveTrain();
+  public static Hatch_Subsystem m_hatchsnatch = new Hatch_Subsystem();
   // public static Cargo_Subsystem m_cargo = new Cargo_Subsystem();
-  public static FourBar_Subsystem m_fourbar = null;
+  public static FourBar_Subsystem m_fourbar = new FourBar_Subsystem();
   public static Climber_Subsystem m_climber = new Climber_Subsystem();
   public static OI m_oi;
   private static boolean m_IsStingray;
@@ -56,7 +56,7 @@ public class Robot extends TimedRobot {
 
     // m_chooser.addDefault("Default Auto", new TankDrive()); //(Depricated,
     // replaced with setDefaultOption)
-    //m_chooser.setDefaultOption("Default Auto", new TankDrive());
+    m_chooser.setDefaultOption("Default Auto", new TankDrive());
     m_BotChooser.setDefaultOption("Competition Bot", false);
     m_BotChooser.addOption("Stingray", true);
     // m_chooser.addObject("My Auto", new MyAutoCommand());
@@ -66,6 +66,7 @@ public class Robot extends TimedRobot {
     // Gyro", Robot.m_drivetrain.getAngle())
     // .withWidget("Gyro").getEntry();
 
+    CameraServer.getInstance().startAutomaticCapture();
 
     // Make sure to uncomment when we get the camera on the comp. bot
   }
