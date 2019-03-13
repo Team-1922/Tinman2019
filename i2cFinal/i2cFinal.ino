@@ -93,7 +93,7 @@ void loop() {
     }
     if(rSet && lSet)
     {
-        piOutput =  pixy.frameWidth / 2 - ((pixy.ccc.blocks[Rclosest].m_x) + (pixy.ccc.blocks[Lclosest].m_x) / 2);
+        piOutput =  (pixy.frameWidth / 2) - ((pixy.ccc.blocks[Rclosest].m_x + pixy.ccc.blocks[Lclosest].m_x) / 2);
     }
     else
     {
