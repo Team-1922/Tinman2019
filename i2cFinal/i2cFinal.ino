@@ -1,17 +1,16 @@
 #include <Pixy2.h>
+//Ignore the green line, it doesnt like how it can't see 100% of all the nested dependencies
 #include <Wire.h>
 #include <FastLED.h>
 
-#define LED_PIN     7
-#define NUM_LEDS    92
+#define LED_PIN 7
+#define NUM_LEDS 92
 
 Pixy2 pixy;
 CRGB leds[NUM_LEDS];
 
 //built in class from arduino, strongly suggest looking at it on their website
 //it is not a complicated class
-
-
 
 //this is provided by the pixy creators, you will have to go to the arduino sketch editor,
 //click sketch, include library, and import the pixy .zip files
@@ -22,9 +21,8 @@ CRGB leds[NUM_LEDS];
 //plug scl on RoboRIO into A5
 //connect the two grounds
 
-
-String piOutput = String(0);//string to be sent to the robot
-String input = "blank";  //string received from the robot
+String piOutput = String(0); //string to be sent to the robot
+String input = "blank";      //string received from the robot
 const String PIXY = "pi";
 int center;
 int error;
@@ -32,7 +30,8 @@ long time;
 long delayTime;
 int x0;
 int x1;
-void setup() {
+void setup()
+{
   Serial.begin(115200);
   Serial.println("setup");
   Wire.begin(4);                // join i2c bus with address #4 as a slave device
@@ -52,9 +51,10 @@ void setup() {
   }
 }
 
-void loop() {
+void loop()
+{
 
-  uint16_t blocks = pixy.ccc.getBlocks();//use this line to get every available object the pixy sees
+  uint16_t blocks = pixy.ccc.getBlocks(); //use this line to get every available object the pixy sees
   //^^^not sure what exactly this is for, honestly
   int Lclosest = 0;
   int Lclosestdiffs = 10000;
@@ -69,38 +69,43 @@ void loop() {
   {
     bool rSet = false;
     bool lSet = false;
-    for (int i = 0; i < pixy.ccc.numBlocks; i++) {
-      if (pixy.ccc.blocks[i].m_x > pixy.frameWidth / 2) {
+    for (int i = 0; i < pixy.ccc.numBlocks; i++)
+    {
+      if (pixy.ccc.blocks[i].m_x > pixy.frameWidth / 2)
+      {
         continue;
       }
       int diff = (pixy.frameWidth / 2) - pixy.ccc.blocks[i].m_x;
-      if (diff < Lclosestdiffs) {
+      if (diff < Lclosestdiffs)
+      {
         Lclosest = i;
         Lclosestdiffs = diff;
         lSet = true;
       }
     }
-    for (int i = 0; i < pixy.ccc.numBlocks; i++) {
-      if (pixy.ccc.blocks[i].m_x < pixy.frameWidth / 2) {
+    for (int i = 0; i < pixy.ccc.numBlocks; i++)
+    {
+      if (pixy.ccc.blocks[i].m_x < pixy.frameWidth / 2)
+      {
         continue;
       }
       int diff = (pixy.ccc.blocks[i].m_x - pixy.frameWidth / 2);
-      if (diff < Rclosestdiffs) {
+      if (diff < Rclosestdiffs)
+      {
         Rclosest = i;
         Rclosestdiffs = diff;
         rSet = true;
       }
     }
-    if(rSet && lSet)
+    if (rSet && lSet)
     {
-        piOutput =  (pixy.frameWidth / 2) - ((pixy.ccc.blocks[Rclosest].m_x + pixy.ccc.blocks[Lclosest].m_x) / 2);
+      piOutput = (pixy.frameWidth / 2) - ((pixy.ccc.blocks[Rclosest].m_x + pixy.ccc.blocks[Lclosest].m_x) / 2);
     }
     else
     {
       piOutput = String(-1);
     }
   }
-
 
   delay(70); //gives time for everything to process
   time = millis();
@@ -111,14 +116,14 @@ void loop() {
     Serial.println(blocks);
     delayTime = time + 50;
   }
-
 }
 
-void requestEvent() { //called when RoboRIO request a message from this device
+void requestEvent()
+{                               //called when RoboRIO request a message from this device
   Wire.write(piOutput.c_str()); //writes data to the RoboRIO, converts it to string
   Serial.println("request");
 }
 
-void receiveEvent(int bytes) { //called when RoboRIO "gives" this device a message
-
+void receiveEvent(int bytes)
+{ //called when RoboRIO "gives" this device a message
 }
