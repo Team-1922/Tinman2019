@@ -16,9 +16,9 @@ import frc.robot.subsystems.M_I2C2;;
 public class PixyMode extends Command {
   M_I2C2 i2c = new M_I2C2();// setup the i2c interface
   PixyPacket pkt = i2c.getPixy();// create a pixy packet to hold data
-  private double center, error, responce, derivative, errorPrior;
+  private double center, derivative, errorPrior;
   //private double p = .004;
-  private double p = .005;
+  private double p = .001;
   private double d = 0;
 
   public PixyMode() {
@@ -29,19 +29,21 @@ public class PixyMode extends Command {
 
   @Override
   protected void initialize() {
-
+    initAngle = Robot.m_drivetrain.getAngle();
   }
 
   @Override
   protected void execute() {
     pkt = i2c.getPixy();
-    SmartDashboard.putNumber("error", pkt.error);
+    SmartDashboard.putNumber("pkt error", pkt.error);
     if (pkt.error != -1) {// if data is exist
-      SmartDashboard.putString("Turning", "yes");
+      initAngle = 0.0;
 
-      error = pkt.error;
+      SmartDashboard.putBoolean("Turning", true);
+
+      double error = pkt.error;
       derivative = (error - errorPrior);
-      responce = p * error + (d * derivative);
+      double responce = p * error + (d * derivative);
       if (responce < -.5) {
         responce = -.5;
       } else if (responce > .5) {
@@ -49,18 +51,36 @@ public class PixyMode extends Command {
       }
       Robot.m_drivetrain.drive(responce + Robot.m_oi.getLeftStick().getY(),
           -responce + Robot.m_oi.getLeftStick().getY());
-      SmartDashboard.putNumber("error", error);
-      SmartDashboard.putNumber("center", center);
-      SmartDashboard.putNumber("responce", responce);
+      SmartDashboard.putNumber("pixy error", error);
+      SmartDashboard.putNumber("pixy center", center);
+      SmartDashboard.putNumber("pixy responce", responce);
       errorPrior = error;
 
     } else {
-      Robot.m_drivetrain.drive(0, 0);
+      if(initAngle == 0.0)
+      {
+        initAngle = Robot.m_drivetrain.getAngle();
+      }
+
+      double straightError = initAngle - Robot.m_drivetrain.getAngle();
+      SmartDashboard.putNumber("Right-Left", straightError);
+      straightDerivative = (straightError - straightErrorPrior) / .02;
+      double responce = straightP * straightError + (straightD * straightDerivative);
+      double RawY = Robot.m_oi.getLeftStick().getY();
+      Robot.m_drivetrain.drive(RawY - responce, RawY + responce);
+      straightErrorPrior = straightError;
       SmartDashboard.putNumber("center", 0);
-      SmartDashboard.putString("Turning", "no");
+      SmartDashboard.putBoolean("Turning", false);
 
     }
   }
+
+  private double initAngle;
+  private double straightP = 0.02;
+  private double straightD = 0.0001;
+  private double straightErrorPrior;
+  private double straightDerivative;
+
 
   @Override
   protected boolean isFinished() {

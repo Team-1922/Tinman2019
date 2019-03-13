@@ -25,13 +25,13 @@ public class M_I2C2 {
     
 
     PixyPacket pkt = new PixyPacket(); // creates a new packet to hold the data
-    if (info.equals("none") || info.equals("")) {// checks to make sure there is data
+    if (info.equals("-1") || info.equals("")) {// checks to make sure there is data
       pkt.error = -1;
-      SmartDashboard.putString("I2C Status", "No Data");
+      SmartDashboard.putBoolean("I2C Status", false);
     } else  {// if there is an x, y, and area value the length equals 3
       pkt.error = Double.parseDouble(info);// set error
       
-      SmartDashboard.putString("I2C Status", "Returning Data");
+      SmartDashboard.putBoolean("I2C Status", true);
     }
     return pkt;
 

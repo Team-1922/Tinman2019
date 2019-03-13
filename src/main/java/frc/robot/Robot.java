@@ -29,7 +29,7 @@ import frc.robot.subsystems.Hatch_Subsystem;
  */
 public class Robot extends TimedRobot {
 
-  // BotInit.botInit();
+  
   public static DriveTrain m_drivetrain = new DriveTrain();
   public static Hatch_Subsystem m_hatchsnatch = new Hatch_Subsystem();
   // public static Cargo_Subsystem m_cargo = new Cargo_Subsystem();
@@ -40,7 +40,7 @@ public class Robot extends TimedRobot {
   private static Boolean chosen;
 
   Command m_autonomousCommand;
-  SendableChooser<Command> m_chooser = new SendableChooser<>();
+  // SendableChooser<Command> m_chooser = new SendableChooser<>();
   SendableChooser<Boolean> m_BotChooser = new SendableChooser<>();
 
   /**
@@ -50,14 +50,11 @@ public class Robot extends TimedRobot {
   @Override
   public void robotInit() {
     m_oi = new OI();
-
-    // m_chooser.addDefault("Default Auto", new TankDrive()); //(Depricated,
-    // replaced with setDefaultOption)
-    m_chooser.setDefaultOption("Default Auto", new TankDrive());
+    // m_chooser.setDefaultOption("Default Auto", new TankDrive());
     m_BotChooser.setDefaultOption("Competition Bot", false);
     m_BotChooser.addOption("Stingray", true);
     // m_chooser.addObject("My Auto", new MyAutoCommand());
-    SmartDashboard.putData("Auto mode", m_chooser);
+    // SmartDashboard.putData("Auto mode", m_chooser);
     SmartDashboard.putData("Bot In Use:", m_BotChooser);
     // NetworkTableEntry RealGyro = Shuffleboard.getTab("SmartDashboard").add("Real
     // Gyro", Robot.m_drivetrain.getAngle())
@@ -123,7 +120,7 @@ public class Robot extends TimedRobot {
    */
   @Override
   public void autonomousInit() {
-    m_autonomousCommand = m_chooser.getSelected();
+    m_autonomousCommand = new TankDrive();
     /*
      * 
      * m_drivetrain.ResetGyro(); SmartDashboard.putNumber("init", initCounter);

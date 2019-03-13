@@ -41,7 +41,8 @@ void setup() {
   FastLED.addLeds<WS2812, LED_PIN, GRB>(leds, NUM_LEDS);
 
   pixy.init();
-
+  pixy.ccc.getBlocks();
+  pixy.getResolution();
 
   for (int i = 0; i < 92; i++)
   {
@@ -55,11 +56,10 @@ void loop() {
 
   uint16_t blocks = pixy.ccc.getBlocks();//use this line to get every available object the pixy sees
   //^^^not sure what exactly this is for, honestly
-  pixy.ccc.getBlocks();
   int Lclosest = 0;
-  int Lclosestdiffs = 1000;
+  int Lclosestdiffs = 10000;
   int Rclosest = 0;
-  int Rclosestdiffs = 1000;
+  int Rclosestdiffs = 10000;
 
   if (blocks < 2)
   {
@@ -67,6 +67,8 @@ void loop() {
   }
   else
   {
+    bool rSet = false;
+    bool lSet = false;
     for (int i = 0; i < pixy.ccc.numBlocks; i++) {
       if (pixy.ccc.blocks[i].m_x > pixy.frameWidth / 2) {
         continue;
@@ -75,6 +77,7 @@ void loop() {
       if (diff < Lclosestdiffs) {
         Lclosest = i;
         Lclosestdiffs = diff;
+        lSet = true;
       }
     }
     for (int i = 0; i < pixy.ccc.numBlocks; i++) {
@@ -85,10 +88,17 @@ void loop() {
       if (diff < Rclosestdiffs) {
         Rclosest = i;
         Rclosestdiffs = diff;
+        rSet = true;
       }
     }
-    center =  pixy.frameWidth / 2 - ((pixy.ccc.blocks[Rclosest].m_x) + (pixy.ccc.blocks[Lclosest].m_x) / 2);
-    piOutput = center;
+    if(rSet && lSet)
+    {
+        piOutput =  pixy.frameWidth / 2 - ((pixy.ccc.blocks[Rclosest].m_x) + (pixy.ccc.blocks[Lclosest].m_x) / 2);
+    }
+    else
+    {
+      piOutput = String(-1);
+    }
   }
 
 

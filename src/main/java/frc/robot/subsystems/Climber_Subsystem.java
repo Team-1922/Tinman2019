@@ -65,7 +65,7 @@ public class Climber_Subsystem extends Subsystem {
         SmartDashboard.putNumber("horizontal", x_axis);
         SmartDashboard.putNumber("Horizontal Response", hResponce / 10000);
         SmartDashboard.putNumber("Left Encoder", getLHorizontalPos());
-        SmartDashboard.putNumber("Right Encoder)", getRHorizontalPos());
+        SmartDashboard.putNumber("Right Encoder", getRHorizontalPos());
         horizontalR.set(x_axis + hResponce / 10000);
         horizontalL.set(x_axis - hResponce / 10000);
     }

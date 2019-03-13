@@ -34,7 +34,7 @@ public class OperateClimber extends Command {
     protected void execute() {
 
         Robot.m_climber.verticalClimb(Robot.m_oi.getOperator().getRawAxis(5));
-        Robot.m_climber.horizontalClimb(Robot.m_oi.getOperator().getRawAxis(0));
+        Robot.m_climber.horizontalClimb(Robot.m_oi.getOperator().getRawAxis(1));
 
     }
 
