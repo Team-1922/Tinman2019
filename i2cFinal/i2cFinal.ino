@@ -99,8 +99,17 @@ void loop()
     }
     if (rSet && lSet)
     {
-      int cast = (pixy.ccc.blocks[Rclosest].m_x + pixy.ccc.blocks[Lclosest].m_x) / 2;
-      piOutput = (int)(pixy.frameWidth / 2) - cast;
+      int xSum = pixy.ccc.blocks[Rclosest].m_x + pixy.ccc.blocks[Lclosest].m_x;
+      int targetCenter = xSum / 2;
+      int frameCenter = pixy.frameWidth / 2;
+      int error = frameCenter - targetCenter;
+      piOutput = error;
+      Serial.println("targetCenter: ");
+      Serial.print(targetCenter);
+      Serial.println("frameCenter: ");
+      Serial.print(frameCenter);
+      Serial.println("error: ");
+      Serial.print(error);
     }
     else
     {
