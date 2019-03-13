@@ -99,14 +99,13 @@ void loop()
     }
     if (rSet && lSet)
     {
-      piOutput = (pixy.frameWidth / 2) - ((pixy.ccc.blocks[Rclosest].m_x + pixy.ccc.blocks[Lclosest].m_x) / 2);
+      piOutput = String((pixy.frameWidth / 2) - ((pixy.ccc.blocks[Rclosest].m_x + pixy.ccc.blocks[Lclosest].m_x) / 2));
     }
     else
     {
       piOutput = String(-1);
     }
   }
-
   delay(70); //gives time for everything to process
   time = millis();
   if (time > delayTime)
@@ -120,7 +119,8 @@ void loop()
 
 void requestEvent()
 {                               //called when RoboRIO request a message from this device
-  Wire.write(piOutput.c_str()); //writes data to the RoboRIO, converts it to string
+  Wire.write(piOutput);
+  //Wire.write(piOutput.c_str()); //writes data to the RoboRIO, converts it to string
   Serial.println("request");
 }
 
