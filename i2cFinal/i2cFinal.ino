@@ -63,7 +63,7 @@ void loop()
 
   if (blocks < 2)
   {
-    piOutput = String(-1); //if no blocks tell roborio there are none
+    piOutput = String("none"); //if no blocks tell roborio there are none
   }
   else
   {
@@ -113,7 +113,7 @@ void loop()
     }
     else
     {
-      piOutput = String(-1);
+      piOutput = String("none");
     }
   }
   delay(70); //gives time for everything to process

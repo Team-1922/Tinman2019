@@ -36,7 +36,7 @@ public class PixyMode extends Command {
   protected void execute() {
     pkt = i2c.getPixy();
     SmartDashboard.putNumber("pkt error", pkt.error);
-    if (pkt.error != -1) {// if data is exist
+    if (pkt.error != Double.NaN) {// if data is exist
       initAngle = 0.0;
 
       SmartDashboard.putBoolean("Turning", true);
