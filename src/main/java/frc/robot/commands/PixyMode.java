@@ -18,7 +18,7 @@ public class PixyMode extends Command {
   PixyPacket pkt = i2c.getPixy();// create a pixy packet to hold data
   private double center, derivative, errorPrior;
   //private double p = .004;
-  private double p = .001;
+  private double p = .006;
   private double d = 0;
 
   public PixyMode() {
