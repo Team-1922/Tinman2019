@@ -8,14 +8,9 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.Robot;
 
-public class LowerBot_Command extends Command {
-  public LowerBot_Command() {
-    super();
-    requires(Robot.m_drivetrain);
-    setTimeout(0.5);
+public class DriveToEncoder extends Command {
+  public DriveToEncoder() {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
   }
@@ -28,19 +23,18 @@ public class LowerBot_Command extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
+    // Robot.m_climber
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return isTimedOut();
+    return false;
   }
 
   // Called once after isFinished returns true
   @Override
   protected void end() {
-    SmartDashboard.putBoolean("Is Lift?", false);
-    Robot.m_drivetrain.LowerRobot();
   }
 
   // Called when another command which requires one or more of the same

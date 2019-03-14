@@ -10,22 +10,16 @@ package frc.robot.commands;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
-public class ResetEncoders extends Command {
-  boolean isdone = false;
-
-  public ResetEncoders() {
-    // requires(Robot.m_drivetrain);
-    requires(Robot.m_climber);
+public class LimitSwitches extends Command {
+  public LimitSwitches() {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
+    requires(Robot.m_climber);
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    // Robot.m_drivetrain.resetEncoders();
-    Robot.m_climber.climberInit();
-    isdone = true;
   }
 
   // Called repeatedly when this Command is scheduled to run
@@ -36,7 +30,7 @@ public class ResetEncoders extends Command {
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return isdone;
+    return false;
   }
 
   // Called once after isFinished returns true

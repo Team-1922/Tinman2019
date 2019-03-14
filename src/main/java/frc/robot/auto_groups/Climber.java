@@ -9,11 +9,16 @@ package frc.robot.auto_groups;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
-public class Center extends CommandGroup {
+public class Climber extends CommandGroup {
   /**
    * Add your docs here.
    */
-  public Center() {
+  public Climber() {
+  
+  
+
+
+
     // Add Commands here:
     // e.g. addSequential(new Command1());
     // addSequential(new Command2());
@@ -30,5 +35,9 @@ public class Center extends CommandGroup {
     // e.g. if Command1 requires chassis, and Command2 requires arm,
     // a CommandGroup containing them would require both the chassis and the
     // arm.
+  }
+
+  @Override
+  protected void interrupted() {
   }
 }

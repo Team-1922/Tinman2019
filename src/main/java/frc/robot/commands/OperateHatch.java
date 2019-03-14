@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
 /**
- * An example command. You can replace me with your own command.
+ * Execute loop for running the Hatch subsystem
  */
 public class OperateHatch extends Command {
   public OperateHatch() {
@@ -27,7 +27,7 @@ public class OperateHatch extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    if (Robot.m_oi.getBumper()) {
+    if (Robot.m_oi.getRBumper()) {
       Robot.m_hatchsnatch.OpenHatch();
     } else {
       Robot.m_hatchsnatch.CloseHatch();

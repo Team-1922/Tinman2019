@@ -18,20 +18,24 @@ public class RobotMap {
   // following variables to use with your drivetrain subsystem.
 
   // Motors
-
   public static final int frontLeft = 1;
   public static final int frontRight = 2;
   public static final int rearLeft = 0;
   public static final int rearRight = 3;
+  public static final int verticalClimb_R = 4;
+  public static final int verticalClimb_L = 5;
+  public static final int horizontalClimb_R = 6;
+  public static final int horizontalClimb_L = 7;
 
   public static final int PBfrontLeft = 1;
-  public static final int PBfrontRight = 3;
-  public static final int PBrearLeft = 7;
-  public static final int PBrearRight = 8;
+  public static final int PBfrontRight = 2;
+  public static final int PBrearLeft = 0;
+  public static final int PBrearRight = 4;
+
   // Solenoids
   public static final int Hatch = 1;
-  public static final int LiftFront = 4;
-  public static final int LiftBack = 3;
+  public static final int FourBar = 2;
+
 
   // If you are using multiple modules, make sure to define both the port
   // number and the module. For example you with a rangefinder:

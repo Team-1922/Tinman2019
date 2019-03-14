@@ -26,18 +26,19 @@ public class M_I2CLine {
     PixyLinePacket pkt = new PixyLinePacket(); // creates a new packet to hold the data
     if (info[0].equals("none") || info[0].equals("")) {// checks to make sure there is data
       pkt.x0 = -1;// the x val will never be -1 so we can text later in code to make sure there is
-                 // data
+                  // data
       pkt.y0 = -1;
       pkt.x1 = -1;
       pkt.y1 = -1;
       pkt.linelength = -1;
     } else if (info.length == 4) {// if there is an x, y, and area value the length equals 3
       pkt.x0 = Double.parseDouble(info[0]);// set x0
-      
+
       pkt.y0 = Double.parseDouble(info[1]);// set y0
       pkt.x1 = Double.parseDouble(info[2]);// set x1
       pkt.y1 = Double.parseDouble(info[3]);// set y1
-      pkt.linelength = Math.sqrt(((pkt.x1-pkt.x0)*(pkt.x1-pkt.x0))+((pkt.y1-pkt.y0)*(pkt.y1-pkt.y0)));// set length
+      pkt.linelength = Math.sqrt(((pkt.x1 - pkt.x0) * (pkt.x1 - pkt.x0)) + ((pkt.y1 - pkt.y0) * (pkt.y1 - pkt.y0)));// set
+                                                                                                                    // length
     }
 
     return pkt;

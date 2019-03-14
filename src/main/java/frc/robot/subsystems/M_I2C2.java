@@ -1,13 +1,14 @@
-/*package frc.robot.subsystems;
+package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.I2C.Port;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.PixyPacket;
 
-public class M_I2C {
+public class M_I2C2 {
   private static I2C Wire = new I2C(Port.kOnboard, 4);// uses the i2c port on the RoboRIO
                                                       // uses address 4, must match arduino
-  private static final int MAX_BYTES = 32;
+  private static final int MAX_BYTES = 88;
 
   public void write(String input) {// writes to the arduino
     char[] CharArray = input.toCharArray();// creates a char array from the input string
@@ -20,21 +21,18 @@ public class M_I2C {
   }
 
   public PixyPacket getPixy() {// reads the data from arduino and saves it
-    String info[] = read().split("\\|");// everytime a "|" is used it splits the data, and adds it as a new element in
-                                        // the array
+    String info = read();
+    
 
     PixyPacket pkt = new PixyPacket(); // creates a new packet to hold the data
-    if (info[0].equals("none") || info[0].equals("")) {// checks to make sure there is data
-      pkt.x = -1;// the x val will never be -1 so we can text later in code to make sure there is
-                 // data
-      pkt.y = -1;
-      pkt.area = -1;
-    } else if (info.length == 3) {// if there is an x, y, and area value the length equals 3
-      pkt.x = Double.parseDouble(info[0]);// set x
-      pkt.y = Double.parseDouble(info[1]);// set y
-      pkt.area = Double.parseDouble(info[2]);// set area
+    if (info.equals("none") || info.equals("")) {// checks to make sure there is data
+      pkt.error = Double.NaN;
+      SmartDashboard.putBoolean("I2C Status", false);
+    } else  {// if there is an x, y, and area value the length equals 3
+      pkt.error = Double.parseDouble(info);// set error
+      
+      SmartDashboard.putBoolean("I2C Status", true);
     }
-
     return pkt;
 
   }
@@ -49,4 +47,3 @@ public class M_I2C {
   }
 
 }
-*/

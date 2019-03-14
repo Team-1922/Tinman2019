@@ -10,33 +10,38 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import frc.robot.RobotMap;
-import frc.robot.commands.OperateHatch;
+import frc.robot.commands.FourBarCheck;
 
 /**
  * An example subsystem. You can replace me with your own Subsystem.
  */
-public class Hatch_Subsystem extends Subsystem {
+
+public class FourBar_Subsystem extends Subsystem {
   // Put methods for controlling this subsystem
   // here. Call these from Commands.
-  private Solenoid Hatch;
-  
-  public Hatch_Subsystem() {
+  private Solenoid FourBar;
+
+  public FourBar_Subsystem() {
     super();
-    Hatch = new Solenoid(RobotMap.Hatch);
-    
+    FourBar = new Solenoid(RobotMap.FourBar);
+
   }
 
-  public void OpenHatch() {
-    Hatch.set(true);
+  public void FourBarDown() {
+    FourBar.set(true);
   }
 
-  public void CloseHatch() {
-    Hatch.set(false);
+  public void FourBarUp() {
+    FourBar.set(false);
+  }
+
+  public void toggleFourBar(boolean pos) {
+    FourBar.set(pos);
   }
 
   @Override
   public void initDefaultCommand() {
-    setDefaultCommand(new OperateHatch());
+    setDefaultCommand(new FourBarCheck());
   }
 
 }

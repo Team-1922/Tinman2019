@@ -7,47 +7,44 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
 
-public class LiftBot_Command extends Command {
-  public LiftBot_Command() {
-    super();
-    requires(Robot.m_drivetrain);
-    setTimeout(0.5);
+public class ControllerTest extends Command {
+  public ControllerTest() {
     // Use requires() here to declare subsystem dependencies
     // eg. requires(chassis);
+    requires(Robot.m_climber);
   }
 
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
+    Robot.m_oi.getOperator().setRumble(RumbleType.kLeftRumble, (Robot.m_oi.getOperator().getRawAxis(5) + Robot.m_oi.getOperator().getRawAxis(0)/2));
+    Robot.m_oi.getOperator().setRumble(RumbleType.kRightRumble, (Robot.m_oi.getOperator().getRawAxis(5) + Robot.m_oi.getOperator().getRawAxis(0)/2));
+    
   }
 
   // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
-    return isTimedOut();
+    return OperateClimber.isClimberActive();
   }
 
   // Called once after isFinished returns true
   @Override
   protected void end() {
-    SmartDashboard.putBoolean("Is Lift?", true);
-    Robot.m_drivetrain.LiftRobot();
   }
 
   // Called when another command which requires one or more of the same
   // subsystems is scheduled to run
   @Override
   protected void interrupted() {
-    end();
   }
 }

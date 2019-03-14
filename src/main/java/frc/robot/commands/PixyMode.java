@@ -5,17 +5,21 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-/*package frc.robot.commands;
+package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.PixyPacket;
 import frc.robot.Robot;
-import frc.robot.subsystems.M_I2C;
+import frc.robot.subsystems.M_I2C2;;
 
 public class PixyMode extends Command {
-  M_I2C i2c = new M_I2C();// setup the i2c interface
+  M_I2C2 i2c = new M_I2C2();// setup the i2c interface
   PixyPacket pkt = i2c.getPixy();// create a pixy packet to hold data
+  private double center, derivative, errorPrior;
+  //private double p = .004;
+  private double p = .006;
+  private double d = 0;
 
   public PixyMode() {
     super();
@@ -25,32 +29,61 @@ public class PixyMode extends Command {
 
   @Override
   protected void initialize() {
-
-    pkt = i2c.getPixy();
+    initAngle = Robot.m_drivetrain.getAngle();
   }
 
   @Override
   protected void execute() {
     pkt = i2c.getPixy();
-    SmartDashboard.putNumber("x", pkt.x);
-    SmartDashboard.putNumber("y", pkt.y);
-    SmartDashboard.putNumber("area", pkt.area);
-    if (pkt.x != -1) {// if data is exist
+    SmartDashboard.putNumber("pkt error", pkt.error);
+    if (pkt.error != Double.NaN) {// if data is exist
+      initAngle = 0.0;
 
-      pkt = i2c.getPixy();
-      double p = 1;
-      double error = 0.5 - pkt.x;
-      double responce = p * error;
-      Robot.m_drivetrain.drive(responce, -responce);
+      SmartDashboard.putBoolean("Turning", true);
+
+      double error = pkt.error;
+      derivative = (error - errorPrior);
+      double responce = p * error + (d * derivative);
+      if (responce < -.5) {
+        responce = -.5;
+      } else if (responce > .5) {
+        responce = .5;
+      }
+      Robot.m_drivetrain.drive(responce + Robot.m_oi.getLeftStick().getY(),
+          -responce + Robot.m_oi.getLeftStick().getY());
+      SmartDashboard.putNumber("pixy error", error);
+      SmartDashboard.putNumber("pixy center", center);
+      SmartDashboard.putNumber("pixy responce", responce);
+      errorPrior = error;
+
     } else {
-      Robot.m_drivetrain.drive(0, 0);
+      if(initAngle == 0.0)
+      {
+        initAngle = Robot.m_drivetrain.getAngle();
+      }
+
+      double straightError = initAngle - Robot.m_drivetrain.getAngle();
+      SmartDashboard.putNumber("Right-Left", straightError);
+      straightDerivative = (straightError - straightErrorPrior) / .02;
+      double responce = straightP * straightError + (straightD * straightDerivative);
+      double RawY = Robot.m_oi.getLeftStick().getY();
+      Robot.m_drivetrain.drive(RawY - responce, RawY + responce);
+      straightErrorPrior = straightError;
+      SmartDashboard.putNumber("center", 0);
+      SmartDashboard.putBoolean("Turning", false);
+
     }
-    pkt = i2c.getPixy();
   }
+
+  private double initAngle;
+  private double straightP = 0.02;
+  private double straightD = 0.0001;
+  private double straightErrorPrior;
+  private double straightDerivative;
+
 
   @Override
   protected boolean isFinished() {
     return false;
   }
 }
-*/

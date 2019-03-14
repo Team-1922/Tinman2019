@@ -9,16 +9,14 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import frc.robot.PixyLinePacket;
 import frc.robot.Robot;
-import frc.robot.subsystems.M_I2CLine;
 
 /**
  * An example command. You can replace me with your own command.
  */
 public class TankDrive extends Command {
-  M_I2CLine i2c = new M_I2CLine();// setup the i2c interface
-  PixyLinePacket pkt = i2c.getPixy();// create a pixy packet to hold data
+  // M_I2C i2c = new M_I2C();// setup the i2c interface
+  // PixyPacket pkt = i2c.getPixy();// create a pixy packet to hold data
 
   public TankDrive() {
 
@@ -30,24 +28,26 @@ public class TankDrive extends Command {
 
   @Override
   protected void initialize() {
+
   }
 
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
     Robot.m_drivetrain.getEncoders();
-
     Robot.m_drivetrain.drive(Robot.m_oi.getLeftStick().getY(), Robot.m_oi.getRightStick().getY());
+    // SmartDashboard.putNumber("Gyro", Robot.m_drivetrain.getAngle());
 
-    SmartDashboard.putNumber("Gyro", Robot.m_drivetrain.getAngle());
-
-    SmartDashboard.putNumber("PixyDataX0", pkt.x0);
-    SmartDashboard.putNumber("PixyDataY0", pkt.y0);
-    SmartDashboard.putNumber("PixyDataX1", pkt.x1);
-    SmartDashboard.putNumber("PixyDataY1", pkt.y1);
-    SmartDashboard.putNumber("PixyDataLength", pkt.linelength);
-    pkt = i2c.getPixy(); // refresh Pixy data
-
+    // SmartDashboard.putNumber("PixyDataX0", pkt.x0);
+    // SmartDashboard.putNumber("PixyDataY0", pkt.y0);
+    // SmartDashboard.putNumber("PixyDataX1", pkt.x1);
+    // SmartDashboard.putNumber("PixyDataY1", pkt.y1);
+    // SmartDashboard.putNumber("PixyDataLength", pkt.linelength);
+    // SmartDashboard.putNumber("Block 1", pkt.x1);
+    // SmartDashboard.putNumber("Block 2", pkt.x2);
+    // SmartDashboard.putNumber("Center", (pkt.x1 + pkt.x2)/2);
+    // pkt = i2c.getPixy(); // refresh Pixy data
+    SmartDashboard.putBoolean("IsLimitClosed", Robot.m_drivetrain.getLimitTest());
   }
 
   // Make this return true when this Command no longer needs to run execute()

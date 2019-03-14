@@ -13,11 +13,9 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.kauailabs.navx.frc.AHRS;
 
 import edu.wpi.first.wpilibj.SPI;
-import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
-import frc.robot.RobotMap;
 import frc.robot.RobotSettingsFactory;
 import frc.robot.commands.TankDrive;
 
@@ -29,23 +27,20 @@ public class DriveTrain extends Subsystem {
   // here. Call these from Commands.
 
   private WPI_TalonSRX rearLeft = new WPI_TalonSRX(
-      RobotSettingsFactory.getRobotSettings(/* Robot.getCurrentBot() */false).getM_rearLeft());
+      RobotSettingsFactory.getRobotSettings(Robot.getCurrentBot()).getM_rearLeft());
   private WPI_TalonSRX rearRight = new WPI_TalonSRX(
-      RobotSettingsFactory.getRobotSettings(/* Robot.getCurrentBot() */false).getM_rearRight());
+      RobotSettingsFactory.getRobotSettings(Robot.getCurrentBot()).getM_rearRight());
   private WPI_TalonSRX frontLeft = new WPI_TalonSRX(
-      RobotSettingsFactory.getRobotSettings(/* Robot.getCurrentBot() */false).getM_frontLeft());
+      RobotSettingsFactory.getRobotSettings(Robot.getCurrentBot()).getM_frontLeft());
   private WPI_TalonSRX frontRight = new WPI_TalonSRX(
-      RobotSettingsFactory.getRobotSettings(/* Robot.getCurrentBot() */false).getM_frontRight());
-  private Solenoid liftFront;
-  private Solenoid liftBack;
+      RobotSettingsFactory.getRobotSettings(Robot.getCurrentBot()).getM_frontRight());
+
   private AHRS ahrs = new AHRS(SPI.Port.kMXP);
   private int oldLeft = 0;
   private int oldRight = 0;
 
   public DriveTrain() {
     super();
-    liftFront = new Solenoid(RobotMap.LiftFront);
-    liftBack = new Solenoid(RobotMap.LiftBack);
 
     frontLeft.setSelectedSensorPosition(0, 0, 10);
     frontRight.setSelectedSensorPosition(0, 0, 10);
@@ -70,21 +65,12 @@ public class DriveTrain extends Subsystem {
   }
 
   public double getAngle() {
+
     return ahrs.getAngle();
   }
 
   public void ResetGyro() {
     ahrs.reset();
-  }
-
-  public void LiftRobot() {
-    liftFront.set(true);
-    liftBack.set(true);
-  }
-
-  public void LowerRobot() {
-    liftFront.set(false);
-    liftBack.set(false);
   }
 
   public double getPosLeft() {
@@ -107,5 +93,10 @@ public class DriveTrain extends Subsystem {
   public void resetEncoders() {
     oldRight = frontRight.getSensorCollection().getQuadraturePosition();
     oldLeft = -frontLeft.getSensorCollection().getQuadraturePosition();
+  }
+
+  public boolean getLimitTest() {
+    return this.frontLeft /* placeholder */ .getSensorCollection().isFwdLimitSwitchClosed();
+
   }
 }
