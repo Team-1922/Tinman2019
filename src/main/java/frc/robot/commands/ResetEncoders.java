@@ -23,7 +23,6 @@ public class ResetEncoders extends Command {
   // Called just before this Command runs the first time
   @Override
   protected void initialize() {
-    // Robot.m_drivetrain.resetEncoders();
     Robot.m_climber.climberInit();
     isdone = true;
   }

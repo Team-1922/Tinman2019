@@ -36,17 +36,6 @@ public class TankDrive extends Command {
   protected void execute() {
     Robot.m_drivetrain.getEncoders();
     Robot.m_drivetrain.drive(Robot.m_oi.getLeftStick().getY(), Robot.m_oi.getRightStick().getY());
-    // SmartDashboard.putNumber("Gyro", Robot.m_drivetrain.getAngle());
-
-    // SmartDashboard.putNumber("PixyDataX0", pkt.x0);
-    // SmartDashboard.putNumber("PixyDataY0", pkt.y0);
-    // SmartDashboard.putNumber("PixyDataX1", pkt.x1);
-    // SmartDashboard.putNumber("PixyDataY1", pkt.y1);
-    // SmartDashboard.putNumber("PixyDataLength", pkt.linelength);
-    // SmartDashboard.putNumber("Block 1", pkt.x1);
-    // SmartDashboard.putNumber("Block 2", pkt.x2);
-    // SmartDashboard.putNumber("Center", (pkt.x1 + pkt.x2)/2);
-    // pkt = i2c.getPixy(); // refresh Pixy data
     SmartDashboard.putBoolean("IsLimitClosed", Robot.m_drivetrain.getLimitTest());
   }
 

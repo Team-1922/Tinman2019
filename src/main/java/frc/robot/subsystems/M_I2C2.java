@@ -22,15 +22,14 @@ public class M_I2C2 {
 
   public PixyPacket getPixy() {// reads the data from arduino and saves it
     String info = read();
-    
 
     PixyPacket pkt = new PixyPacket(); // creates a new packet to hold the data
     if (info.equals("none") || info.equals("")) {// checks to make sure there is data
       pkt.error = Double.NaN;
       SmartDashboard.putBoolean("I2C Status", false);
-    } else  {// if there is an x, y, and area value the length equals 3
+    } else {// if there is an x, y, and area value the length equals 3
       pkt.error = Double.parseDouble(info);// set error
-      
+
       SmartDashboard.putBoolean("I2C Status", true);
     }
     return pkt;

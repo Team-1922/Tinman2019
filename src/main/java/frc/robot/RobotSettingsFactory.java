@@ -21,10 +21,10 @@ public class RobotSettingsFactory {
             settings.setM_rearLeft(RobotMap.PBrearLeft);
             settings.setM_rearRight(RobotMap.PBrearRight);
         } else if (!IsStingray) {
-           settings.setM_frontLeft(RobotMap.frontLeft);
-           settings.setM_frontRight(RobotMap.frontRight);
-           settings.setM_rearLeft(RobotMap.rearLeft);
-           settings.setM_rearRight(RobotMap.rearRight);
+            settings.setM_frontLeft(RobotMap.frontLeft);
+            settings.setM_frontRight(RobotMap.frontRight);
+            settings.setM_rearLeft(RobotMap.rearLeft);
+            settings.setM_rearRight(RobotMap.rearRight);
         }
 
         return settings;

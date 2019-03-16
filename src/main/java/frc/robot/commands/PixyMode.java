@@ -17,7 +17,6 @@ public class PixyMode extends Command {
   M_I2C2 i2c = new M_I2C2();// setup the i2c interface
   PixyPacket pkt = i2c.getPixy();// create a pixy packet to hold data
   private double center, derivative, errorPrior;
-  //private double p = .004;
   private double p = .006;
   private double d = 0;
 
@@ -57,8 +56,7 @@ public class PixyMode extends Command {
       errorPrior = error;
 
     } else {
-      if(initAngle == 0.0)
-      {
+      if (initAngle == 0.0) {
         initAngle = Robot.m_drivetrain.getAngle();
       }
 
@@ -80,7 +78,6 @@ public class PixyMode extends Command {
   private double straightD = 0.0001;
   private double straightErrorPrior;
   private double straightDerivative;
-
 
   @Override
   protected boolean isFinished() {

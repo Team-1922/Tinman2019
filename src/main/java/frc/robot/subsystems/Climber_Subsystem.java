@@ -47,7 +47,6 @@ public class Climber_Subsystem extends Subsystem {
     }
 
     public void verticalClimb(double y_axis) {
-        // error = Robot.m_climber.getPitch();
         vError = ahrs.getPitch();
 
         vResponce = (vError * vp);
@@ -58,7 +57,6 @@ public class Climber_Subsystem extends Subsystem {
     }
 
     public void horizontalClimb(double x_axis) {
-        // hError = ahrs.getAngle();
         hError = getLHorizontalPos() - getRHorizontalPos();
         hResponce = (hError * hp);
         SmartDashboard.putNumber("Difference", hError);
@@ -76,17 +74,14 @@ public class Climber_Subsystem extends Subsystem {
     }
 
     public boolean getVerticalRLimit() {
-        // return verticalLimitR.get();
         return verticalR.getSensorCollection().isFwdLimitSwitchClosed();
     }
 
     public boolean getVerticalLLimit() {
-        // return verticalLimitL.get();
         return verticalL.getSensorCollection().isFwdLimitSwitchClosed();
     }
 
     public boolean getHorizontalRLimit() {
-        // return horizontalLimitR.get();
         return horizontalR.getSensorCollection().isFwdLimitSwitchClosed();
     }
 

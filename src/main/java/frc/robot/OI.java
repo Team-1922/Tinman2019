@@ -55,8 +55,6 @@ public class OI {
     rtrigger.whileHeld(new PixyMode());
     ltrigger.whileHeld(new DriveStraight());
     y.toggleWhenPressed(new OperateClimber());
-
-    // lbumper.whenPressed(new FourBarDown());
     resetButton.whenPressed(new ResetEncoders());
   }
 
