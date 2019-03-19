@@ -10,18 +10,17 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.kauailabs.navx.frc.AHRS;
+
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.RobotMap;
+import frc.robot.commands.ControllerTest;
 
 /**
- * It's the thing that makes the robot go vroom
+ * Subsystem to control the two "legs" of the climber
  */
 public class Climber_Subsystem extends Subsystem {
-    // Put methods for controlling this subsystem
-    // here. Call these from Commands.
-
     private WPI_TalonSRX verticalR = new WPI_TalonSRX(RobotMap.verticalClimb_R);
     private WPI_TalonSRX verticalL = new WPI_TalonSRX(RobotMap.verticalClimb_L);
     private WPI_TalonSRX horizontalR = new WPI_TalonSRX(RobotMap.horizontalClimb_R);
@@ -128,10 +127,8 @@ public class Climber_Subsystem extends Subsystem {
 
     @Override
     public void initDefaultCommand() {
-        // Set the default command for a subsystem here.
         // setDefaultCommand(new OperateClimber());
-        // setDefaultCommand(new ControllerTest());
-
+        setDefaultCommand(new ControllerTest());
     }
 
 }

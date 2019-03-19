@@ -13,6 +13,10 @@ import frc.robot.PixyPacket;
 import frc.robot.Robot;
 import frc.robot.subsystems.M_I2C2;;
 
+/**
+ * Centers the robot to the middle of two blocks from the Pixy
+ * @see i2cFinal.ino
+ */
 public class PixyMode extends Command {
   M_I2C2 i2c = new M_I2C2();// setup the i2c interface
   PixyPacket pkt = i2c.getPixy();// create a pixy packet to hold data

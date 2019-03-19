@@ -5,6 +5,9 @@ import edu.wpi.first.wpilibj.I2C.Port;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.PixyPacket;
 
+/**
+ * I2C interface to find the middle point between blocks
+ */
 public class M_I2C2 {
   private static I2C Wire = new I2C(Port.kOnboard, 4);// uses the i2c port on the RoboRIO
                                                       // uses address 4, must match arduino

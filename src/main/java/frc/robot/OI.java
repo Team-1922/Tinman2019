@@ -20,11 +20,19 @@ import frc.robot.commands.ResetEncoders;
  * interface to the commands and command groups that allow control of the robot.
  */
 public class OI {
-  // Controllers
+
+  /*
+   * Controllers
+   */
+
   private Joystick m_LeftStick;
   private Joystick m_RightStick;
   private XboxController m_operator;
-  // Buttons
+
+  /*
+   * Buttons
+   */
+
   // private Button buttonA;
   // private Button buttonB;
   private Button lbumper;
@@ -35,12 +43,19 @@ public class OI {
   private Button y;
 
   public OI() {
-    // Controllers
+
+    /*
+     * Controllers
+     */
+
     m_LeftStick = new Joystick(0);
     m_RightStick = new Joystick(1);
     m_operator = new XboxController(2);
 
-    // Buttons
+    /*
+     * Buttons
+     */
+
     // buttonA = new JoystickButton(getOperator(), 1);
     // buttonB = new JoystickButton(getOperator(), 2);
     lbumper = new JoystickButton(getOperator(), 5);

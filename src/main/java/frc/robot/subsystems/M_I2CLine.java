@@ -4,6 +4,9 @@ import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.I2C.Port;
 import frc.robot.PixyLinePacket;
 
+/**
+ * LEGACY: M_I2C Interface for finding lines
+ */
 public class M_I2CLine {
   private static I2C Wire = new I2C(Port.kOnboard, 4);// uses the i2c port on the RoboRIO
                                                       // uses address 4, must match arduino

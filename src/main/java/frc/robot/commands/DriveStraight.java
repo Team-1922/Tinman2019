@@ -21,19 +21,15 @@ public class DriveStraight extends Command {
   double initAngle = 0;
 
   public DriveStraight() {
-    // Use requires() here to declare subsystem dependencies
     requires(Robot.m_drivetrain);
   }
 
-  // Called just before this Command runs the first time
   @Override
   protected void initialize() {
     Robot.m_drivetrain.resetEncoders();
     initAngle = Robot.m_drivetrain.getAngle();
-
   }
 
-  // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
     Robot.m_drivetrain.getEncoders();
@@ -41,7 +37,6 @@ public class DriveStraight extends Command {
     double d = 0.0001;
     double derivative;
 
-    // error = Robot.m_drivetrain.getPosLeft() - Robot.m_drivetrain.getPosRight();
     error = initAngle - Robot.m_drivetrain.getAngle();
     SmartDashboard.putNumber("Right-Left", error);
     derivative = (error - errorPrior) / .02;
@@ -51,13 +46,11 @@ public class DriveStraight extends Command {
     errorPrior = error;
   }
 
-  // Make this return true when this Command no longer needs to run execute()
   @Override
   protected boolean isFinished() {
     return false;
   }
 
-  // Called once after isFinished returns true
   @Override
   protected void end() {
   }
@@ -66,5 +59,6 @@ public class DriveStraight extends Command {
   // subsystems is scheduled to run
   @Override
   protected void interrupted() {
+    end();
   }
 }

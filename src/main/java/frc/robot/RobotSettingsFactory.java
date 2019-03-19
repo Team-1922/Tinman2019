@@ -8,7 +8,7 @@
 package frc.robot;
 
 /**
- * help
+ * Sets the Talon IDs to those of either the practice bot or the comp bot
  */
 public class RobotSettingsFactory {
 

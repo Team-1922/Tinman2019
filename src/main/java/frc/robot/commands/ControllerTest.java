@@ -11,6 +11,9 @@ import edu.wpi.first.wpilibj.GenericHID.RumbleType;
 import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
+/**
+ * you don't see this
+ */
 public class ControllerTest extends Command {
   public ControllerTest() {
     // Use requires() here to declare subsystem dependencies
@@ -26,9 +29,11 @@ public class ControllerTest extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Robot.m_oi.getOperator().setRumble(RumbleType.kLeftRumble, (Robot.m_oi.getOperator().getRawAxis(5) + Robot.m_oi.getOperator().getRawAxis(0)/2));
-    Robot.m_oi.getOperator().setRumble(RumbleType.kRightRumble, (Robot.m_oi.getOperator().getRawAxis(5) + Robot.m_oi.getOperator().getRawAxis(0)/2));
-    
+    Robot.m_oi.getOperator().setRumble(RumbleType.kLeftRumble,
+        (Robot.m_oi.getOperator().getRawAxis(5) + Robot.m_oi.getOperator().getRawAxis(0) / 2));
+    Robot.m_oi.getOperator().setRumble(RumbleType.kRightRumble,
+        (Robot.m_oi.getOperator().getRawAxis(5) + Robot.m_oi.getOperator().getRawAxis(0) / 2));
+
   }
 
   // Make this return true when this Command no longer needs to run execute()

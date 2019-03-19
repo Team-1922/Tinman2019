@@ -6,7 +6,9 @@
 /*----------------------------------------------------------------------------*/
 
 package frc.robot;
-
+/**
+ * @return the error between two targets
+ */
 public class PixyPacket {
 	public double error;
 

@@ -7,6 +7,9 @@
 
 package frc.robot;
 
+/**
+ * Getters and Setters for the Talon IDs
+ */
 public class RobotSettings {
     private int m_frontLeft;
     private int m_frontRight;

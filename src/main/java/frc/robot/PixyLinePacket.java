@@ -7,6 +7,10 @@
 
 package frc.robot;
 
+/**
+ * LEGACY: 
+ * Properties of a line gotten by the Pixy
+ */
 public class PixyLinePacket {
     public double x0, x1, y0, y1;
     public double linelength;

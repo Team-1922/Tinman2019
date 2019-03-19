@@ -16,14 +16,12 @@ import frc.robot.commands.OperateHatch;
  * An example subsystem. You can replace me with your own Subsystem.
  */
 public class Hatch_Subsystem extends Subsystem {
-  // Put methods for controlling this subsystem
-  // here. Call these from Commands.
   private Solenoid Hatch;
-  
+
   public Hatch_Subsystem() {
     super();
     Hatch = new Solenoid(RobotMap.Hatch);
-    
+
   }
 
   public void OpenHatch() {

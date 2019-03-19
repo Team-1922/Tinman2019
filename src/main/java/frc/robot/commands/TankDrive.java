@@ -12,20 +12,15 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
 
 /**
- * An example command. You can replace me with your own command.
+ * Takes input from the joysticks, and sets the motor speed to that
  */
 public class TankDrive extends Command {
-  // M_I2C i2c = new M_I2C();// setup the i2c interface
-  // PixyPacket pkt = i2c.getPixy();// create a pixy packet to hold data
-
   public TankDrive() {
-
     // Use requires() here to declare subsystem dependencies
     requires(Robot.m_drivetrain);
   }
 
   // Called just before this Command runs the first time
-
   @Override
   protected void initialize() {
 
@@ -54,5 +49,6 @@ public class TankDrive extends Command {
   // subsystems is scheduled to run
   @Override
   protected void interrupted() {
+    end();
   }
 }

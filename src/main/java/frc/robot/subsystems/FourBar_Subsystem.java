@@ -13,12 +13,9 @@ import frc.robot.RobotMap;
 import frc.robot.commands.FourBarCheck;
 
 /**
- * An example subsystem. You can replace me with your own Subsystem.
+ * Subsystem to control the FourBar that makes our collector legal
  */
-
 public class FourBar_Subsystem extends Subsystem {
-  // Put methods for controlling this subsystem
-  // here. Call these from Commands.
   private Solenoid FourBar;
 
   public FourBar_Subsystem() {

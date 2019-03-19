@@ -23,9 +23,6 @@ import frc.robot.commands.TankDrive;
  * It's the thing that makes the robot go vroom
  */
 public class DriveTrain extends Subsystem {
-  // Put methods for controlling this subsystem
-  // here. Call these from Commands.
-
   private WPI_TalonSRX rearLeft = new WPI_TalonSRX(
       RobotSettingsFactory.getRobotSettings(Robot.getCurrentBot()).getM_rearLeft());
   private WPI_TalonSRX rearRight = new WPI_TalonSRX(
@@ -58,8 +55,6 @@ public class DriveTrain extends Subsystem {
 
   @Override
   public void initDefaultCommand() {
-    // Set the default command for a subsystem here.
-    // setDefaultCommand(new MySpecialCommand());
     setDefaultCommand(new TankDrive());
 
   }

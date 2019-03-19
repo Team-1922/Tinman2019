@@ -21,7 +21,6 @@ public class OperateClimber extends Command {
         requires(Robot.m_climber);
     }
 
-    // Called just before this Command runs the first time
     @Override
     protected void initialize() {
         Robot.m_climber.climberInit();
@@ -29,7 +28,6 @@ public class OperateClimber extends Command {
         SmartDashboard.putBoolean("Climber Mode:", true);
     }
 
-    // Called repeatedly when this Command is scheduled to run
     @Override
     protected void execute() {
 
@@ -38,26 +36,23 @@ public class OperateClimber extends Command {
 
     }
 
-    // Make this return true when this Command no longer needs to run execute()
     @Override
     protected boolean isFinished() {
         return !isActive;
     }
 
-    // Called once after isFinished returns true
     @Override
     protected void end() {
         isActive = false;
         SmartDashboard.putBoolean("Climber Mode:", false);
     }
 
-    // Called when another command which requires one or more of the same
-    // subsystems is scheduled to run
     @Override
     protected void interrupted() {
         end();
     }
-    public static boolean isClimberActive(){
+
+    public static boolean isClimberActive() {
         return isActive;
     }
 
