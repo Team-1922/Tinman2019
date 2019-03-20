@@ -24,12 +24,9 @@ CRGB leds[NUM_LEDS];
 String piOutput = String(0); //string to be sent to the robot
 String input = "blank";      //string received from the robot
 const String PIXY = "pi";
-int center;
-int error;
-long time;
-long delayTime;
-int x0;
-int x1;
+int center, error = 0;
+unsigned long time, delayTime, requestTime = 0;
+bool isactive = false;
 void setup()
 {
   Serial.begin(115200);
@@ -49,6 +46,14 @@ void setup()
     FastLED.show();
     delay(30);
   }
+  Serial.println("lights on");
+  delay(30);
+  for (int i = 0; i < 92; i++)
+  {
+    leds[i] = CRGB(0, 0, 0);
+    FastLED.show();
+    delay(30);
+  }
 }
 
 void loop()
@@ -64,6 +69,20 @@ void loop()
   if (blocks < 2)
   {
     piOutput = String("none"); //if no blocks tell roborio there are none
+  }
+  else if (blocks == 2)
+  {
+    int xSum = pixy.ccc.blocks[0].m_x + pixy.ccc.blocks[1].m_x;
+    int targetCenter = xSum / 2;
+    int frameCenter = pixy.frameWidth / 2;
+    int error = frameCenter - targetCenter;
+    piOutput = error;
+    Serial.println("targetCenter: ");
+    Serial.print(targetCenter);
+    Serial.println("frameCenter: ");
+    Serial.print(frameCenter);
+    Serial.println("error: ");
+    Serial.print(error);
   }
   else
   {
@@ -125,6 +144,18 @@ void loop()
     Serial.println(blocks);
     delayTime = time + 50;
   }
+  if (isactive)
+  {
+    if (time - requestTime >= 200)
+    {
+      for (int i = 0; i < 92; i++)
+      {
+        leds[i] = CRGB(0, 0, 0);
+      }
+      FastLED.show();
+      isactive = false;
+    }
+  }
 }
 
 void requestEvent()
@@ -132,6 +163,16 @@ void requestEvent()
   //Wire.write(piOutput);
   Wire.write(piOutput.c_str()); //writes data to the RoboRIO, converts it to string
   Serial.println("request");
+  if (!isactive)
+  {
+    for (int i = 0; i < 92; i++)
+    {
+      leds[i] = CRGB(0, 200, 0);
+    }
+    FastLED.show();
+    isactive = true;
+  }
+  requestTime = millis();
 }
 
 void receiveEvent(int bytes)
