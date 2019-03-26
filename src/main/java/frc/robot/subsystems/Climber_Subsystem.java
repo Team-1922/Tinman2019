@@ -44,12 +44,6 @@ public class Climber_Subsystem extends Subsystem {
         horizontalR.setSelectedSensorPosition(0, 0, 10);
         horizontalL.setSelectedSensorPosition(0, 0, 10);
 
-        verticalR.configForwardSoftLimitThreshold(1000);
-        verticalR.configReverseSoftLimitThreshold(-1000);
-
-        verticalR.configForwardSoftLimitEnable(true);
-        verticalR.configReverseSoftLimitEnable(true);
-
     }
 
     public void verticalClimb(double y_axis) {
@@ -81,6 +75,7 @@ public class Climber_Subsystem extends Subsystem {
         verticalL.set(y_axis);
         verticalR.set(y_axis);
         SmartDashboard.putNumber("vertical", y_axis);
+        SmartDashboard.putNumber("Encoder Values", getRVerticalPos());
     }
 
     public void rawHorizontalClimb(double x_axis) {
@@ -142,6 +137,23 @@ public class Climber_Subsystem extends Subsystem {
         // }
         oldRVertical = getRVerticalPos();
 
+        verticalR.configForwardSoftLimitThreshold(oldRVertical - 1200);
+        verticalR.configReverseSoftLimitThreshold(oldRVertical - 21000);
+        verticalL.configForwardSoftLimitThreshold(oldLVertical - 1200);
+        verticalL.configReverseSoftLimitThreshold(oldLVertical - 21000);
+        horizontalR.configForwardSoftLimitThreshold(oldRHorizontal - 1200);
+        horizontalR.configReverseSoftLimitThreshold(oldRHorizontal - 21000);
+        horizontalL.configForwardSoftLimitThreshold(oldLHorizontal - 1200);
+        horizontalL.configReverseSoftLimitThreshold(oldLHorizontal - 21000);
+
+        verticalR.configForwardSoftLimitEnable(true);
+        verticalR.configReverseSoftLimitEnable(true);
+        verticalL.configForwardSoftLimitEnable(true);
+        verticalL.configReverseSoftLimitEnable(true);
+        horizontalL.configForwardSoftLimitEnable(true);
+        horizontalL.configReverseSoftLimitEnable(true);
+        horizontalR.configForwardSoftLimitEnable(true);
+        horizontalR.configReverseSoftLimitEnable(true);
     }
 
     @Override

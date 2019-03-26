@@ -44,7 +44,6 @@ public class OperateClimber extends Command {
     @Override
     protected void end() {
         Robot.m_climber.verticalClimb(0);
-        Robot.m_climber.verticalClimb(0);
         isActive = false;
         SmartDashboard.putBoolean("Climber Mode:", false);
     }

@@ -25,8 +25,14 @@ String piOutput = String(0); //string to be sent to the robot
 String input = "blank";      //string received from the robot
 const String PIXY = "pi";
 int center, error = 0;
-unsigned long time, delayTime, requestTime = 0;
+unsigned long time = 0, delayTime = 0, requestTime = 0, delayTimeA = 0;
+int triggerPin = 8;
+bool newSignal = true;
+
 bool isactive = false;
+
+
+
 void setup()
 {
   Serial.begin(115200);
@@ -144,17 +150,27 @@ void loop()
     Serial.println(blocks);
     delayTime = time + 50;
   }
-  if (isactive)
-  {
-    if (time - requestTime >= 1000)
-    {
+
+  if (digitalRead(triggerPin) == HIGH) {    //turns on lights once on trigger press
+    if (newSignal) {
+      for (int i = 0; i < 92; i++)
+      {
+        leds[i] = CRGB(0, 200, 0);
+        FastLED.show();
+      }
+      newSignal = false;
+    }
+  }
+  else {
+    if ((delayTimeA - time) <= 0) {  //if trigger is not pressed turns off lights every half second
       for (int i = 0; i < 92; i++)
       {
         leds[i] = CRGB(0, 0, 0);
+        FastLED.show();
       }
-      FastLED.show();
-      isactive = false;
+      delayTimeA = time + 500;
     }
+    newSignal = true;
   }
 }
 
@@ -163,16 +179,6 @@ void requestEvent()
   //Wire.write(piOutput);
   Wire.write(piOutput.c_str()); //writes data to the RoboRIO, converts it to string
   Serial.println("request");
-  if (!isactive)
-  {
-    for (int i = 0; i < 92; i++)
-    {
-      leds[i] = CRGB(0, 200, 0);
-    }
-    FastLED.show();
-    isactive = true;
-  }
-  requestTime = time;
 }
 
 void receiveEvent(int bytes)

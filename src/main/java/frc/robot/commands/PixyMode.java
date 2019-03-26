@@ -7,6 +7,7 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.DigitalOutput;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.PixyPacket;
@@ -15,6 +16,7 @@ import frc.robot.subsystems.M_I2C2;
 
 /**
  * Centers the robot to the middle of two blocks from the Pixy
+ * 
  * @see i2cFinal.ino
  */
 public class PixyMode extends Command {
@@ -23,7 +25,7 @@ public class PixyMode extends Command {
   private double center, derivative, errorPrior;
   private double p = .006;
   private double d = 0;
-
+  private DigitalOutput lightswitch = new DigitalOutput(1);
   public PixyMode() {
     super();
     requires(Robot.m_drivetrain);
@@ -33,6 +35,7 @@ public class PixyMode extends Command {
   @Override
   protected void initialize() {
     initAngle = Robot.m_drivetrain.getAngle();
+    lightswitch.set(true);
   }
 
   @Override
@@ -86,5 +89,15 @@ public class PixyMode extends Command {
   @Override
   protected boolean isFinished() {
     return false;
+  }
+
+  @Override
+  protected void end() {
+    lightswitch.set(false);
+  }
+
+  @Override
+  protected void interrupted() {
+    end();
   }
 }
