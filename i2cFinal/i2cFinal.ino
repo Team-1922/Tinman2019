@@ -146,7 +146,7 @@ void loop()
   }
   if (isactive)
   {
-    if (time - requestTime >= 200)
+    if (time - requestTime >= 1000)
     {
       for (int i = 0; i < 92; i++)
       {
@@ -172,7 +172,7 @@ void requestEvent()
     FastLED.show();
     isactive = true;
   }
-  requestTime = millis();
+  requestTime = time;
 }
 
 void receiveEvent(int bytes)

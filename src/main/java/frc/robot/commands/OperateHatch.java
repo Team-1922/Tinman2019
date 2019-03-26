@@ -12,6 +12,7 @@ import frc.robot.Robot;
 
 /**
  * Takes the value of the Right Bumper on the Xbox controller and sets the hatch solenoid to that
+ * @see Hatch_Subsystem
  */
 public class OperateHatch extends Command {
   public OperateHatch() {

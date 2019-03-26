@@ -24,14 +24,25 @@ public class FourBar_Subsystem extends Subsystem {
 
   }
 
+  /**
+   * Extends the fourbar
+   */
   public void FourBarDown() {
     FourBar.set(true);
   }
 
+  /**
+   * Retracts the fourbar
+   */
   public void FourBarUp() {
     FourBar.set(false);
   }
 
+  /**
+   * Set the fourbar to a specific position
+   * 
+   * @param pos Boolean to set the fourbar to
+   */
   public void toggleFourBar(boolean pos) {
     FourBar.set(pos);
   }

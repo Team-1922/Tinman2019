@@ -13,7 +13,8 @@ import frc.robot.RobotMap;
 import frc.robot.commands.OperateHatch;
 
 /**
- * An example subsystem. You can replace me with your own Subsystem.
+ * Subsystem to control the hatch collector
+ * @see OperateHatch
  */
 public class Hatch_Subsystem extends Subsystem {
   private Solenoid Hatch;

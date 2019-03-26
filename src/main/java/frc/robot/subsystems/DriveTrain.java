@@ -48,6 +48,11 @@ public class DriveTrain extends Subsystem {
     rearRight.set(ControlMode.Follower, frontRight.getDeviceID());
   }
 
+  /**
+   * Main method to make the robot drive, controlled tank drive style
+   * @param leftSpeed Speed to set the left motors to
+   * @param rightSpeed Speed to set the right motors to
+   */
   public void drive(double leftSpeed, double rightSpeed) {
     frontLeft.set(-leftSpeed);
     frontRight.set(rightSpeed);

@@ -43,16 +43,26 @@ public class Climber_Subsystem extends Subsystem {
         verticalL.setSelectedSensorPosition(0, 0, 10);
         horizontalR.setSelectedSensorPosition(0, 0, 10);
         horizontalL.setSelectedSensorPosition(0, 0, 10);
+
+        verticalR.configForwardSoftLimitThreshold(1000);
+        verticalR.configReverseSoftLimitThreshold(-1000);
+
+        verticalR.configForwardSoftLimitEnable(true);
+        verticalR.configReverseSoftLimitEnable(true);
+
     }
 
     public void verticalClimb(double y_axis) {
         vError = ahrs.getPitch();
 
         vResponce = (vError * vp);
-        verticalR.set(-y_axis - vResponce);
+
         verticalL.set(-y_axis + vResponce);
+        verticalR.set(-y_axis - vResponce);
+
         SmartDashboard.putNumber("vertical", y_axis);
         SmartDashboard.putNumber("Vertical Responce", vResponce);
+        SmartDashboard.putNumber("Encoder Values", getRVerticalPos());
     }
 
     public void horizontalClimb(double x_axis) {
@@ -65,6 +75,16 @@ public class Climber_Subsystem extends Subsystem {
         SmartDashboard.putNumber("Right Encoder", getRHorizontalPos());
         horizontalR.set(x_axis + hResponce / 10000);
         horizontalL.set(x_axis - hResponce / 10000);
+    }
+
+    public void rawVerticalClimb(double y_axis) {
+        verticalL.set(y_axis);
+        verticalR.set(y_axis);
+        SmartDashboard.putNumber("vertical", y_axis);
+    }
+
+    public void rawHorizontalClimb(double x_axis) {
+
     }
 
     public double getPitch() {
@@ -113,7 +133,6 @@ public class Climber_Subsystem extends Subsystem {
         // horizontalR.set(.25);
         // }
         oldRHorizontal = getRHorizontalPos();
-        // while (getVerticalLLimit() != true){
         // while (getVerticalLLimit() != true){
         // verticalL.set(.25);
         // }

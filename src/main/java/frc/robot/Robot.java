@@ -19,7 +19,6 @@ import frc.robot.subsystems.Climber_Subsystem;
 import frc.robot.subsystems.DriveTrain;
 import frc.robot.subsystems.FourBar_Subsystem;
 import frc.robot.subsystems.Hatch_Subsystem;
-// import frc.robot.subsystems.Cargo_Subsystem;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -34,13 +33,11 @@ public class Robot extends TimedRobot {
   public static Hatch_Subsystem m_hatchsnatch = new Hatch_Subsystem();
   public static FourBar_Subsystem m_fourbar = new FourBar_Subsystem();
   public static Climber_Subsystem m_climber = new Climber_Subsystem();
-  // public static Cargo_Subsystem m_cargo = new Cargo_Subsystem();
   public static OI m_oi;
   private static boolean m_IsStingray;
   private static Boolean chosen;
 
   Command m_autonomousCommand;
-  // SendableChooser<Command> m_chooser = new SendableChooser<>();
   SendableChooser<Boolean> m_BotChooser = new SendableChooser<>();
 
   /**
@@ -50,19 +47,14 @@ public class Robot extends TimedRobot {
   @Override
   public void robotInit() {
     m_oi = new OI();
-    // m_chooser.setDefaultOption("Default Auto", new TankDrive());
     m_BotChooser.setDefaultOption("Competition Bot", false);
     m_BotChooser.addOption("Stingray", true);
-    // m_chooser.addObject("My Auto", new MyAutoCommand());
-    // SmartDashboard.putData("Auto mode", m_chooser);
     SmartDashboard.putData("Bot In Use:", m_BotChooser);
     // NetworkTableEntry RealGyro = Shuffleboard.getTab("SmartDashboard").add("Real
     // Gyro", Robot.m_drivetrain.getAngle())
     // .withWidget("Gyro").getEntry();
 
     CameraServer.getInstance().startAutomaticCapture();
-    //
-    // Make sure to uncomment when we get the camera on the comp. bot
   }
 
   /**
@@ -105,7 +97,6 @@ public class Robot extends TimedRobot {
 
   }
 
-  // private static int initCounter = 0;
   /**
    * This autonomous (along with the chooser code above) shows how to select
    * between different autonomous modes using the dashboard. The sendable chooser
@@ -121,22 +112,6 @@ public class Robot extends TimedRobot {
   @Override
   public void autonomousInit() {
     m_autonomousCommand = new TankDrive();
-    /*
-     * 
-     * m_drivetrain.ResetGyro(); SmartDashboard.putNumber("init", initCounter);
-     * initCounter++; SmartDashboard.putNumber("While_Gyro_start",
-     * Robot.m_drivetrain.getAngle());
-     * 
-     * while(Math.abs(Robot.m_drivetrain.getAngle()) > 5 ){
-     * SmartDashboard.putNumber("While_Gyro", Robot.m_drivetrain.getAngle());
-     * 
-     * try { Thread.sleep(10); } catch(InterruptedException ex) {
-     * 
-     * } }
-     * 
-     * m_autonomousCommand = new Turn(-90);
-     */
-
     // schedule the autonomous command (example)
     if (m_autonomousCommand != null) {
       m_autonomousCommand.start();

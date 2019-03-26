@@ -29,10 +29,17 @@ public class ControllerTest extends Command {
   // Called repeatedly when this Command is scheduled to run
   @Override
   protected void execute() {
-    Robot.m_oi.getOperator().setRumble(RumbleType.kLeftRumble,
-        (Robot.m_oi.getOperator().getRawAxis(5) + Robot.m_oi.getOperator().getRawAxis(0) / 2));
-    Robot.m_oi.getOperator().setRumble(RumbleType.kRightRumble,
-        (Robot.m_oi.getOperator().getRawAxis(5) + Robot.m_oi.getOperator().getRawAxis(0) / 2));
+    double lRumble = Math.abs(Robot.m_oi.getOperator().getRawAxis(5) + Robot.m_oi.getOperator().getRawAxis(1) / 2);
+    double rRumble = Math.abs(Robot.m_oi.getOperator().getRawAxis(5) + Robot.m_oi.getOperator().getRawAxis(1) / 2);
+    if(rRumble < 0.2){
+      rRumble = 0;
+    }
+    if(lRumble < 0.2){
+      lRumble = 0;
+    }
+
+    Robot.m_oi.getOperator().setRumble(RumbleType.kLeftRumble, lRumble);
+    Robot.m_oi.getOperator().setRumble(RumbleType.kRightRumble, rRumble);
 
   }
 
@@ -51,5 +58,6 @@ public class ControllerTest extends Command {
   // subsystems is scheduled to run
   @Override
   protected void interrupted() {
+    end();
   }
 }

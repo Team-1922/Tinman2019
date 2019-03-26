@@ -12,7 +12,10 @@ public class M_I2CLine {
                                                       // uses address 4, must match arduino
   private static final int MAX_BYTES = 32;
 
-  public void write(String input) {// writes to the arduino
+  /**
+   * writes to the arduino
+   */
+  public void write(String input) {
     char[] CharArray = input.toCharArray();// creates a char array from the input string
     byte[] WriteData = new byte[CharArray.length];// creates a byte array from the char array
     for (int i = 0; i < CharArray.length; i++) {// writes each byte to the arduino
@@ -22,7 +25,10 @@ public class M_I2CLine {
 
   }
 
-  public PixyLinePacket getPixy() {// reads the data from arduino and saves it
+  /**
+   * Reads the data from arduino and saves it
+   */
+  public PixyLinePacket getPixy() {
     String info[] = read().split("\\|");// everytime a "|" is used it splits the data, and adds it as a new element in
                                         // the array
 
@@ -48,7 +54,10 @@ public class M_I2CLine {
 
   }
 
-  private String read() {// function to read the data from arduino
+  /**
+   * function to read the data from arduino
+   */
+  private String read() {
     byte[] data = new byte[MAX_BYTES];// create a byte array to hold the incoming data
     Wire.read(4, MAX_BYTES, data);// use address 4 on i2c and store it in data
     String output = new String(data);// create a string from the byte array

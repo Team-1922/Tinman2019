@@ -10,9 +10,9 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
+import frc.robot.commands.DriveStraight;
 import frc.robot.commands.OperateClimber;
 import frc.robot.commands.PixyMode;
-import frc.robot.commands.DriveStraight;
 import frc.robot.commands.ResetEncoders;
 
 /**
@@ -20,6 +20,8 @@ import frc.robot.commands.ResetEncoders;
  * interface to the commands and command groups that allow control of the robot.
  */
 public class OI {
+
+  // Object naming
 
   /*
    * Controllers
@@ -33,8 +35,6 @@ public class OI {
    * Buttons
    */
 
-  // private Button buttonA;
-  // private Button buttonB;
   private Button lbumper;
   private Button rbumper;
   private Button ltrigger;
@@ -43,6 +43,8 @@ public class OI {
   private Button y;
 
   public OI() {
+
+    // Object Binding
 
     /*
      * Controllers
@@ -56,8 +58,6 @@ public class OI {
      * Buttons
      */
 
-    // buttonA = new JoystickButton(getOperator(), 1);
-    // buttonB = new JoystickButton(getOperator(), 2);
     lbumper = new JoystickButton(getOperator(), 5);
     rbumper = new JoystickButton(getOperator(), 6);
     ltrigger = new JoystickButton(getLeftStick(), 1);
@@ -65,7 +65,9 @@ public class OI {
     resetButton = new JoystickButton(getRightStick(), 2);
     y = new JoystickButton(getOperator(), 4);
 
-    // Keybindings
+    /*
+     * Keybindings
+     */
 
     rtrigger.whileHeld(new PixyMode());
     ltrigger.whileHeld(new DriveStraight());
@@ -73,7 +75,10 @@ public class OI {
     resetButton.whenPressed(new ResetEncoders());
   }
 
-  // Getters & Setters
+  /*
+   * Object Getters
+   */
+
   public Joystick getLeftStick() {
     return m_LeftStick;
   }
@@ -86,6 +91,14 @@ public class OI {
     return m_operator;
   }
 
+  public Button returnLBumper() {
+    return lbumper;
+  }
+
+  /*
+   * Button Getters
+   */
+
   public boolean getRBumper() {
     return rbumper.get();
   }
@@ -94,17 +107,13 @@ public class OI {
     return lbumper.get();
   }
 
-  public Button returnLBumper() {
-    return lbumper;
-  }
-
   public boolean getYButton() {
     return y.get();
   }
 
   //// CREATING BUTTONS
   // One type of button is a joystick button which is any button on a
-  //// joystick.
+  // joystick.
   // You create one by telling it which joystick it's on and which button
   // number it is.
   // Joystick stick = new Joystick(port);
