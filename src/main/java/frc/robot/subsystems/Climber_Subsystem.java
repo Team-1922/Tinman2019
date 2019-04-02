@@ -44,6 +44,23 @@ public class Climber_Subsystem extends Subsystem {
         horizontalR.setSelectedSensorPosition(0, 0, 10);
         horizontalL.setSelectedSensorPosition(0, 0, 10);
 
+        verticalL.configForwardSoftLimitThreshold(1200);
+        verticalL.configReverseSoftLimitThreshold(21000);
+        verticalL.configForwardSoftLimitEnable(false);
+        verticalL.configReverseSoftLimitEnable(false);
+        verticalR.configForwardSoftLimitThreshold(22000);
+        verticalR.configReverseSoftLimitThreshold(-1200);
+        verticalR.configForwardSoftLimitEnable(false);
+        verticalR.configReverseSoftLimitEnable(false);
+        horizontalR.configForwardSoftLimitThreshold(0);
+        horizontalR.configReverseSoftLimitThreshold(9000);
+        horizontalL.configForwardSoftLimitThreshold(0);
+        horizontalL.configReverseSoftLimitThreshold(-9000);
+        horizontalL.configForwardSoftLimitEnable(false);
+        horizontalL.configReverseSoftLimitEnable(false);
+        horizontalR.configForwardSoftLimitEnable(false);
+        horizontalR.configReverseSoftLimitEnable(false);
+
     }
 
     public void verticalClimb(double y_axis) {
@@ -51,8 +68,8 @@ public class Climber_Subsystem extends Subsystem {
 
         vResponce = (vError * vp);
 
-        verticalL.set(-y_axis + vResponce);
-        verticalR.set(-y_axis - vResponce);
+        verticalL.set(y_axis - vResponce);
+        verticalR.set(y_axis + vResponce);
 
         SmartDashboard.putNumber("vertical", y_axis);
         SmartDashboard.putNumber("Vertical Responce", vResponce);
@@ -65,8 +82,8 @@ public class Climber_Subsystem extends Subsystem {
         SmartDashboard.putNumber("Difference", hError);
         SmartDashboard.putNumber("horizontal", x_axis);
         SmartDashboard.putNumber("Horizontal Response", hResponce / 10000);
-        SmartDashboard.putNumber("Left Encoder", getLHorizontalPos());
-        SmartDashboard.putNumber("Right Encoder", getRHorizontalPos());
+        SmartDashboard.putNumber("h Left Encoder", getLHorizontalPos());
+        SmartDashboard.putNumber(" hRight Encoder", getRHorizontalPos());
         horizontalR.set(x_axis + hResponce / 10000);
         horizontalL.set(x_axis - hResponce / 10000);
     }
@@ -137,23 +154,9 @@ public class Climber_Subsystem extends Subsystem {
         // }
         oldRVertical = getRVerticalPos();
 
-        verticalR.configForwardSoftLimitThreshold(oldRVertical - 1200);
-        verticalR.configReverseSoftLimitThreshold(oldRVertical - 21000);
-        verticalL.configForwardSoftLimitThreshold(oldLVertical - 1200);
-        verticalL.configReverseSoftLimitThreshold(oldLVertical - 21000);
-        horizontalR.configForwardSoftLimitThreshold(oldRHorizontal - 1200);
-        horizontalR.configReverseSoftLimitThreshold(oldRHorizontal - 21000);
-        horizontalL.configForwardSoftLimitThreshold(oldLHorizontal - 1200);
-        horizontalL.configReverseSoftLimitThreshold(oldLHorizontal - 21000);
+        // verticalR.configForwardSoftLimitThreshold(oldRVertical - 1200);
+        // verticalR.configReverseSoftLimitThreshold(oldRVertical - 21000);
 
-        verticalR.configForwardSoftLimitEnable(true);
-        verticalR.configReverseSoftLimitEnable(true);
-        verticalL.configForwardSoftLimitEnable(true);
-        verticalL.configReverseSoftLimitEnable(true);
-        horizontalL.configForwardSoftLimitEnable(true);
-        horizontalL.configReverseSoftLimitEnable(true);
-        horizontalR.configForwardSoftLimitEnable(true);
-        horizontalR.configReverseSoftLimitEnable(true);
     }
 
     @Override

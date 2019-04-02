@@ -25,13 +25,11 @@ String piOutput = String(0); //string to be sent to the robot
 String input = "blank";      //string received from the robot
 const String PIXY = "pi";
 int center, error = 0;
-unsigned long time = 0, delayTime = 0, requestTime = 0, delayTimeA = 0;
+unsigned long time = 0, delayTime = 0, requestTime = 0;
 int triggerPin = 8;
 bool newSignal = true;
 
 bool isactive = false;
-
-
 
 void setup()
 {
@@ -83,12 +81,12 @@ void loop()
     int frameCenter = pixy.frameWidth / 2;
     int error = frameCenter - targetCenter;
     piOutput = error;
-    Serial.println("targetCenter: ");
-    Serial.print(targetCenter);
-    Serial.println("frameCenter: ");
-    Serial.print(frameCenter);
-    Serial.println("error: ");
-    Serial.print(error);
+    // Serial.println("targetCenter: ");
+    // Serial.print(targetCenter);
+    // Serial.println("frameCenter: ");
+    // Serial.print(frameCenter);
+    // Serial.println("error: ");
+    // Serial.print(error);
   }
   else
   {
@@ -96,7 +94,7 @@ void loop()
     bool lSet = false;
     for (int i = 0; i < pixy.ccc.numBlocks; i++)
     {
-      if (pixy.ccc.blocks[i].m_x > pixy.frameWidth / 2)
+      if (pixy.ccc.blocks[i].m_x > (pixy.frameWidth / 2))
       {
         continue;
       }
@@ -110,11 +108,11 @@ void loop()
     }
     for (int i = 0; i < pixy.ccc.numBlocks; i++)
     {
-      if (pixy.ccc.blocks[i].m_x < pixy.frameWidth / 2)
+      if (pixy.ccc.blocks[i].m_x < (pixy.frameWidth / 2))
       {
         continue;
       }
-      int diff = (pixy.ccc.blocks[i].m_x - pixy.frameWidth / 2);
+      int diff = (pixy.ccc.blocks[i].m_x - (pixy.frameWidth / 2));
       if (diff < Rclosestdiffs)
       {
         Rclosest = i;
@@ -129,56 +127,57 @@ void loop()
       int frameCenter = pixy.frameWidth / 2;
       int error = frameCenter - targetCenter;
       piOutput = error;
-      Serial.println("targetCenter: ");
-      Serial.print(targetCenter);
-      Serial.println("frameCenter: ");
-      Serial.print(frameCenter);
-      Serial.println("error: ");
-      Serial.print(error);
+      // Serial.println("targetCenter: ");
+      // Serial.print(targetCenter);
+      // Serial.println("frameCenter: ");
+      // Serial.print(frameCenter);
+      // Serial.println("error: ");
+      // Serial.print(error);
     }
     else
     {
       piOutput = String("none");
     }
   }
-  delay(70); //gives time for everything to process
+
   time = millis();
   if (time > delayTime)
   {
-    Serial.println(piOutput);
-    Serial.print("Number of Blocks: ");
-    Serial.println(blocks);
+    // Serial.println(piOutput);
+    // Serial.print("Number of Blocks: ");
+    // Serial.println(blocks);
     delayTime = time + 50;
   }
 
-  if (digitalRead(triggerPin) == HIGH) {    //turns on lights once on trigger press
-    if (newSignal) {
+  if (digitalRead(triggerPin) == HIGH)
+  { //turns on lights once on trigger press
+    if (newSignal)
+    {
       for (int i = 0; i < 92; i++)
       {
-        leds[i] = CRGB(0, 200, 0);
-        FastLED.show();
+        leds[i] = CRGB(0, 255, 0);
       }
+      FastLED.show();
       newSignal = false;
     }
   }
-  else {
-    if ((delayTimeA - time) <= 0) {  //if trigger is not pressed turns off lights every half second
-      for (int i = 0; i < 92; i++)
-      {
-        leds[i] = CRGB(0, 0, 0);
-        FastLED.show();
-      }
-      delayTimeA = time + 500;
+  else
+  {
+    for (int i = 0; i < 92; i++)
+    {
+      leds[i] = CRGB(0, 0, 0);
     }
+    FastLED.show();
     newSignal = true;
   }
+  // delay(70); //gives time for everything to process
 }
 
 void requestEvent()
 { //called when RoboRIO request a message from this device
   //Wire.write(piOutput);
   Wire.write(piOutput.c_str()); //writes data to the RoboRIO, converts it to string
-  Serial.println("request");
+  // Serial.println("request")
 }
 
 void receiveEvent(int bytes)

@@ -25,10 +25,18 @@ public class PixyMode extends Command {
   private double center, derivative, errorPrior;
   private double p = .006;
   private double d = 0;
+  private double initAngle;
+  private double straightP = 0.02;
+  private double straightD = 0.0001;
+  private double straightErrorPrior;
+  private double straightDerivative;
+
   private DigitalOutput lightswitch = new DigitalOutput(1);
+
   public PixyMode() {
     super();
     requires(Robot.m_drivetrain);
+    lightswitch.set(false);
 
   }
 
@@ -36,13 +44,17 @@ public class PixyMode extends Command {
   protected void initialize() {
     initAngle = Robot.m_drivetrain.getAngle();
     lightswitch.set(true);
+    SmartDashboard.putBoolean("IsPixyModeRunning", true);
+
   }
 
   @Override
   protected void execute() {
+    // SmartDashboard.putBoolean("LightSwitch", lightswitch.get());
+
     pkt = i2c.getPixy();
-    SmartDashboard.putNumber("pkt error", pkt.error);
-    if (pkt.error != Double.NaN) {// if data is exist
+    SmartDashboard.putString("pkt error", "" + pkt.error);
+    if (pkt.error != 999) {// if data is exist
       initAngle = 0.0;
 
       SmartDashboard.putBoolean("Turning", true);
@@ -80,12 +92,6 @@ public class PixyMode extends Command {
     }
   }
 
-  private double initAngle;
-  private double straightP = 0.02;
-  private double straightD = 0.0001;
-  private double straightErrorPrior;
-  private double straightDerivative;
-
   @Override
   protected boolean isFinished() {
     return false;
@@ -93,6 +99,8 @@ public class PixyMode extends Command {
 
   @Override
   protected void end() {
+    // SmartDashboard.putBoolean("LightSwitch", false);
+    SmartDashboard.putBoolean("IsPixyModeRunning", false);
     lightswitch.set(false);
   }
 
