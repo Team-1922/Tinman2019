@@ -33,6 +33,7 @@ public class OperateClimber extends Command {
 
         Robot.m_climber.rawVerticalClimb(Robot.m_oi.getOperator().getRawAxis(5));
         Robot.m_climber.horizontalClimb(Robot.m_oi.getOperator().getRawAxis(1));
+        Robot.m_climber.updateState();
 
     }
 

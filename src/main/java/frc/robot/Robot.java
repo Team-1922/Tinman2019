@@ -40,6 +40,21 @@ public class Robot extends TimedRobot {
   Command m_autonomousCommand;
   SendableChooser<Boolean> m_BotChooser = new SendableChooser<>();
 
+  //Inversion Chooser
+  public static SendableChooser<Boolean> m_vliChooser = new SendableChooser<Boolean>();
+  public static SendableChooser<Boolean> m_vriChooser = new SendableChooser<Boolean>();
+  public static SendableChooser<Boolean> m_hliChooser = new SendableChooser<Boolean>();
+  public static SendableChooser<Boolean> m_hriChooser = new SendableChooser<Boolean>();
+
+  //Phase Chooser
+  public static SendableChooser<Boolean> m_vrpChooser = new SendableChooser<Boolean>();
+  public static SendableChooser<Boolean> m_vlpChooser = new SendableChooser<Boolean>();
+  public static SendableChooser<Boolean> m_hlpChooser = new SendableChooser<Boolean>();
+  public static SendableChooser<Boolean> m_hrpChooser = new SendableChooser<Boolean>();
+
+  public static SendableChooser<Boolean> m_stateFlag = new SendableChooser<Boolean>();
+
+
   /**
    * This function is run when the robot is first started up and should be used
    * for any initialization code.
@@ -50,6 +65,35 @@ public class Robot extends TimedRobot {
     m_BotChooser.setDefaultOption("Competition Bot", false);
     m_BotChooser.addOption("Stingray", true);
     SmartDashboard.putData("Bot In Use:", m_BotChooser);
+
+    m_vliChooser.setName("VerticalLeftInvert");
+    m_vliChooser.setDefaultOption("true", true);
+
+    m_vriChooser.setName("VerticalRightInvert");
+    m_vriChooser.setDefaultOption("true", true);
+
+    m_hliChooser.setName("HorizontalLeftInvert");
+    m_hliChooser.setDefaultOption("true", true);
+
+    m_hriChooser.setName("HorizontalRightInvert");
+    m_hriChooser.setDefaultOption("true", true);
+
+    m_vlpChooser.setName("VerticalLeftPhase");
+    m_vlpChooser.setDefaultOption("true", true);
+
+    m_vrpChooser.setName("VerticalRightPhase");
+    m_vrpChooser.setDefaultOption("true", true);
+
+    m_hlpChooser.setName("HorizontalLeftPhase");
+    m_hlpChooser.setDefaultOption("true", true);
+
+    m_hrpChooser.setName("HorizontalRightPhase");
+    m_hrpChooser.setDefaultOption("true", true);
+
+
+    m_stateFlag.setName("ChangeToRefresh");
+
+
     // NetworkTableEntry RealGyro = Shuffleboard.getTab("SmartDashboard").add("Real
     // Gyro", Robot.m_drivetrain.getAngle())
     // .withWidget("Gyro").getEntry();

@@ -14,6 +14,7 @@ import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import frc.robot.Robot;
 import frc.robot.RobotMap;
 import frc.robot.commands.ControllerTest;
 
@@ -30,26 +31,58 @@ public class Climber_Subsystem extends Subsystem {
     private double hp = 0.8;
     private double vError, vResponce, hError, hResponce = 0;
 
+    private Boolean updateState = null; 
+
     private int oldLVertical, oldRVertical, oldLHorizontal, oldRHorizontal = 0;
 
     public Climber_Subsystem() {
         super();
-        verticalR.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 10);
-        verticalL.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 10);
-        horizontalR.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 10);
-        horizontalL.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 10);
+        verticalR.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 50);
+        verticalL.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 50);
+        horizontalR.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 50);
+        horizontalL.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 50);
 
-        verticalR.setSelectedSensorPosition(0, 0, 10);
-        verticalL.setSelectedSensorPosition(0, 0, 10);
-        horizontalR.setSelectedSensorPosition(0, 0, 10);
-        horizontalL.setSelectedSensorPosition(0, 0, 10);
 
+
+        verticalR.setSelectedSensorPosition(0, 0, 50);
+        verticalL.setSelectedSensorPosition(0, 0, 50);
+        horizontalR.setSelectedSensorPosition(0, 0, 50);
+        horizontalL.setSelectedSensorPosition(0, 0, 50);
+
+    }
+
+    public void updateState()
+    {
+        if(Robot.m_stateFlag.getSelected() == null)
+        {
+            return;
+        }
+        if(updateState == null || updateState != Robot.m_stateFlag.getSelected())
+        {
+            horizontalL.setSensorPhase(Robot.m_hlpChooser.getSelected());
+            horizontalR.setSensorPhase(Robot.m_hrpChooser.getSelected());
+            verticalL.setSensorPhase(Robot.m_vlpChooser.getSelected());
+            verticalR.setSensorPhase(Robot.m_vrpChooser.getSelected());
+    
+            horizontalL.setInverted(Robot.m_hliChooser.getSelected());
+            horizontalR.setInverted(Robot.m_hriChooser.getSelected());
+            verticalL.setInverted(Robot.m_vliChooser.getSelected());
+            verticalR.setInverted(Robot.m_vriChooser.getSelected());
+            updateState = Robot.m_stateFlag.getSelected();
+        }
     }
 
     public void verticalClimb(double y_axis) {
         vError = ahrs.getPitch();
 
-        vResponce = (vError * vp);
+        if(y_axis < 0)
+        {
+            vResponce = (vError * vp);
+        }
+        else 
+        {
+            vResponce = 0;
+        }
 
         verticalL.set(-y_axis + vResponce);
         verticalR.set(-y_axis - vResponce);
@@ -137,10 +170,14 @@ public class Climber_Subsystem extends Subsystem {
         // }
         oldRVertical = getRVerticalPos();
 
+        //NOTE Forward soft limit _must_ be the higher number. It doesn't really matter about which direction it goes
+        // soft limits are a range. Reverse is the low number and forward is the high number
+
         verticalR.configForwardSoftLimitThreshold(oldRVertical - 1200);
         verticalR.configReverseSoftLimitThreshold(oldRVertical - 21000);
         verticalL.configForwardSoftLimitThreshold(oldLVertical - 1200);
         verticalL.configReverseSoftLimitThreshold(oldLVertical - 21000);
+
         horizontalR.configForwardSoftLimitThreshold(oldRHorizontal - 1200);
         horizontalR.configReverseSoftLimitThreshold(oldRHorizontal - 21000);
         horizontalL.configForwardSoftLimitThreshold(oldLHorizontal - 1200);
@@ -148,10 +185,13 @@ public class Climber_Subsystem extends Subsystem {
 
         verticalR.configForwardSoftLimitEnable(true);
         verticalR.configReverseSoftLimitEnable(true);
+
         verticalL.configForwardSoftLimitEnable(true);
         verticalL.configReverseSoftLimitEnable(true);
+
         horizontalL.configForwardSoftLimitEnable(true);
         horizontalL.configReverseSoftLimitEnable(true);
+
         horizontalR.configForwardSoftLimitEnable(true);
         horizontalR.configReverseSoftLimitEnable(true);
     }
