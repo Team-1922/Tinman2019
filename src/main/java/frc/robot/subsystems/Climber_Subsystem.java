@@ -28,7 +28,7 @@ public class Climber_Subsystem extends Subsystem {
     private WPI_TalonSRX horizontalL = new WPI_TalonSRX(RobotMap.horizontalClimb_L);
     private AHRS ahrs = new AHRS(SPI.Port.kMXP);
     private double vp = 0.05;
-    private double hp = 0.8;
+    private double hp = 0;//0.8;
     private double vError, vResponce, hError, hResponce = 0;
 
     private Boolean updateState = null; 
@@ -44,10 +44,7 @@ public class Climber_Subsystem extends Subsystem {
 
 
 
-        verticalR.setSelectedSensorPosition(0, 0, 50);
-        verticalL.setSelectedSensorPosition(0, 0, 50);
-        horizontalR.setSelectedSensorPosition(0, 0, 50);
-        horizontalL.setSelectedSensorPosition(0, 0, 50);
+
 
     }
 
@@ -111,6 +108,12 @@ public class Climber_Subsystem extends Subsystem {
         SmartDashboard.putNumber("Encoder Values", getRVerticalPos());
     }
 
+    public void stop()
+    {
+        verticalL.set(0);
+        verticalR.set(0);
+    }
+
     public void rawHorizontalClimb(double x_axis) {
 
     }
@@ -152,7 +155,16 @@ public class Climber_Subsystem extends Subsystem {
         return (-horizontalL.getSensorCollection().getQuadraturePosition()) - oldLHorizontal;
     }
 
+    public void resetEncoders()
+    {
+        verticalR.setSelectedSensorPosition(0, 0, 50);
+        verticalL.setSelectedSensorPosition(0, 0, 50);
+        horizontalR.setSelectedSensorPosition(0, 0, 50);
+        horizontalL.setSelectedSensorPosition(0, 0, 50);       
+    }
+
     public void climberInit() {
+
         // while (getHorizontalLLimit() != true) {
         // horizontalL.set(.25);
         // }
@@ -178,10 +190,17 @@ public class Climber_Subsystem extends Subsystem {
         verticalL.configForwardSoftLimitThreshold(oldLVertical - 1200);
         verticalL.configReverseSoftLimitThreshold(oldLVertical - 21000);
 
-        horizontalR.configForwardSoftLimitThreshold(oldRHorizontal - 1200);
-        horizontalR.configReverseSoftLimitThreshold(oldRHorizontal - 21000);
-        horizontalL.configForwardSoftLimitThreshold(oldLHorizontal - 1200);
-        horizontalL.configReverseSoftLimitThreshold(oldLHorizontal - 21000);
+        horizontalR.configForwardSoftLimitThreshold(oldRHorizontal + 1000);
+        horizontalR.configReverseSoftLimitThreshold(oldRHorizontal - 1000);
+
+        int forwardLeft = oldLHorizontal + 1000;
+        int reverseLeft = oldLHorizontal - 1000;
+
+        horizontalL.configForwardSoftLimitThreshold(forwardLeft);
+        horizontalL.configReverseSoftLimitThreshold(reverseLeft);
+
+        SmartDashboard.putNumber("Horizontal Left Forward", forwardLeft);
+        SmartDashboard.putNumber("Horizontal Left Reverse", reverseLeft);
 
         verticalR.configForwardSoftLimitEnable(true);
         verticalR.configReverseSoftLimitEnable(true);

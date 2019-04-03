@@ -8,10 +8,11 @@
 package frc.robot;
 
 import edu.wpi.first.cameraserver.CameraServer;
-
+import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.TankDrive;
@@ -69,14 +70,18 @@ public class Robot extends TimedRobot {
     m_vliChooser.setName("VerticalLeftInvert");
     m_vliChooser.setDefaultOption("true", true);
 
+
     m_vriChooser.setName("VerticalRightInvert");
     m_vriChooser.setDefaultOption("true", true);
 
     m_hliChooser.setName("HorizontalLeftInvert");
     m_hliChooser.setDefaultOption("true", true);
+    m_hliChooser.setDefaultOption("false", false);
+    SmartDashboard.putData("Horizontal Left Invert", m_hliChooser);
 
     m_hriChooser.setName("HorizontalRightInvert");
     m_hriChooser.setDefaultOption("true", true);
+
 
     m_vlpChooser.setName("VerticalLeftPhase");
     m_vlpChooser.setDefaultOption("true", true);
@@ -86,19 +91,29 @@ public class Robot extends TimedRobot {
 
     m_hlpChooser.setName("HorizontalLeftPhase");
     m_hlpChooser.setDefaultOption("true", true);
+    m_hlpChooser.setDefaultOption("false", false);
+    SmartDashboard.putData("Horizontal Left Phase", m_hlpChooser);
+
 
     m_hrpChooser.setName("HorizontalRightPhase");
     m_hrpChooser.setDefaultOption("true", true);
 
 
     m_stateFlag.setName("ChangeToRefresh");
+    m_stateFlag.setDefaultOption("true", true);
+    m_stateFlag.setDefaultOption("false", false);
+    SmartDashboard.putData("State Flag", m_stateFlag);
+  
+    m_climber.stop();
 
 
-    // NetworkTableEntry RealGyro = Shuffleboard.getTab("SmartDashboard").add("Real
-    // Gyro", Robot.m_drivetrain.getAngle())
-    // .withWidget("Gyro").getEntry();
+    NetworkTableEntry RealGyro = Shuffleboard
+    .getTab("SmartDashboard")
+    .add("Real Gyro", Robot.m_drivetrain.getAngle())
+    .withWidget("Gyro")
+    .getEntry();
 
-    CameraServer.getInstance().startAutomaticCapture();
+    // CameraServer.getInstance().startAutomaticCapture();
   }
 
   /**
@@ -180,6 +195,7 @@ public class Robot extends TimedRobot {
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }
+    Robot.m_climber.resetEncoders();
   }
 
   /**
