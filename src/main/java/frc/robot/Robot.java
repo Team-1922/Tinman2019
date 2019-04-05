@@ -7,6 +7,7 @@
 
 package frc.robot;
 
+import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.TimedRobot;
@@ -67,53 +68,34 @@ public class Robot extends TimedRobot {
     m_BotChooser.addOption("Stingray", true);
     SmartDashboard.putData("Bot In Use:", m_BotChooser);
 
-    m_vliChooser.setName("VerticalLeftInvert");
-    m_vliChooser.setDefaultOption("true", true);
+    setupBooleanDashboard(m_vliChooser, "Vertical Left Invert");
+    setupBooleanDashboard(m_vriChooser, "Vertical Right Invert");
+    setupBooleanDashboard(m_hliChooser, "Horizontal Left Invert");
+    setupBooleanDashboard(m_hriChooser, "Horizontal Right Invert");
 
-
-    m_vriChooser.setName("VerticalRightInvert");
-    m_vriChooser.setDefaultOption("true", true);
-
-    m_hliChooser.setName("HorizontalLeftInvert");
-    m_hliChooser.setDefaultOption("true", true);
-    m_hliChooser.setDefaultOption("false", false);
-    SmartDashboard.putData("Horizontal Left Invert", m_hliChooser);
-
-    m_hriChooser.setName("HorizontalRightInvert");
-    m_hriChooser.setDefaultOption("true", true);
-
-
-    m_vlpChooser.setName("VerticalLeftPhase");
-    m_vlpChooser.setDefaultOption("true", true);
-
-    m_vrpChooser.setName("VerticalRightPhase");
-    m_vrpChooser.setDefaultOption("true", true);
-
-    m_hlpChooser.setName("HorizontalLeftPhase");
-    m_hlpChooser.setDefaultOption("true", true);
-    m_hlpChooser.setDefaultOption("false", false);
-    SmartDashboard.putData("Horizontal Left Phase", m_hlpChooser);
-
-
-    m_hrpChooser.setName("HorizontalRightPhase");
-    m_hrpChooser.setDefaultOption("true", true);
-
-
-    m_stateFlag.setName("ChangeToRefresh");
-    m_stateFlag.setDefaultOption("true", true);
-    m_stateFlag.setDefaultOption("false", false);
-    SmartDashboard.putData("State Flag", m_stateFlag);
+    setupBooleanDashboard(m_vlpChooser, "Vertical Left Phase");
+    setupBooleanDashboard(m_vrpChooser, "Vertical Right Phase");
+    setupBooleanDashboard(m_hlpChooser, "Horizontal Left Phase");
+    setupBooleanDashboard(m_hrpChooser, "Horizontal Right Phase");
+    
+    setupBooleanDashboard(m_stateFlag, "Change me to refresh robot");
   
     m_climber.stop();
-
 
     NetworkTableEntry RealGyro = Shuffleboard
     .getTab("SmartDashboard")
     .add("Real Gyro", Robot.m_drivetrain.getAngle())
     .withWidget("Gyro")
     .getEntry();
+    //CameraServer.getInstance().startAutomaticCapture();
+  }
 
-    // CameraServer.getInstance().startAutomaticCapture();
+  private void setupBooleanDashboard(SendableChooser<Boolean> chooser, String name)
+  {
+     chooser.setName(name);
+     chooser.setDefaultOption("true", true);
+     chooser.addOption("false", false);
+     SmartDashboard.putData(name, chooser);
   }
 
   /**
@@ -175,6 +157,7 @@ public class Robot extends TimedRobot {
     if (m_autonomousCommand != null) {
       m_autonomousCommand.start();
     }
+    Robot.m_climber.singleInit();
   }
 
   /**
@@ -195,7 +178,6 @@ public class Robot extends TimedRobot {
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }
-    Robot.m_climber.resetEncoders();
   }
 
   /**
@@ -204,7 +186,7 @@ public class Robot extends TimedRobot {
   @Override
   public void teleopPeriodic() {
     Scheduler.getInstance().run();
-
+    m_climber.updateState();
   }
 
   /**

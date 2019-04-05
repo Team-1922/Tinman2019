@@ -23,9 +23,9 @@ public class OperateClimber extends Command {
 
     @Override
     protected void initialize() {
-        Robot.m_climber.climberInit();
         isActive = true;
         SmartDashboard.putBoolean("Climber Mode:", true);
+        Robot.m_climber.updateState();
     }
 
     @Override
@@ -33,7 +33,7 @@ public class OperateClimber extends Command {
 
         Robot.m_climber.rawVerticalClimb(Robot.m_oi.getOperator().getRawAxis(5));
         Robot.m_climber.horizontalClimb(Robot.m_oi.getOperator().getRawAxis(1));
-        Robot.m_climber.updateState();
+
 
     }
 

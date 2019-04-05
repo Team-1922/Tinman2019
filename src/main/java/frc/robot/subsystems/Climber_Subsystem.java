@@ -42,10 +42,52 @@ public class Climber_Subsystem extends Subsystem {
         horizontalR.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 50);
         horizontalL.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 50);
 
+    }
+    
+    //Initialization function that should be called only once
+    //This should be called before climbing but not on robot boot so manual adjustments to the climber
+    //before the game starts won't mess it up
+    public void singleInit()
+    {
+        //Hard reset the encoders to 0
+        verticalR.setSelectedSensorPosition(0, 0, 50);
+        verticalL.setSelectedSensorPosition(0, 0, 50);
+        horizontalR.setSelectedSensorPosition(0, 0, 50);
+        horizontalL.setSelectedSensorPosition(0, 0, 50);
+
+        // NOTE: Forward soft limit _must_ be the higher number. It doesn't really matter about which direction it goes
+        // soft limits are a range. Reverse is the low number and forward is the high number
+        int horizontalReverseLimit = 100;
+        int horizontalForwardLimit = 12000;
+        int verticalReverseLimit = 1000;
+        int verticalForwardLimit = 21000;
+        
+        
+        SmartDashboard.putNumber("Horizontal Forward Limit", horizontalForwardLimit);
+        SmartDashboard.putNumber("Horizontal Reverse Limit", horizontalReverseLimit);
+        SmartDashboard.putNumber("Vertical Forward Limit", verticalForwardLimit);
+        SmartDashboard.putNumber("Vertical Reverse Limit", verticalReverseLimit);
+
+        verticalR.configForwardSoftLimitThreshold(verticalForwardLimit);
+        verticalR.configReverseSoftLimitThreshold(verticalReverseLimit);
+        verticalL.configForwardSoftLimitThreshold(verticalForwardLimit);
+        verticalL.configReverseSoftLimitThreshold(verticalReverseLimit);
+
+        horizontalR.configForwardSoftLimitThreshold(horizontalForwardLimit);
+        horizontalR.configReverseSoftLimitThreshold(horizontalReverseLimit);
+        horizontalL.configForwardSoftLimitThreshold(horizontalForwardLimit);
+        horizontalL.configReverseSoftLimitThreshold(horizontalReverseLimit);
 
 
+        verticalR.configForwardSoftLimitEnable(true);
+        verticalR.configReverseSoftLimitEnable(true);
+        verticalL.configForwardSoftLimitEnable(true);
+        verticalL.configReverseSoftLimitEnable(true);
 
-
+        horizontalL.configForwardSoftLimitEnable(true);
+        horizontalL.configReverseSoftLimitEnable(true);
+        horizontalR.configForwardSoftLimitEnable(true);
+        horizontalR.configReverseSoftLimitEnable(true);
     }
 
     public void updateState()
@@ -123,96 +165,49 @@ public class Climber_Subsystem extends Subsystem {
         return ahrs.getPitch();
     }
 
-    public boolean getVerticalRLimit() {
-        return verticalR.getSensorCollection().isFwdLimitSwitchClosed();
-    }
-
-    public boolean getVerticalLLimit() {
-        return verticalL.getSensorCollection().isFwdLimitSwitchClosed();
-    }
-
-    public boolean getHorizontalRLimit() {
-        return horizontalR.getSensorCollection().isFwdLimitSwitchClosed();
-    }
-
-    public boolean getHorizontalLLimit() {
-        return horizontalL.getSensorCollection().isFwdLimitSwitchClosed();
-    }
-
     public int getRVerticalPos() {
-        return verticalR.getSensorCollection().getQuadraturePosition() - oldRVertical;
+        int verticalPosition = verticalR.getSensorCollection().getQuadraturePosition();
+        int correctedPosition = verticalPosition - oldRVertical;
+        SmartDashboard.putNumber("Raw Right Vertical Position", verticalPosition);
+        SmartDashboard.putNumber("Right Vertical Position", correctedPosition);
+        return correctedPosition;
     }
 
     public int getLVerticalPos() {
-        return verticalL.getSensorCollection().getQuadraturePosition() - oldLVertical;
+        int verticalPosition = verticalL.getSensorCollection().getQuadraturePosition();
+        int correctedPosition = verticalPosition - oldLVertical;
+        SmartDashboard.putNumber("Raw Left Vertical Position", verticalPosition);
+        SmartDashboard.putNumber("Left Vertical Position", correctedPosition);
+        return correctedPosition;    
     }
 
     public int getRHorizontalPos() {
-        return horizontalR.getSensorCollection().getQuadraturePosition() - oldRHorizontal;
+        int horizontalPosition = horizontalR.getSensorCollection().getQuadraturePosition();
+        int correctedPosition = horizontalPosition - oldRHorizontal;
+        SmartDashboard.putNumber("Raw Right Horizontal Position", horizontalPosition);
+        SmartDashboard.putNumber("Right Horizontal Position", correctedPosition);
+        return correctedPosition;
     }
 
     public int getLHorizontalPos() {
-        return (-horizontalL.getSensorCollection().getQuadraturePosition()) - oldLHorizontal;
+        int horizontalPosition = horizontalL.getSensorCollection().getQuadraturePosition();
+        int correctedPosition = horizontalPosition - oldLHorizontal;
+        SmartDashboard.putNumber("Raw Left Horizontal Position", horizontalPosition);
+        SmartDashboard.putNumber("Left Horizontal Position", correctedPosition);
+        return correctedPosition;
     }
 
-    public void resetEncoders()
-    {
-        verticalR.setSelectedSensorPosition(0, 0, 50);
-        verticalL.setSelectedSensorPosition(0, 0, 50);
-        horizontalR.setSelectedSensorPosition(0, 0, 50);
-        horizontalL.setSelectedSensorPosition(0, 0, 50);       
-    }
 
+    //Called every time the operator hits Y
     public void climberInit() {
 
-        // while (getHorizontalLLimit() != true) {
-        // horizontalL.set(.25);
-        // }
-        oldLHorizontal = getLHorizontalPos();
-        // while (getHorizontalRLimit() != true) {
-        // horizontalR.set(.25);
-        // }
-        oldRHorizontal = getRHorizontalPos();
-        // while (getVerticalLLimit() != true){
-        // verticalL.set(.25);
-        // }
-        oldLVertical = getLVerticalPos();
-        // while (getVerticalRLimit() != true){
-        // verticalR.set(.25);
-        // }
-        oldRVertical = getRVerticalPos();
-
-        //NOTE Forward soft limit _must_ be the higher number. It doesn't really matter about which direction it goes
-        // soft limits are a range. Reverse is the low number and forward is the high number
-
-        verticalR.configForwardSoftLimitThreshold(oldRVertical - 1200);
-        verticalR.configReverseSoftLimitThreshold(oldRVertical - 21000);
-        verticalL.configForwardSoftLimitThreshold(oldLVertical - 1200);
-        verticalL.configReverseSoftLimitThreshold(oldLVertical - 21000);
-
-        horizontalR.configForwardSoftLimitThreshold(oldRHorizontal + 1000);
-        horizontalR.configReverseSoftLimitThreshold(oldRHorizontal - 1000);
-
-        int forwardLeft = oldLHorizontal + 1000;
-        int reverseLeft = oldLHorizontal - 1000;
-
-        horizontalL.configForwardSoftLimitThreshold(forwardLeft);
-        horizontalL.configReverseSoftLimitThreshold(reverseLeft);
-
-        SmartDashboard.putNumber("Horizontal Left Forward", forwardLeft);
-        SmartDashboard.putNumber("Horizontal Left Reverse", reverseLeft);
-
-        verticalR.configForwardSoftLimitEnable(true);
-        verticalR.configReverseSoftLimitEnable(true);
-
-        verticalL.configForwardSoftLimitEnable(true);
-        verticalL.configReverseSoftLimitEnable(true);
-
-        horizontalL.configForwardSoftLimitEnable(true);
-        horizontalL.configReverseSoftLimitEnable(true);
-
-        horizontalR.configForwardSoftLimitEnable(true);
-        horizontalR.configReverseSoftLimitEnable(true);
+        //soft reset the encoders so that the PID reads 0 difference between them at the start.
+        //strictly speaking we probably don't need this for the vertical since we balance with the gyro
+        //we'll reset it for consistency though
+        oldLHorizontal = horizontalL.getSensorCollection().getQuadraturePosition();
+        oldRHorizontal = horizontalR.getSensorCollection().getQuadraturePosition();
+        oldLVertical = verticalL.getSensorCollection().getQuadraturePosition();
+        oldRVertical = verticalR.getSensorCollection().getQuadraturePosition();        
     }
 
     @Override
