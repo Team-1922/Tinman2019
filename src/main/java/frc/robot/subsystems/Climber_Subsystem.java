@@ -123,8 +123,13 @@ public class Climber_Subsystem extends Subsystem {
             vResponce = 0;
         }
 
+<<<<<<< HEAD
         verticalL.set(y_axis + vResponce);
         verticalR.set(y_axis - vResponce);
+=======
+        verticalL.set(y_axis - vResponce);
+        verticalR.set(y_axis + vResponce);
+>>>>>>> 504d05648b703858bc1cf8a19c6c42a0ce93a7d4
 
         SmartDashboard.putNumber("vertical", y_axis);
         SmartDashboard.putNumber("Vertical Responce", vResponce);
@@ -137,8 +142,8 @@ public class Climber_Subsystem extends Subsystem {
         SmartDashboard.putNumber("Difference", hError);
         SmartDashboard.putNumber("horizontal", x_axis);
         SmartDashboard.putNumber("Horizontal Response", hResponce / 10000);
-        SmartDashboard.putNumber("Left Encoder", getLHorizontalPos());
-        SmartDashboard.putNumber("Right Encoder", getRHorizontalPos());
+        SmartDashboard.putNumber("h Left Encoder", getLHorizontalPos());
+        SmartDashboard.putNumber(" hRight Encoder", getRHorizontalPos());
         horizontalR.set(x_axis + hResponce / 10000);
         horizontalL.set(x_axis - hResponce / 10000);
     }
@@ -200,10 +205,6 @@ public class Climber_Subsystem extends Subsystem {
 
     //Called every time the operator hits Y
     public void climberInit() {
-
-        //soft reset the encoders so that the PID reads 0 difference between them at the start.
-        //strictly speaking we probably don't need this for the vertical since we balance with the gyro
-        //we'll reset it for consistency though
         oldLHorizontal = horizontalL.getSensorCollection().getQuadraturePosition();
         oldRHorizontal = horizontalR.getSensorCollection().getQuadraturePosition();
         oldLVertical = verticalL.getSensorCollection().getQuadraturePosition();

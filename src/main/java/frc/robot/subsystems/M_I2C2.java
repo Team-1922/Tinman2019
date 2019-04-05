@@ -28,7 +28,7 @@ public class M_I2C2 {
 
     PixyPacket pkt = new PixyPacket(); // creates a new packet to hold the data
     if (info.equals("none") || info.equals("")) {// checks to make sure there is data
-      pkt.error = Double.NaN;
+      pkt.error = 999;
       SmartDashboard.putBoolean("I2C Status", false);
     } else {// if there is an x, y, and area value the length equals 3
       pkt.error = Double.parseDouble(info);// set error

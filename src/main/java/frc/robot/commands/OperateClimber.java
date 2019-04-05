@@ -31,7 +31,7 @@ public class OperateClimber extends Command {
     @Override
     protected void execute() {
 
-        Robot.m_climber.rawVerticalClimb(Robot.m_oi.getOperator().getRawAxis(5));
+        Robot.m_climber.verticalClimb(Robot.m_oi.getOperator().getRawAxis(5));
         Robot.m_climber.horizontalClimb(Robot.m_oi.getOperator().getRawAxis(1));
 
     }
