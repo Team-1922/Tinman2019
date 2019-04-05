@@ -123,8 +123,8 @@ public class Climber_Subsystem extends Subsystem {
             vResponce = 0;
         }
 
-        verticalL.set(-y_axis + vResponce);
-        verticalR.set(-y_axis - vResponce);
+        verticalL.set(y_axis + vResponce);
+        verticalR.set(y_axis - vResponce);
 
         SmartDashboard.putNumber("vertical", y_axis);
         SmartDashboard.putNumber("Vertical Responce", vResponce);
