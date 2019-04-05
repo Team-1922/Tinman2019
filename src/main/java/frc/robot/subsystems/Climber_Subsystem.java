@@ -114,22 +114,10 @@ public class Climber_Subsystem extends Subsystem {
     public void verticalClimb(double y_axis) {
         vError = ahrs.getPitch();
 
-        if(y_axis < 0)
-        {
-            vResponce = (vError * vp);
-        }
-        else 
-        {
-            vResponce = 0;
-        }
+        vResponce = (vError * vp);
 
-<<<<<<< HEAD
-        verticalL.set(y_axis + vResponce);
-        verticalR.set(y_axis - vResponce);
-=======
         verticalL.set(y_axis - vResponce);
         verticalR.set(y_axis + vResponce);
->>>>>>> 504d05648b703858bc1cf8a19c6c42a0ce93a7d4
 
         SmartDashboard.putNumber("vertical", y_axis);
         SmartDashboard.putNumber("Vertical Responce", vResponce);
