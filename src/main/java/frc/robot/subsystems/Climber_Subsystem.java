@@ -54,24 +54,28 @@ public class Climber_Subsystem extends Subsystem {
         verticalL.setSelectedSensorPosition(0, 0, 50);
         horizontalR.setSelectedSensorPosition(0, 0, 50);
         horizontalL.setSelectedSensorPosition(0, 0, 50);
+        verticalR.getSensorCollection().setQuadraturePosition(0, 50);
+        verticalL.getSensorCollection().setQuadraturePosition(0, 50);
+        horizontalR.getSensorCollection().setQuadraturePosition(0, 50);
+        horizontalL.getSensorCollection().setQuadraturePosition(0, 50);
 
         // NOTE: Forward soft limit _must_ be the higher number. It doesn't really matter about which direction it goes
         // soft limits are a range. Reverse is the low number and forward is the high number
         int horizontalReverseLimit = 100;
         int horizontalForwardLimit = 12000;
-        int verticalReverseLimit = 1000;
-        int verticalForwardLimit = 21000;
+        // int verticalReverseLimit = 1000;
+        // int verticalForwardLimit = 21000;
         
         
         SmartDashboard.putNumber("Horizontal Forward Limit", horizontalForwardLimit);
         SmartDashboard.putNumber("Horizontal Reverse Limit", horizontalReverseLimit);
-        SmartDashboard.putNumber("Vertical Forward Limit", verticalForwardLimit);
-        SmartDashboard.putNumber("Vertical Reverse Limit", verticalReverseLimit);
+        // SmartDashboard.putNumber("Vertical Forward Limit", verticalForwardLimit);
+        // SmartDashboard.putNumber("Vertical Reverse Limit", verticalReverseLimit);
 
-        verticalR.configForwardSoftLimitThreshold(verticalForwardLimit);
-        verticalR.configReverseSoftLimitThreshold(verticalReverseLimit);
-        verticalL.configForwardSoftLimitThreshold(verticalForwardLimit);
-        verticalL.configReverseSoftLimitThreshold(verticalReverseLimit);
+        // verticalR.configForwardSoftLimitThreshold(verticalForwardLimit);
+        // verticalR.configReverseSoftLimitThreshold(verticalReverseLimit);
+        // verticalL.configForwardSoftLimitThreshold(verticalForwardLimit);
+        // verticalL.configReverseSoftLimitThreshold(verticalReverseLimit);
 
         horizontalR.configForwardSoftLimitThreshold(horizontalForwardLimit);
         horizontalR.configReverseSoftLimitThreshold(horizontalReverseLimit);
@@ -79,10 +83,10 @@ public class Climber_Subsystem extends Subsystem {
         horizontalL.configReverseSoftLimitThreshold(horizontalReverseLimit);
 
 
-        verticalR.configForwardSoftLimitEnable(true);
-        verticalR.configReverseSoftLimitEnable(true);
-        verticalL.configForwardSoftLimitEnable(true);
-        verticalL.configReverseSoftLimitEnable(true);
+        verticalR.configForwardSoftLimitEnable(false);
+        verticalR.configReverseSoftLimitEnable(false);
+        verticalL.configForwardSoftLimitEnable(false);
+        verticalL.configReverseSoftLimitEnable(false);
 
         horizontalL.configForwardSoftLimitEnable(true);
         horizontalL.configReverseSoftLimitEnable(true);

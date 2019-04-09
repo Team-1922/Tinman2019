@@ -46,12 +46,40 @@ void setup()
 
   for (int i = 0; i < 92; i++)
   {
-    leds[i] = CRGB(0, 200, 0);
+    if (i < 5)
+    {
+      leds[i] = CRGB(255, 0, 0);
+    }
+    else if (i < 10)
+    {
+      leds[i] = CRGB(255, 127, 0);
+    }
+    else if (i < 15)
+    {
+      leds[i] = CRGB(255, 255, 0);
+    }
+    else if (i < 20)
+    {
+      leds[i] = CRGB(0, 255, 0);
+    }
+    else if (i < 25)
+    {
+      leds[i] = CRGB(0, 0, 255);
+    }
+    else if (i < 30)
+    {
+      leds[i] = CRGB(75, 0, 130);
+    }
+    else
+    {
+      leds[i] = CRGB(148, 0, 211);
+    }
     FastLED.show();
     delay(30);
   }
+
   Serial.println("lights on");
-  delay(30);
+  delay(3000);
   for (int i = 0; i < 92; i++)
   {
     leds[i] = CRGB(0, 0, 0);
