@@ -7,13 +7,9 @@
 
 package frc.robot;
 
-import edu.wpi.cscore.UsbCamera;
-import edu.wpi.first.cameraserver.CameraServer;
-import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
-import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.commands.TankDrive;
@@ -42,20 +38,19 @@ public class Robot extends TimedRobot {
   Command m_autonomousCommand;
   SendableChooser<Boolean> m_BotChooser = new SendableChooser<>();
 
-  //Inversion Chooser
+  // Inversion Chooser
   public static SendableChooser<Boolean> m_vliChooser = new SendableChooser<Boolean>();
   public static SendableChooser<Boolean> m_vriChooser = new SendableChooser<Boolean>();
   public static SendableChooser<Boolean> m_hliChooser = new SendableChooser<Boolean>();
   public static SendableChooser<Boolean> m_hriChooser = new SendableChooser<Boolean>();
 
-  //Phase Chooser
+  // Phase Chooser
   public static SendableChooser<Boolean> m_vrpChooser = new SendableChooser<Boolean>();
   public static SendableChooser<Boolean> m_vlpChooser = new SendableChooser<Boolean>();
   public static SendableChooser<Boolean> m_hlpChooser = new SendableChooser<Boolean>();
   public static SendableChooser<Boolean> m_hrpChooser = new SendableChooser<Boolean>();
 
   public static SendableChooser<Boolean> m_stateFlag = new SendableChooser<Boolean>();
-
 
   /**
    * This function is run when the robot is first started up and should be used
@@ -82,11 +77,11 @@ public class Robot extends TimedRobot {
   
     m_climber.stop();
 
-    NetworkTableEntry RealGyro = Shuffleboard
-    .getTab("SmartDashboard")
-    .add("Real Gyro", Robot.m_drivetrain.getAngle())
-    .withWidget("Gyro")
-    .getEntry();
+    // NetworkTableEntry RealGyro = Shuffleboard
+    // .getTab("SmartDashboard")
+    // .add("Real Gyro", Robot.m_drivetrain.getAngle())
+    // .withWidget("Gyro")
+    // .getEntry();
     //CameraServer.getInstance().startAutomaticCapture();
   }
 

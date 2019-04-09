@@ -110,6 +110,9 @@ public class Climber_Subsystem extends Subsystem {
             updateState = Robot.m_stateFlag.getSelected();
         }
     }
+    public double getAlex() {
+        return horizontalL.getSensorCollection().getQuadraturePosition();
+      }
 
     public void verticalClimb(double y_axis) {
         vError = ahrs.getPitch();

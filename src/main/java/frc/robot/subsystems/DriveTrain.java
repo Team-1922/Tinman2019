@@ -12,8 +12,10 @@ import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.kauailabs.navx.frc.AHRS;
 
+import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import frc.robot.Robot;
 import frc.robot.RobotSettingsFactory;
@@ -36,6 +38,12 @@ public class DriveTrain extends Subsystem {
   private int oldLeft = 0;
   private int oldRight = 0;
 
+  // public NetworkTableEntry RealGyro = Shuffleboard
+  // .getTab("SmartDashboard")
+  // .add("Real Gyro", Robot.m_drivetrain.getAngle())
+  // .withWidget("Gyro")
+  // .getEntry();
+
   public DriveTrain() {
     super();
 
@@ -46,6 +54,8 @@ public class DriveTrain extends Subsystem {
 
     rearLeft.set(ControlMode.Follower, frontLeft.getDeviceID());
     rearRight.set(ControlMode.Follower, frontRight.getDeviceID());
+
+    
   }
 
   /**
@@ -65,7 +75,7 @@ public class DriveTrain extends Subsystem {
   }
 
   public double getAngle() {
-
+    // RealGyro.setValue(ahrs.getAngle());
     return ahrs.getAngle();
   }
 
@@ -80,10 +90,12 @@ public class DriveTrain extends Subsystem {
   public double getPosRight() {
     return frontRight.getSensorCollection().getQuadraturePosition() - oldRight;
   }
+  
 
   public void getEncoders() {
     getPosLeft();
     getPosRight();
+
 
     SmartDashboard.putNumber("EncoderLeft", Robot.m_drivetrain.getPosLeft());
     SmartDashboard.putNumber("EncoderRight", Robot.m_drivetrain.getPosRight());

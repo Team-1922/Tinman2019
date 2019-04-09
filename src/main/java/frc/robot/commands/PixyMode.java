@@ -83,8 +83,8 @@ public class PixyMode extends Command {
       SmartDashboard.putNumber("Right-Left", straightError);
       straightDerivative = (straightError - straightErrorPrior) / .02;
       double responce = straightP * straightError + (straightD * straightDerivative);
-      double RawY = Robot.m_oi.getLeftStick().getY();
-      Robot.m_drivetrain.drive(RawY - responce, RawY + responce);
+      // double RawY = Robot.m_oi.getLeftStick().getY();
+      Robot.m_drivetrain.drive(/* RawY */ -responce, /* RawY + */ responce);
       straightErrorPrior = straightError;
       SmartDashboard.putNumber("center", 0);
       SmartDashboard.putBoolean("Turning", false);

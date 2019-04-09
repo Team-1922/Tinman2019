@@ -11,7 +11,9 @@ import edu.wpi.first.wpilibj.command.Command;
 import frc.robot.Robot;
 
 /**
- * Takes the value of the Right Bumper on the Xbox controller and sets the hatch solenoid to that
+ * Takes the value of the Right Bumper on the Xbox controller and sets the hatch
+ * solenoid to that
+ * 
  * @see Hatch_Subsystem
  */
 public class OperateHatch extends Command {
@@ -25,7 +27,7 @@ public class OperateHatch extends Command {
 
   @Override
   protected void execute() {
-    if (Robot.m_oi.getRBumper()) {
+    if (Robot.m_oi.getRBumper() || Robot.m_oi.getThumbButton()) {
       Robot.m_hatchsnatch.OpenHatch();
     } else {
       Robot.m_hatchsnatch.CloseHatch();

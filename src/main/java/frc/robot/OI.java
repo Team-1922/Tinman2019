@@ -41,6 +41,7 @@ public class OI {
   private Button rtrigger;
   private Button resetButton;
   private Button y;
+  private Button thumbButton;
 
   public OI() {
 
@@ -62,8 +63,9 @@ public class OI {
     rbumper = new JoystickButton(getOperator(), 6);
     ltrigger = new JoystickButton(getLeftStick(), 1);
     rtrigger = new JoystickButton(getRightStick(), 1);
-    resetButton = new JoystickButton(getRightStick(), 2);
+    resetButton = new JoystickButton(getRightStick(), 3);
     y = new JoystickButton(getOperator(), 4);
+    thumbButton = new JoystickButton(getRightStick(), 2);
 
     /*
      * Keybindings
@@ -73,6 +75,7 @@ public class OI {
     ltrigger.whileHeld(new DriveStraight());
     y.toggleWhenPressed(new OperateClimber());
     resetButton.whenPressed(new ResetEncoders());
+
   }
 
   /*
@@ -105,6 +108,10 @@ public class OI {
 
   public boolean getLBumper() {
     return lbumper.get();
+  }
+
+  public boolean getThumbButton() {
+    return thumbButton.get();
   }
 
   public boolean getYButton() {
