@@ -76,7 +76,7 @@ public class Climber_Subsystem extends Subsystem {
         // NOTE: Forward soft limit _must_ be the higher number. It doesn't really matter about which direction it goes
         // soft limits are a range. Reverse is the low number and forward is the high number
         int horizontalReverseLimit = 100;
-        int horizontalForwardLimit = 2000; // This is set intentionally too low for testing
+        int horizontalForwardLimit = 2000; // This is set intentionally too low for testing purposes.
         // int verticalReverseLimit = 1000;
         // int verticalForwardLimit = 21000;
         

@@ -4,7 +4,7 @@
 #include <FastLED.h>
 
 #define LED_PIN 7
-#define NUM_LEDS 92
+#define NUM_LEDS 36
 
 Pixy2 pixy;
 CRGB leds[NUM_LEDS];
@@ -27,7 +27,9 @@ const String PIXY = "pi";
 int center, error = 0;
 unsigned long time = 0, delayTime = 0, requestTime = 0;
 int triggerPin = 8;
+int rainbowPin = 6;
 bool newSignal = true;
+bool newRainbowSignal = true;
 
 bool isactive = false;
 
@@ -44,7 +46,21 @@ void setup()
   pixy.ccc.getBlocks();
   pixy.getResolution();
 
-  for (int i = 0; i < 92; i++)
+  setupRainbow(50);
+
+  Serial.println("lights on");
+  delay(3000);
+  for (int i = 0; i < NUM_LEDS; i++)
+  {
+    leds[i] = CRGB(0, 0, 0);
+    FastLED.show();
+    delay(30);
+  }
+}
+
+void setupRainbow(int delayMs)
+{
+  for (int i = 0; i < NUM_LEDS; i++)
   {
     if (i < 5)
     {
@@ -75,16 +91,7 @@ void setup()
       leds[i] = CRGB(148, 0, 211);
     }
     FastLED.show();
-    delay(30);
-  }
-
-  Serial.println("lights on");
-  delay(3000);
-  for (int i = 0; i < 92; i++)
-  {
-    leds[i] = CRGB(0, 0, 0);
-    FastLED.show();
-    delay(30);
+    delay(delayMs);
   }
 }
 
@@ -181,7 +188,7 @@ void loop()
   { //turns on lights once on trigger press
     if (newSignal)
     {
-      for (int i = 0; i < 92; i++)
+      for (int i = 0; i < NUM_LEDS; i++)
       {
         leds[i] = CRGB(0, 255, 0);
       }
@@ -189,15 +196,26 @@ void loop()
       newSignal = false;
     }
   }
+  else if(digitalRead(rainbowPin) == HIGH)
+  {
+    if(newRainbowSignal)
+    {
+      setupRainbow(0);
+      newRainbowSignal = false;
+    }
+      rotateLights();
+  }
   else
   {
-    for (int i = 0; i < 92; i++)
+    for (int i = 0; i < NUM_LEDS; i++)
     {
       leds[i] = CRGB(0, 0, 0);
     }
     FastLED.show();
     newSignal = true;
+    newRainbowSignal = true;
   }
+
   // delay(70); //gives time for everything to process
 }
 
@@ -210,4 +228,17 @@ void requestEvent()
 
 void receiveEvent(int bytes)
 { //called when RoboRIO "gives" this device a message
+}
+
+void rotateLights()
+{
+  for(int i = 0; i < NUM_LEDS; ++i)
+  {
+    if(i == 0)
+    {
+      leds[i] = leds[NUM_LEDS - 1];
+    }
+    leds[i] = leds[i - 1];
+  }
+  FastLED.show();
 }
