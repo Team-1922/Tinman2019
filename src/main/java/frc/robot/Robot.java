@@ -63,18 +63,18 @@ public class Robot extends TimedRobot {
     m_BotChooser.addOption("Stingray", true);
     SmartDashboard.putData("Bot In Use:", m_BotChooser);
 
-    setupBooleanDashboard(m_vliChooser, "Vertical Left Invert");
-    setupBooleanDashboard(m_vriChooser, "Vertical Right Invert");
-    setupBooleanDashboard(m_hliChooser, "Horizontal Left Invert");
-    setupBooleanDashboard(m_hriChooser, "Horizontal Right Invert");
+    setupBooleanDashboard(m_vliChooser, "Vertical Left Invert", false);
+    setupBooleanDashboard(m_vriChooser, "Vertical Right Invert", false);
+    setupBooleanDashboard(m_hliChooser, "Horizontal Left Invert", false);
+    setupBooleanDashboard(m_hriChooser, "Horizontal Right Invert", false);
 
-    setupBooleanDashboard(m_vlpChooser, "Vertical Left Phase");
-    setupBooleanDashboard(m_vrpChooser, "Vertical Right Phase");
-    setupBooleanDashboard(m_hlpChooser, "Horizontal Left Phase");
-    setupBooleanDashboard(m_hrpChooser, "Horizontal Right Phase");
-    
-    setupBooleanDashboard(m_stateFlag, "Change me to refresh robot");
-  
+    setupBooleanDashboard(m_vlpChooser, "Vertical Left Phase", true);
+    setupBooleanDashboard(m_vrpChooser, "Vertical Right Phase", true);
+    setupBooleanDashboard(m_hlpChooser, "Horizontal Left Phase", true);
+    setupBooleanDashboard(m_hrpChooser, "Horizontal Right Phase", true);
+
+    setupBooleanDashboard(m_stateFlag, "Change me to refresh robot", true);
+
     m_climber.stop();
 
     // NetworkTableEntry RealGyro = Shuffleboard
@@ -82,15 +82,20 @@ public class Robot extends TimedRobot {
     // .add("Real Gyro", Robot.m_drivetrain.getAngle())
     // .withWidget("Gyro")
     // .getEntry();
-    //CameraServer.getInstance().startAutomaticCapture();
+    // CameraServer.getInstance().startAutomaticCapture();
   }
 
-  private void setupBooleanDashboard(SendableChooser<Boolean> chooser, String name)
-  {
-     chooser.setName(name);
-     chooser.setDefaultOption("true", true);
-     chooser.addOption("false", false);
-     SmartDashboard.putData(name, chooser);
+  private void setupBooleanDashboard(SendableChooser<Boolean> chooser, String name, boolean defaultOption) {
+    chooser.setName(name);
+    if (defaultOption) {
+      chooser.setDefaultOption("true", true);
+      chooser.addOption("false", false);
+    } else {
+      chooser.addOption("true", true);
+      chooser.setDefaultOption("false", false);
+    }
+
+    SmartDashboard.putData(name, chooser);
   }
 
   /**

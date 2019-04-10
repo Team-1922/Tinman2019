@@ -42,6 +42,18 @@ public class Climber_Subsystem extends Subsystem {
         horizontalR.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 50);
         horizontalL.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 50);
 
+/* CHANGE THESE TO THE CORRECT VALUES AND THEN COMMENT OUT ALL OF UPDATESTATE
+        horizontalL.setSensorPhase(true);
+        horizontalR.setSensorPhase(true);
+        verticalL.setSensorPhase(true);
+        verticalR.setSensorPhase(true);
+
+        horizontalL.setInverted(false);
+        horizontalR.setInverted(false);
+        verticalL.setInverted(false);
+        verticalR.setInverted(false);
+        */
+
     }
     
     //Initialization function that should be called only once
@@ -59,10 +71,12 @@ public class Climber_Subsystem extends Subsystem {
         horizontalR.getSensorCollection().setQuadraturePosition(0, 50);
         horizontalL.getSensorCollection().setQuadraturePosition(0, 50);
 
+
+
         // NOTE: Forward soft limit _must_ be the higher number. It doesn't really matter about which direction it goes
         // soft limits are a range. Reverse is the low number and forward is the high number
         int horizontalReverseLimit = 100;
-        int horizontalForwardLimit = 12000;
+        int horizontalForwardLimit = 2000; // This is set intentionally too low for testing
         // int verticalReverseLimit = 1000;
         // int verticalForwardLimit = 21000;
         
@@ -106,11 +120,12 @@ public class Climber_Subsystem extends Subsystem {
             horizontalR.setSensorPhase(Robot.m_hrpChooser.getSelected());
             verticalL.setSensorPhase(Robot.m_vlpChooser.getSelected());
             verticalR.setSensorPhase(Robot.m_vrpChooser.getSelected());
-    
+    /*
             horizontalL.setInverted(Robot.m_hliChooser.getSelected());
             horizontalR.setInverted(Robot.m_hriChooser.getSelected());
             verticalL.setInverted(Robot.m_vliChooser.getSelected());
             verticalR.setInverted(Robot.m_vriChooser.getSelected());
+            */
             updateState = Robot.m_stateFlag.getSelected();
         }
     }
