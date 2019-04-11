@@ -194,6 +194,7 @@ void loop()
       }
       FastLED.show();
       newSignal = false;
+      newRainbowSignal = true;
     }
   }
   else if(digitalRead(rainbowPin) == HIGH)
@@ -203,7 +204,8 @@ void loop()
       setupRainbow(0);
       newRainbowSignal = false;
     }
-      rotateLights();
+    rotateLights();
+    newSignal = true;
   }
   else
   {
